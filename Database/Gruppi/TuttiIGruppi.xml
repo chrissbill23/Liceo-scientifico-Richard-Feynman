@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gruppi>
+    <categorie>
+    <nomeCategoria>Gruppo di classe</nomeCategoria>
+<nomeCategoria>Materie scolastiche</nomeCategoria>
+<nomeCategoria>Programmazione</nomeCategoria>
+<nomeCategoria>Internet</nomeCategoria>
+</categorie>
+<gruppo>
+    <nome>1a</nome>
+<riferimentoFile>/Gruppi/1a.xml</riferimentoFile>
+<categoria>Gruppo di classe</categoria>
+</gruppo>
+<gruppo>
+    <nome>3a</nome>
+<riferimentoFile>/Gruppi/3a.xml</riferimentoFile>
+<categoria>Gruppo di classe</categoria>
+</gruppo>
+<gruppo>
+    <nome>5a</nome>
+<riferimentoFile>/Gruppi/5a.xml</riferimentoFile>
+<categoria>Gruppo di classe</categoria>
+</gruppo>
+<gruppo>
+    <nome>Matematica</nome>
+<riferimentoFile>/Gruppi/Matematica.xml</riferimentoFile>
+<categoria>Materie scolastiche</categoria>
+</gruppo>
+<gruppo>
+    <nome>Informatica</nome>
+<riferimentoFile>/Gruppi/Informatica.xml</riferimentoFile>
+<categoria>Materie scolastiche</categoria>
+</gruppo>
+<gruppo>
+    <nome>Fisica</nome>
+<riferimentoFile>/Gruppi/Fisica.xml</riferimentoFile>
+<categoria>Materie scolastiche</categoria>
+</gruppo>
+<gruppo>
+    <nome>Chimica</nome>
+<riferimentoFile>/Gruppi/Chimica.xml</riferimentoFile>
+<categoria>Materie scolastiche</categoria>
+</gruppo>
+<gruppo>
+    <nome>PHP</nome>
+<riferimentoFile>/Gruppi/PHP.xml</riferimentoFile>
+<categoria>Programmazione</categoria>
+</gruppo>
+</gruppi>

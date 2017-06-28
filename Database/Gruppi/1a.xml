@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gruppo>
+    <nomeGruppo>1a</nomeGruppo>
+<descrizione>Gruppo di classe della 1a</descrizione>
+<categoria>Gruppo di classe</categoria>
+<membri>
+    <nomeUtente>studente1</nomeUtente>
+<nomeUtente>ebile</nomeUtente>
+</membri>
+<TuttiIPost>
+    <post>/Gruppi/AttivitGruppi/post1.xml</post>
+<post>/Gruppi/AttivitGruppi/post2.xml</post>
+</TuttiIPost>
+</gruppo>
