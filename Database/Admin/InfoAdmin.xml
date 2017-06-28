@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<amministratori>
+    <admin>
+    <NomeUtente>admin</NomeUtente>
+<password>admin</password>
+<ruolo>amministratore sistema</ruolo>
+</admin>
+<admin>
+    <NomeUtente>adminbiblio</NomeUtente>
+<password>adminbib</password>
+<ruolo>amministratore biblioteca</ruolo>
+</admin>
+</amministratori>

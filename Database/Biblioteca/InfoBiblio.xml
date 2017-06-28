@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Biblioteca>
+    <nome>Biblioteca Richard Feyman</nome>
+<logo>/Biblioteca/logo/logobiblioteca.jpg</logo>
+<categorie>
+    <nomecategoria>Non specificato</nomecategoria>
+<nomecategoria>giallo</nomecategoria>
+<nomecategoria>matematica</nomecategoria>
+<nomecategoria>storia</nomecategoria>
+<nomecategoria>informatica</nomecategoria>
+<nomecategoria>biologia</nomecategoria>
+<nomecategoria>letteratura medievale</nomecategoria>
+<nomecategoria>programmazione</nomecategoria>
+<nomecategoria>arte</nomecategoria>
+<nomecategoria>sport</nomecategoria>
+<nomecategoria>algebra</nomecategoria>
+<nomecategoria>analisi matematica</nomecategoria>
+<nomecategoria>tecnologie web</nomecategoria>
+<nomecategoria>web programming</nomecategoria>
+<nomecategoria>mobile programming</nomecategoria>
+<nomecategoria>fisica</nomecategoria>
+<nomecategoria>tecnologia</nomecategoria>
+<nomecategoria>meccanica</nomecategoria>
+<nomecategoria>elettronica</nomecategoria>
+<nomecategoria>chimica</nomecategoria>
+</categorie>
+<libriPrimoPiano>
+    <libroPrimoPiano>0</libroPrimoPiano>
+<libroPrimoPiano>1</libroPrimoPiano>
+<libroPrimoPiano>3</libroPrimoPiano>
+<libroPrimoPiano>4</libroPrimoPiano>
+<libroPrimoPiano>25</libroPrimoPiano>
+</libriPrimoPiano>
+</Biblioteca>

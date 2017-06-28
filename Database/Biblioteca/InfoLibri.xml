@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<libri>
+    <libro>
+    <codiceLibro>0</codiceLibro>
+<titolo>programmazione ad oggetti c++</titolo>
+<autore>Francesco Ranzato</autore>
+<annoEdizione>2009</annoEdizione>
+<descrizione>cjsc hs ch hbsbdjsbhd</descrizione>
+<percorsoFile>/Biblioteca/libri/libro0.pdf</percorsoFile>
+<copertina>/Biblioteca/libri/libro0.jpg</copertina>
+<categorieLibro>
+    <categoria>informatica</categoria>
+<categoria>programmazione</categoria>
+</categorieLibro>
+</libro>
+<libro>
+    <codiceLibro>1</codiceLibro>
+<titolo>programmare in java</titolo>
+<autore>me</autore>
+<annoEdizione>2011</annoEdizione>
+<descrizione>dnsjdnjsnjdn</descrizione>
+<percorsoFile>/Biblioteca/libri/libro1.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>informatica</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>3</codiceLibro>
+<titolo>la vie en rose</titolo>
+<autore>Molière</autore>
+<annoEdizione>1988</annoEdizione>
+<descrizione>njwnjwjdbbj</descrizione>
+<percorsoFile>/Biblioteca/libri/libro3.pdf</percorsoFile>
+<copertina></copertina>
+<categorieLibro>
+    <categoria>letteratura medievale</categoria>
+</categorieLibro>
+</libro>
+<libro>
+    <codiceLibro>4</codiceLibro>
+<titolo>quantum physics</titolo>
+<autore>Mohamed Einstein</autore>
+<annoEdizione>1948</annoEdizione>
+<descrizione> a sasnajnsjnajns</descrizione>
+<percorsoFile>/Biblioteca/libri/libro4.pdf</percorsoFile>
+<copertina>/Biblioteca/libri/libro4.jpg</copertina>
+<categorieLibro>
+    <categoria>analisi matematica</categoria>
+<categoria>chimica</categoria>
+<categoria>fisica</categoria>
+</categorieLibro>
+</libro>
+<libro>
+    <codiceLibro>5</codiceLibro>
+<titolo>aaaaaa</titolo>
+<autore>Non specificato</autore>
+<annoEdizione>Non specificato</annoEdizione>
+<descrizione>cccccc</descrizione>
+<percorsoFile>/Biblioteca/libri/libro5.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>Nessuna categoria</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>6</codiceLibro>
+<titolo>ahhhha</titolo>
+<autore>Non specificato</autore>
+<annoEdizione>Non specificato</annoEdizione>
+<descrizione>sbhsbhcbbs</descrizione>
+<percorsoFile>/Biblioteca/libri/libro6.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>Nessuna categoria</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>8</codiceLibro>
+<titolo>anann</titolo>
+<autore>djdjdj</autore>
+<annoEdizione>2015</annoEdizione>
+<descrizione>djdsj</descrizione>
+<percorsoFile>/Biblioteca/libri/libro8.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>analisi matematica</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>9</codiceLibro>
+<titolo>sdbjsnbj</titolo>
+<autore>snjdbj</autore>
+<annoEdizione>2014</annoEdizione>
+<descrizione>bschsbhsb</descrizione>
+<percorsoFile>/Biblioteca/libri/libro9.pdf</percorsoFile>
+<categorieLibro>Nessuna categoria</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>10</codiceLibro>
+<titolo>nchsbch</titolo>
+<autore>njsbc</autore>
+<annoEdizione>2013</annoEdizione>
+<descrizione>nx cn </descrizione>
+<percorsoFile>/Biblioteca/libri/libro10.pdf</percorsoFile>
+<categorieLibro>Nessuna categoria</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>15</codiceLibro>
+<titolo>jjbdhjnbh</titolo>
+<autore>dnfjndjn</autore>
+<annoEdizione>2012</annoEdizione>
+<descrizione>nsnncjsndjsn</descrizione>
+<percorsoFile>/Biblioteca/libri/libro15.pdf</percorsoFile>
+<categorieLibro>Nessuna categoria</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>16</codiceLibro>
+<titolo>kanfjnj</titolo>
+<autore>dnjncsjndcj</autore>
+<annoEdizione>2013</annoEdizione>
+<descrizione>nnvfjsndjn</descrizione>
+<percorsoFile>/Biblioteca/libri/libro16.pdf</percorsoFile>
+<categorieLibro>Nessuna categoria</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>17</codiceLibro>
+<titolo>bfjasdhnb</titolo>
+<autore>Non specificato</autore>
+<annoEdizione>Non specificato</annoEdizione>
+<descrizione>abhdbsjnd</descrizione>
+<percorsoFile>/Biblioteca/libri/libro17.pdf</percorsoFile>
+<categorieLibro>Nessuna categoria</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>18</codiceLibro>
+<titolo>mnkdnaknkdnjd</titolo>
+<autore>ndjsndjsnd</autore>
+<annoEdizione>2013</annoEdizione>
+<descrizione>s ndjnndnsnn</descrizione>
+<percorsoFile>/Biblioteca/libri/libro18.pdf</percorsoFile>
+<categorieLibro>Nessuna categoria</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>19</codiceLibro>
+<titolo>ndjndjnj</titolo>
+<autore>nfknjdnc</autore>
+<annoEdizione>2013</annoEdizione>
+<descrizione>nsjnsndjsn</descrizione>
+<percorsoFile>/Biblioteca/libri/libro19.pdf</percorsoFile>
+<categorieLibro>
+    <categoria></categoria>
+<categoria></categoria>
+<categoria></categoria>
+<categoria></categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>20</codiceLibro>
+<titolo>sjndjs</titolo>
+<autore> sj djsjnj</autore>
+<annoEdizione>2014</annoEdizione>
+<descrizione>dnsjndns</descrizione>
+<percorsoFile>/Biblioteca/libri/libro20.pdf</percorsoFile>
+<categorieLibro>
+    <categoria></categoria>
+<categoria></categoria>
+<categoria></categoria>
+<categoria></categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>21</codiceLibro>
+<titolo>sdjnjsnj</titolo>
+<autore>nsjns</autore>
+<annoEdizione>2013</annoEdizione>
+<descrizione>dnjsndjns</descrizione>
+<percorsoFile>/Biblioteca/libri/libro21.pdf</percorsoFile>
+<categorieLibro>Nessuna categoria</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>23</codiceLibro>
+<titolo>hhijuh uhih</titolo>
+<autore>hiuhuuij</autore>
+<annoEdizione>2012</annoEdizione>
+<descrizione>ugyuguygy gvyvhgj</descrizione>
+<percorsoFile>/Biblioteca/libri/libro23.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>Non specificato</categoria>
+<categoria>elettronica</categoria>
+<categoria>-1</categoria>
+<categoria>-1</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>24</codiceLibro>
+<titolo>fisica for dummies</titolo>
+<autore>nsnfsdnfj</autore>
+<annoEdizione>2013</annoEdizione>
+<descrizione>nsjnfdsn</descrizione>
+<percorsoFile>/Biblioteca/libri/libro24.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>fisica</categoria>
+<categoria>elettronica</categoria>
+</categorieLibro>
+<copertina>/Biblioteca/libri/libro24.jpg</copertina>
+</libro>
+<libro>
+    <codiceLibro>26</codiceLibro>
+<titolo>njnajdn</titolo>
+<autore>s j jdsndj</autore>
+<annoEdizione>2013</annoEdizione>
+<descrizione>ndnajnj</descrizione>
+<percorsoFile>/Biblioteca/libri/libro26.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>analisi matematica</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>27</codiceLibro>
+<titolo>nfnjsndjfn</titolo>
+<autore>maknfdjan</autore>
+<annoEdizione>2012</annoEdizione>
+<descrizione>nasndjna</descrizione>
+<percorsoFile>/Biblioteca/libri/libro27.pdf</percorsoFile>
+<categorieLibro>Nessuna categoria</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>28</codiceLibro>
+<titolo>mkfndajn</titolo>
+<autore>najnsjdna</autore>
+<annoEdizione>2013</annoEdizione>
+<descrizione>ndjnjsnfdjn</descrizione>
+<percorsoFile>/Biblioteca/libri/libro28.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>arte</categoria>
+<categoria>biologia</categoria>
+</categorieLibro>
+<copertina>/Biblioteca/libri/libro28.jpg</copertina>
+</libro>
+<libro>
+    <codiceLibro>280</codiceLibro>
+<titolo>enciclopedia dell'informatica</titolo>
+<autore>mooooo</autore>
+<annoEdizione>2011</annoEdizione>
+<descrizione>bchdbbcdfnuh</descrizione>
+<percorsoFile>/Biblioteca/libri/libro280.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>informatica</categoria>
+<categoria>programmazione</categoria>
+<categoria>mobile programming</categoria>
+<categoria>web programming</categoria>
+</categorieLibro>
+<copertina>/Biblioteca/libri/libro280.jpg</copertina>
+</libro>
+<libro>
+    <codiceLibro>29</codiceLibro>
+<titolo>hbbsb</titolo>
+<autore>dnjsnjn</autore>
+<annoEdizione>2014</annoEdizione>
+<descrizione>s cjsnzjcnsnc</descrizione>
+<percorsoFile>/Biblioteca/libri/libro29.pdf</percorsoFile>
+<categorieLibro></categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>31</codiceLibro>
+<titolo>prova</titolo>
+<autore>njdnjn</autore>
+<annoEdizione>2015</annoEdizione>
+<descrizione>jvndjnvjd</descrizione>
+<percorsoFile>/Biblioteca/libri/libro31.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>chimica</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>33</codiceLibro>
+<titolo>prova3</titolo>
+<autore>hbchbshbch</autore>
+<annoEdizione>Non specificato</annoEdizione>
+<descrizione>snjsnjnjsn</descrizione>
+<percorsoFile>/Biblioteca/libri/libro33.pdf</percorsoFile>
+<categorieLibro>Non specificato</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>330</codiceLibro>
+<titolo>dfsdfdsvd</titolo>
+<autore>Non specificato</autore>
+<annoEdizione>2014</annoEdizione>
+<descrizione>sjkmsd</descrizione>
+<percorsoFile>/Biblioteca/libri/libro330.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>biologia</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>34</codiceLibro>
+<titolo>provaReg</titolo>
+<autore>Non specificato</autore>
+<annoEdizione>2014</annoEdizione>
+<descrizione>f n sjnnw</descrizione>
+<percorsoFile>/Biblioteca/libri/libro34.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>analisi matematica</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+<libro>
+    <codiceLibro>35</codiceLibro>
+<titolo>bjanjnjn</titolo>
+<autore>anjanjas</autore>
+<annoEdizione>2010</annoEdizione>
+<descrizione>bhjbjhbjbjh</descrizione>
+<percorsoFile>/Biblioteca/libri/libro35.pdf</percorsoFile>
+<categorieLibro>
+    <categoria>biologia</categoria>
+<categoria>chimica</categoria>
+</categorieLibro>
+<copertina></copertina>
+</libro>
+</libri>
