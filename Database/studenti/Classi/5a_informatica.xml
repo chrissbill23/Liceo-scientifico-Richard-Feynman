@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedaClasse>
+    <nomeClasse>5a informatica</nomeClasse>
+<sessione>a</sessione>
+<indirizzo>informatica</indirizzo>
+<Alunni>
+    <NomeUtente>ebile</NomeUtente>
+<NomeUtente>studente1</NomeUtente>
+<NomeUtente>LuPaz0</NomeUtente>
+<NomeUtente>ElMurt0</NomeUtente>
+<NomeUtente>SiSukh0</NomeUtente>
+</Alunni>
+<Materie>
+    <materia>
+    <NomeMateria>Storia</NomeMateria>
+<Professore>AnMarghera1</Professore>
+</materia>
+<materia>
+    <NomeMateria>Fisica</NomeMateria>
+<Professore>prof1</Professore>
+</materia>
+<materia>
+    <NomeMateria>Informatica</NomeMateria>
+<Professore>prof1</Professore>
+</materia>
+</Materie>
+</schedaClasse>

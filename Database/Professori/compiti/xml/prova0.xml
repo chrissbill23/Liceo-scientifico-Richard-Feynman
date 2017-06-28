@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compito>
+    <contenuto>
+    <data>20/06/2017</data>
+<titolo>prova</titolo>
+<descrizione>prova</descrizione>
+<materia>Informatica</materia>
+<classe>5a informatica</classe>
+<domande>
+    <domanda>
+    <tipoDomanda>domanda aperta</tipoDomanda>
+<testoDomanda>prova?</testoDomanda>
+</domanda>
+<domanda>
+    <tipoDomanda>domanda a risposta multipla</tipoDomanda>
+<testoDomanda>prova?</testoDomanda>
+<risposte>
+    <risposta>
+    <testoRisposta>vero</testoRisposta>
+<corretta>1</corretta>
+</risposta>
+<risposta>
+    <testoRisposta>falso</testoRisposta>
+<corretta>0</corretta>
+</risposta>
+</risposte>
+</domanda>
+</domande>
+<risposteUtenti></risposteUtenti>
+</contenuto>
+</compito>

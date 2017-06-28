@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NomeUtenti>
+    <professore>
+    <NomeUtente>prof1</NomeUtente>
+<password>profe1</password>
+<schedaPersonale>/Professori/Schede Personali/SP24.xml</schedaPersonale>
+</professore>
+<professore>
+    <NomeUtente>AnMarghera1</NomeUtente>
+<password>AnMapass</password>
+<schedaPersonale>/Professori/Schede Personali/AnMarghera1.xml</schedaPersonale>
+</professore>
+</NomeUtenti>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InfoPreside>
+    <presidente>
+    <NomeUtente>preside</NomeUtente>
+<mailScuola>presidentemail@mail.it</mailScuola>
+<password>presid</password>
+</presidente>
+<DatiPersonali>
+    <Nome>CHRISTIAN</Nome>
+<Cognome>CHRISTIAN</Cognome>
+<foto>/immagini/FotoProfili/chriss.jpg</foto>
+</DatiPersonali>
+<DatiOccupazione>
+    <dataFineCarriera>23/09/3333</dataFineCarriera>
+<mansione>Presidente</mansione>
+<contratto>dipendente a tempo determinato</contratto>
+</DatiOccupazione>
+</InfoPreside>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compito>
+    <contenuto>
+    <data>20/06/2017</data>
+<titolo>prova storia</titolo>
+<descrizione>prova</descrizione>
+<materia>Storia</materia>
+<classe>5a informatica</classe>
+<domande>
+    <domanda>
+    <tipoDomanda>domanda aperta</tipoDomanda>
+<testoDomanda>prova?</testoDomanda>
+</domanda>
+</domande>
+<risposteUtenti></risposteUtenti>
+</contenuto>
+</compito>

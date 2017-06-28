@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<email>
+    <utente>
+    <NomeUtente>segr1</NomeUtente>
+<mail>elisa_elisabeth@mail.it</mail>
+<mailRicevuta>/Messaggi/Messaggi Ricevuti/mailRic1.xml</mailRicevuta>
+<mailInviata>/Messaggi/Messaggi Inviati/mailInv1.xml</mailInviata>
+</utente>
+<utente>
+    <NomeUtente>prof1</NomeUtente>
+<mail>mario_rossi@mail.it</mail>
+<mailRicevuta>/Messaggi/Messaggi Ricevuti/mailRic2.xml</mailRicevuta>
+<mailInviata>/Messaggi/Messaggi Inviati/mailInv2.xml</mailInviata>
+</utente>
+<utente>
+    <NomeUtente>preside</NomeUtente>
+<mail>presidentemail@mail.it</mail>
+<mailRicevuta>/Messaggi/Messaggi Ricevuti/mailRic3.xml</mailRicevuta>
+<mailInviata>/Messaggi/Messaggi Inviati/mailInv3.xml</mailInviata>
+</utente>
+<utente>
+    <NomeUtente>AnMarghera1</NomeUtente>
+<mail>Anna_Marghera1@mail.it</mail>
+<mailRicevuta>/Messaggi/Messaggi Ricevuti/AnMarghera1Ricevuti.xml</mailRicevuta>
+<mailInviata>/Messaggi/Messaggi Inviati/AnMarghera1Inviati.xml</mailInviata>
+</utente>
+</email>

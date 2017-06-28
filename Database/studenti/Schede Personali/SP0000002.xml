@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedaPersonale>
+    <nomeUtente>studente1</nomeUtente>
+<DatiPersonali>
+    <Nome>CHRISTIAN JAPHET</Nome>
+<Cognome>BILE</Cognome>
+<DataNascita>12/5/1990</DataNascita>
+<LuogoNascita>COSTA D'AVORIO</LuogoNascita>
+<Matricola>1096678</Matricola>
+<Classe>5a informatica</Classe>
+<foto>/immagini/FotoProfili/emptyFoto.jpg</foto>
+</DatiPersonali>
+</schedaPersonale>

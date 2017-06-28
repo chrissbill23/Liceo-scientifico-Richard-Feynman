@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedaPersonale>
+    <nomeUtente>AnMarghera1</nomeUtente>
+<mailScuola>Anna_Marghera1@mail.it</mailScuola>
+<mansione>Professore</mansione>
+<DatiPersonali>
+    <Nome>Anna</Nome>
+<Cognome>Marghera</Cognome>
+<foto>/immagini/FotoProfili/AnMarghera1.jpg</foto>
+</DatiPersonali>
+<DatiOccupazione>
+    <materie>
+    <materia>Storia</materia>
+</materie>
+<classi>
+    <classe>5a informatica</classe>
+</classi>
+<materia:classe>Storia:5a informatica</materia:classe>
+</DatiOccupazione>
+</schedaPersonale>

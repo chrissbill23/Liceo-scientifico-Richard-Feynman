@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedaPersonale>
+    <nomeUtente>segr1</nomeUtente>
+<mailScuola>elisa_elisabeth@mail.it</mailScuola>
+<DatiPersonali>
+    <Nome>Elisa</Nome>
+<Cognome>Elisabeth</Cognome>
+<residenza>via belzoni 6 Padova</residenza>
+<domicilio>via belzoni 6 Padova</domicilio>
+<foto>/immagini/FotoProfili/segr1.jpg</foto>
+</DatiPersonali>
+<DatiOccupazione>
+    <dataassunzione>09/09/2016</dataassunzione>
+<mansione>Segretaria studenti</mansione>
+<contratto>dipendente a tempo indeterminato</contratto>
+</DatiOccupazione>
+</schedaPersonale>

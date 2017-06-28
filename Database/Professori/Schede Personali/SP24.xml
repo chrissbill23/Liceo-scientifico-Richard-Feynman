@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schedaPersonale>
+    <nomeUtente>prof1</nomeUtente>
+<mailScuola>mario_rossi@mail.it</mailScuola>
+<DatiPersonali>
+    <Nome>Mario</Nome>
+<Cognome>Rossi</Cognome>
+<foto>/immagini/FotoProfili/prof1.jpg</foto>
+</DatiPersonali>
+<DatiOccupazione>
+    <dataassunzione>09/09/2016</dataassunzione>
+<mansione>Professore Informatica</mansione>
+<contratto>dipendente a tempo indeterminato</contratto>
+<materie>
+    <materia>Informatica</materia>
+<materia>Fisica</materia>
+</materie>
+<classi>
+    <classe>5a informatica</classe>
+</classi>
+<materia:classe>Informatica:5a informatica</materia:classe>
+<materia:classe>Fisica:5a informatica</materia:classe>
+</DatiOccupazione>
+</schedaPersonale>

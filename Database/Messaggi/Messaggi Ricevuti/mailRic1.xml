@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messaggiricevuti>
+    <mail>
+    <data>25/01/2017</data>
+<emittente>presidente@mail.com</emittente>
+<oggetto>Benvenuto</oggetto>
+<letto>1</letto>
+<messaggio>Benvenuto in scuola blu</messaggio>
+</mail>
+<mail>
+    <data>29/01/2017</data>
+<emittente>mario_rossi</emittente>
+<oggetto>firma</oggetto>
+<letto>1</letto>
+<messaggio>blu blu blu blu</messaggio>
+</mail>
+<mail>
+    <data>05/05/2017</data>
+<emittente>mario_rossi@mail.it</emittente>
+<oggetto>hbhbhbh</oggetto>
+<letto>1</letto>
+<messaggio>bbjbjbjbnjnjh</messaggio>
+</mail>
+<mail>
+    <data>08/05/2017</data>
+<emittente>presidentemail@mail.it</emittente>
+<oggetto>prova</oggetto>
+<letto>1</letto>
+<messaggio>sto testando la mail darling!</messaggio>
+</mail>
+<mail>
+    <data>20/06/2017</data>
+<emittente>mario_rossi@mail.it</emittente>
+<oggetto>sgfdssbbsbxbsbsghhgdhgdfhfhgfhhfhfgbcfbgdhdndhdhrujfjufjfufjchfnvhhfju jkfjfjjfkf jddmjd hjfdjfdjhduj hddjujtki</oggetto>
+<letto>1</letto>
+<messaggio>sdfsdfs</messaggio>
+</mail>
+<mail>
+    <data>20/06/2017</data>
+<emittente>mario_rossi@mail.it</emittente>
+<oggetto>hvjgfh</oggetto>
+<letto>0</letto>
+<messaggio>gfdtgdfghf</messaggio>
+</mail>
+</messaggiricevuti>

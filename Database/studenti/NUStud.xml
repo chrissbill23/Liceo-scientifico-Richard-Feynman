@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NomeUtenti>
+    <studente>
+    <Matricola>1096677</Matricola>
+<NomeUtente>ebile</NomeUtente>
+<password>pao2017</password>
+<schedaPersonale>/studenti/Schede Personali/SP0000001.xml</schedaPersonale>
+</studente>
+<studente>
+    <Matricola>1096678</Matricola>
+<NomeUtente>studente1</NomeUtente>
+<password>student1</password>
+<schedaPersonale>/studenti/Schede Personali/SP0000002.xml</schedaPersonale>
+</studente>
+<studente>
+    <Matricola>1096679</Matricola>
+<NomeUtente>LuPaz0</NomeUtente>
+<password>LP1992</password>
+<schedaPersonale>/studenti/Schede Personali/1096679.xml</schedaPersonale>
+</studente>
+<studente>
+    <Matricola>1096680</Matricola>
+<NomeUtente>ElMurt0</NomeUtente>
+<password>EM1994</password>
+<schedaPersonale>/studenti/Schede Personali/1096680.xml</schedaPersonale>
+</studente>
+<studente>
+    <Matricola>1096681</Matricola>
+<NomeUtente>SiSukh0</NomeUtente>
+<password>SS1995</password>
+<schedaPersonale>/studenti/Schede Personali/1096681.xml</schedaPersonale>
+</studente>
+</NomeUtenti>

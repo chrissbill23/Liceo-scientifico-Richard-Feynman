@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TutteLeClassi>
+    <indirizzi>
+    <indirizzo>informatica</indirizzo>
+<indirizzo>Fisica</indirizzo>
+</indirizzi>
+<sessioni>
+    <sessione>a</sessione>
+</sessioni>
+<classe>
+    <nome>5a informatica</nome>
+<riferimentoFile>/studenti/Classi/5a_informatica.xml</riferimentoFile>
+</classe>
+<classe>
+    <nome>1a informatica</nome>
+<riferimentoFile>/studenti/Classi/1a_informatica.xml</riferimentoFile>
+</classe>
+<classe>
+    <nome>2a informatica</nome>
+<riferimentoFile>/studenti/Classi/2a_informatica.xml</riferimentoFile>
+</classe>
+<classe>
+    <nome>3a informatica</nome>
+<riferimentoFile>/studenti/Classi/3a_informatica.xml</riferimentoFile>
+</classe>
+<classe>
+    <nome>4a informatica</nome>
+<riferimentoFile>/studenti/Classi/4a_informatica.xml</riferimentoFile>
+</classe>
+<classe>
+    <nome>1a Fisica</nome>
+<riferimentoFile>/studenti/Classi/1a_Fisica.xml</riferimentoFile>
+</classe>
+</TutteLeClassi>

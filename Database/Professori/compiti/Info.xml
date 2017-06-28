@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compiti>
+    <compito>
+    <codiceCompito>0</codiceCompito>
+<creatore>prof1</creatore>
+<data>20/06/2017</data>
+<percorsoFile>/Professori/compiti/xml/prova0.xml</percorsoFile>
+<FormatoFile>xml</FormatoFile>
+<titolo>prova</titolo>
+<descrizione>prova</descrizione>
+<materia>Informatica</materia>
+<classi>
+    <classe>5a informatica</classe>
+</classi>
+</compito>
+<compito>
+    <codiceCompito>10</codiceCompito>
+<creatore>AnMarghera1</creatore>
+<data>20/06/2017</data>
+<percorsoFile>/Professori/compiti/xml/prova storia10.xml</percorsoFile>
+<FormatoFile>xml</FormatoFile>
+<titolo>prova storia</titolo>
+<descrizione>prova</descrizione>
+<materia>Storia</materia>
+<classi>
+    <classe>5a informatica</classe>
+</classi>
+</compito>
+</compiti>
