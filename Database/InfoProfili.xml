@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Utenti>
+   <TipoUtente>
+       <nome>Professore</nome>
+       <riferimentoFile>/Professori/NUProf.xml</riferimentoFile>
+   </TipoUtente>
+   <TipoUtente>
+       <nome>Studente</nome>
+       <riferimentoFile>/studenti/NUStud.xml</riferimentoFile>
+    </TipoUtente>
+    <TipoUtente>
+       <nome>Segretario</nome>
+       <riferimentoFile>/Segretari/NUSegr.xml</riferimentoFile>
+    </TipoUtente>
+</Utenti>
