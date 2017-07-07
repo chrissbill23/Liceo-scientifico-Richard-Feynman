@@ -22,7 +22,6 @@ public:
     void setUtente(Utente* u);
     virtual bool CheckPassword(const QString& p) const=0;
     virtual void HomePage() =0;
-    virtual void updateView(int) const;    
     void setWidgets(StackFinestre* p);
     StackFinestre* giveStack()const;
     bool CambiaFotoProfilo(const QString& path)const;
@@ -59,12 +58,6 @@ public:
     list<string> daiSessioniClassi()const;
     list<string> daiIndirizzoClassi()const;
 
-    QString checkForbiddenCharacters(const QString& s)const;
-    bool isNumeric(const QString& s)const;
-    bool hasSpaceOrTab(const QString &s) const;
-    bool hasSpaceOrTabFirst(const QString& s)const;
-    bool hasSpaceOrTabLast(const QString& s)const;
-    bool HasNoChar(const QString& s)const;
 
     filexml giveSchedaClasse(const QString& nome)const;
     virtual ~Controller();

@@ -23,6 +23,11 @@ vector<string> ControllerCompitiUser::giveCompitiTitle() const
     return utenteConnesso->giveCompitiTitle();
 }
 
+QString ControllerCompitiUser::getCompitoData(const QString &code) const
+{
+    return QString::fromStdString(utenteConnesso->getCompitoData(code.toStdString()));
+}
+
 QString ControllerCompitiUser::getCompitoFormato(const QString& codice) const
 {
     return QString::fromStdString(utenteConnesso->getCompitoFormato(codice.toStdString()));

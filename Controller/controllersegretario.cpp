@@ -50,11 +50,6 @@ bool ControllerSegretario::esisteNomeUtenteStud(const QString &nu) const
     return utenteConnesso->esisteNomeUtenteStud(nu.toStdString());
 }
 
-QString ControllerSegretario::insertNewStudMatricola(const QString& matri, const QString& nu) const
-{
-    return QString::fromStdString(utenteConnesso->insertNewStudMatricola(matri.toStdString(),nu.toStdString()));
-}
-
 QString ControllerSegretario::ModificaStudCognome(const QString& m, const QString& c) const
 {
     return QString::fromStdString(utenteConnesso->EditStudCognome(m.toStdString(),c.toStdString()));

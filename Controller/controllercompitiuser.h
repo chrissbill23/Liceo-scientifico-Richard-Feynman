@@ -14,6 +14,7 @@ public:
     QString getPdfCompitoPath(const QString&) const;
     vector<string> codiciCompiti()const;
     vector<string> giveCompitiTitle()const;
+    QString getCompitoData(const QString& code)const;
     QString getCompitoFormato(const QString&)const;
     QString getCompitoTitolo(const QString&)const;
     QString getCompitoDescrizione(const QString&)const;

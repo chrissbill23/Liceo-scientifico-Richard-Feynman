@@ -23,6 +23,7 @@ void Controller::setWidgets(StackFinestre *p)
         delete Stack;
     else
         Stack=p;
+
 }
 
 StackFinestre *Controller::giveStack() const
@@ -30,11 +31,6 @@ StackFinestre *Controller::giveStack() const
     return Stack;
 }
 
-void Controller::updateView(int index) const
-{
-    Stack->setCurrentIndex(index);
-    Stack->show();
-}
 
 bool Controller::CambiaFotoProfilo(const QString &path) const
 {
@@ -69,14 +65,12 @@ void Controller::signout()
 void Controller::getPrevFinestra()
 {
     Stack->setToPrevWidget();
-    Stack->showMaximized();
 }
 
 void Controller::ShowNewWindow(QWidget *w)const
 {
     int index = Stack->addWidget(w);
     Stack->setCurrentIndex(index);
-    Stack->showMaximized();
 }
 
 void Controller::ReloadAllWindows()
@@ -198,36 +192,6 @@ list<string> Controller::daiSessioniClassi() const
 list<string> Controller::daiIndirizzoClassi() const
 {
     return utenteConnesso->daiIndirizzoClassi();
-}
-
-QString Controller::checkForbiddenCharacters(const QString &s) const
-{
-    return QString::fromStdString(utenteConnesso->checkForbiddenCharacters(s.toStdString()));
-}
-
-bool Controller::isNumeric(const QString &s) const
-{
-    return utenteConnesso->isNumeric(s.toStdString());
-}
-
-bool Controller::hasSpaceOrTab(const QString &s) const
-{
-    return utenteConnesso->hasSpaceOrTab(s.toStdString());
-}
-
-bool Controller::hasSpaceOrTabFirst(const QString &s) const
-{
-    return utenteConnesso->hasSpaceOrTabFirst(s.toStdString());
-}
-
-bool Controller::hasSpaceOrTabLast(const QString &s) const
-{
-    return utenteConnesso->hasSpaceOrTabLast(s.toStdString());
-}
-
-bool Controller::HasNoChar(const QString &s) const
-{
-    return utenteConnesso->HasNoChar(s.toStdString());
 }
 
 

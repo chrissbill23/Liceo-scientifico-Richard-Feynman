@@ -16,7 +16,7 @@ public:
     void HomePage();
     list<string> tipiFileCompito()const;
     QString createNewCompitoXml(const QString&data, const QString& titolo, const QString& descr,
-                             const QString& materia, const QString& classe);
+                             const QString& materia, const QString& classe, QString &error);
     QString aggiungiDomandaARispMult(const QString& path, const QString& domanda,
                                   const list<string> & risposte, const list<bool> & corrette );
     QString aggiungiDomandaAperta(const QString& path, const QString& domanda);

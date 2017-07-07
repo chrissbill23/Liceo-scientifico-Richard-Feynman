@@ -47,10 +47,13 @@ list<string> ControllerProf::tipiFileCompito() const
 }
 
 QString ControllerProf::createNewCompitoXml(const QString &data, const QString &titolo, const QString &descr,
-                                           const QString &materia, const QString &classe)
+                                           const QString &materia, const QString &classe, QString& error)
 {
-    return QString::fromStdString(utenteConnesso->createNewCompitoXml(data.toStdString(),titolo.toStdString(),
-                                                                      descr.toStdString(),materia.toStdString(),classe.toStdString()));
+    string check = "";
+    QString temp = QString::fromStdString(utenteConnesso->createNewCompitoXml(data.toStdString(),titolo.toStdString(),
+                                                                      descr.toStdString(),materia.toStdString(),classe.toStdString(), check));
+    error = QString::fromStdString(check);
+    return temp;
 }
 
 QString ControllerProf::aggiungiDomandaARispMult(const QString&path, const QString&domanda, const list<string> &risposte, const list<bool> &corrette)

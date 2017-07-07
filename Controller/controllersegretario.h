@@ -16,7 +16,6 @@ public:
     QString getNewStudNomeUtente(const QString &n, const QString &c)const;
     QString getNewStudPassword(const QString &n, const QString &c, int a)const;
     bool esisteNomeUtenteStud(const QString &nu)const;
-    QString insertNewStudMatricola(const QString &matri, const QString &nu)const;
     QString ModificaStudCognome(const QString &m, const QString &c)const;
     QString ModificaStudNome(const QString& matricola, const QString& nome)const;
     QString ModificaStudDataNascita(const QString &matricola, int g, int m, int a)const;

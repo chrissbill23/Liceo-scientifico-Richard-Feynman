@@ -68,7 +68,7 @@ bool loginController::passwordchecker(const QString& p) const
 void loginController::comincia()
 {
     firstpage->setCurrentIndex(0);
-    firstpage->showMaximized();
+    firstpage->show();
 }
 
 void loginController::homepage()
@@ -84,7 +84,7 @@ void loginController::signout()
     c = 0;
     firstpage->insertWidget(0, new login(this));
     firstpage->setCurrentIndex(0);
-    firstpage->showMaximized();
+    firstpage->show();
 
 
 

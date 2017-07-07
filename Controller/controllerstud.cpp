@@ -37,7 +37,7 @@ void ControllerStud::HomePage()
     if(Stack){
     int index =  Stack->addWidget(new HomePageStud(this));
     Stack->setCurrentIndex(index);
-    Stack->showMaximized();
+    Stack->show();
     }
 
 }
