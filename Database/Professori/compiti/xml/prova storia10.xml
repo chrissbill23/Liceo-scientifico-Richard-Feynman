@@ -12,6 +12,16 @@
 <testoDomanda>prova?</testoDomanda>
 </domanda>
 </domande>
-<risposteUtenti></risposteUtenti>
+<risposteUtenti>
+    <rispostaUtente>
+    <nomeUtente>ebile</nomeUtente>
+<nome>EZANIN CHRISTIAN PRINCE CARLOS</nome>
+<cognome>BILE</cognome>
+<foglio>/Professori/compiti/risposte/risposta101.pdf</foglio>
+<commenti>
+    <commentoAutore></commentoAutore>
+</commenti>
+</rispostaUtente>
+</risposteUtenti>
 </contenuto>
 </compito>

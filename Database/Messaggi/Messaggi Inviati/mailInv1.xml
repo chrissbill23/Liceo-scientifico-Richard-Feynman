@@ -100,7 +100,7 @@
     <data>21/04/2017</data>
 <destinatario>mario_rossi@mail.it</destinatario>
 <oggetto>wdadand</oggetto>
-<messaggio>wbjbdjsbjbd sjbjdsbj
+<messaggio>wbjbdjsbjbd sjbjdsbj
 </messaggio>
 </mail>
 <mail>
@@ -150,5 +150,11 @@
 <destinatario>presidentemail@mail.it</destinatario>
 <oggetto>buongiorno</oggetto>
 <messaggio>buongiorno presidente</messaggio>
+</mail>
+<mail>
+    <data>06/07/2017</data>
+<destinatario>mario_rossi@mail.it</destinatario>
+<oggetto>proviamo di nuovo la mail</oggetto>
+<messaggio>Funziona?</messaggio>
 </mail>
 </messaggiricevuti>

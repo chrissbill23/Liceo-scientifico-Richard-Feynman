@@ -3,6 +3,8 @@
     <nomeClasse>1a informatica</nomeClasse>
 <sessione>a</sessione>
 <indirizzo>informatica</indirizzo>
-<Alunni></Alunni>
+<Alunni>
+    <NomeUtente>nsjne0</NomeUtente>
+</Alunni>
 <Materie></Materie>
 </schedaClasse>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compito>
+    <contenuto>
+    <data>04/07/2017</data>
+<titolo>snnsnjnjsnjsn nnwknaknnw nnnwnwiniwn nwineiwniwnie</titolo>
+<descrizione>njdnjnjnwjnjnjwnjwn  jwbjw</descrizione>
+<materia>Informatica</materia>
+<classe>5a informatica</classe>
+<domande>
+    <domanda>
+    <tipoDomanda>domanda aperta</tipoDomanda>
+<testoDomanda>annqeiniwn niniqninqinenein</testoDomanda>
+</domanda>
+<domanda>
+    <tipoDomanda>domanda a risposta multipla</tipoDomanda>
+<testoDomanda>iwinwinin</testoDomanda>
+<risposte>
+    <risposta>
+    <testoRisposta>vero</testoRisposta>
+<corretta>1</corretta>
+</risposta>
+<risposta>
+    <testoRisposta>falso</testoRisposta>
+<corretta>0</corretta>
+</risposta>
+</risposte>
+</domanda>
+<domanda>
+    <tipoDomanda>domanda a risposta multipla</tipoDomanda>
+<testoDomanda>dnsjndjnjsndsjb?</testoDomanda>
+<risposte>
+    <risposta>
+    <testoRisposta>vero</testoRisposta>
+<corretta>0</corretta>
+</risposta>
+<risposta>
+    <testoRisposta>falso</testoRisposta>
+<corretta>1</corretta>
+</risposta>
+</risposte>
+</domanda>
+</domande>
+<risposteUtenti></risposteUtenti>
+</contenuto>
+</compito>

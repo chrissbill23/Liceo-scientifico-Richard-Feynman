@@ -31,4 +31,8 @@
     <nome>1a Fisica</nome>
 <riferimentoFile>/studenti/Classi/1a_Fisica.xml</riferimentoFile>
 </classe>
+<classe>
+    <nome>2a Fisica</nome>
+<riferimentoFile>/studenti/Classi/2a_Fisica.xml</riferimentoFile>
+</classe>
 </TutteLeClassi>

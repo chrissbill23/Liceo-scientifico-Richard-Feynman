@@ -4,5 +4,10 @@
 <sessione>a</sessione>
 <indirizzo>informatica</indirizzo>
 <Alunni></Alunni>
-<Materie></Materie>
+<Materie>
+    <materia>
+    <NomeMateria>Informatica</NomeMateria>
+<Professore>prof1</Professore>
+</materia>
+</Materie>
 </schedaClasse>

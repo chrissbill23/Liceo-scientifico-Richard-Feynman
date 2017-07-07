@@ -26,6 +26,18 @@
 </risposte>
 </domanda>
 </domande>
-<risposteUtenti></risposteUtenti>
+<risposteUtenti>
+    <rispostaUtente>
+    <nomeUtente>ebile</nomeUtente>
+<nome>EZANIN CHRISTIAN PRINCE CARLOS</nome>
+<cognome>BILE</cognome>
+<foglio>/Professori/compiti/risposte/risposta01.pdf</foglio>
+<commenti>
+    <commentoAutore>
+    <testoCommento>bravo 30/30</testoCommento>
+</commentoAutore>
+</commenti>
+</rispostaUtente>
+</risposteUtenti>
 </contenuto>
 </compito>

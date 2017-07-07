@@ -23,5 +23,13 @@
     <NomeMateria>Informatica</NomeMateria>
 <Professore>prof1</Professore>
 </materia>
+<materia>
+    <NomeMateria>Italiano</NomeMateria>
+<Professore>AnMarghera1</Professore>
+</materia>
+<materia>
+    <NomeMateria>Diritto Ed Economia</NomeMateria>
+<Professore>AnMarghera1</Professore>
+</materia>
 </Materie>
 </schedaClasse>

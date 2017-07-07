@@ -11,10 +11,14 @@
 <DatiOccupazione>
     <materie>
     <materia>Storia</materia>
+<materia>Italiano</materia>
+<materia>Diritto Ed Economia</materia>
 </materie>
 <classi>
     <classe>5a informatica</classe>
 </classi>
 <materia:classe>Storia:5a informatica</materia:classe>
+<materia:classe>Italiano:5a informatica</materia:classe>
+<materia:classe>Diritto Ed Economia:5a informatica</materia:classe>
 </DatiOccupazione>
 </schedaPersonale>

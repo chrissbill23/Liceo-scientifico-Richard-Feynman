@@ -30,4 +30,10 @@
 <password>SS1995</password>
 <schedaPersonale>/studenti/Schede Personali/1096681.xml</schedaPersonale>
 </studente>
+<studente>
+    <Matricola>1096682</Matricola>
+<NomeUtente>nsjne0</NomeUtente>
+<password>nsjn2015</password>
+<schedaPersonale>/studenti/Schede Personali/1096682.xml</schedaPersonale>
+</studente>
 </NomeUtenti>

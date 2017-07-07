@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compito>
+    <contenuto>
+    <data>04/07/2017</data>
+<titolo>Esercizi</titolo>
+<descrizione>Fate questi esercizi in preparazione del compito</descrizione>
+<materia>Informatica</materia>
+<classe>5a informatica</classe>
+<domande>
+    <domanda>
+    <tipoDomanda>domanda a risposta multipla</tipoDomanda>
+<testoDomanda>Questo programma merita un 30L?</testoDomanda>
+<risposte>
+    <risposta>
+    <testoRisposta>vero</testoRisposta>
+<corretta>1</corretta>
+</risposta>
+<risposta>
+    <testoRisposta>falso</testoRisposta>
+<corretta>0</corretta>
+</risposta>
+</risposte>
+</domanda>
+<domanda>
+    <tipoDomanda>domanda a risposta multipla</tipoDomanda>
+<testoDomanda>Bile ezanin christian prince carlos deve avere 28 + 3 punti come voto finale?</testoDomanda>
+<risposte>
+    <risposta>
+    <testoRisposta>sì</testoRisposta>
+<corretta>1</corretta>
+</risposta>
+<risposta>
+    <testoRisposta>no</testoRisposta>
+<corretta>0</corretta>
+</risposta>
+</risposte>
+</domanda>
+</domande>
+<risposteUtenti></risposteUtenti>
+</contenuto>
+</compito>

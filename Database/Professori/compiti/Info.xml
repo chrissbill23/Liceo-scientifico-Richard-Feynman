@@ -26,4 +26,31 @@
     <classe>5a informatica</classe>
 </classi>
 </compito>
+<compito>
+    <codiceCompito>3</codiceCompito>
+<creatore>prof1</creatore>
+<data>04/07/2017</data>
+<percorsoFile>/Professori/compiti/xml/snnsnjnjsnjsn nnwknaknnw nnnwnwiniwn nwineiwniwnie3.xml</percorsoFile>
+<FormatoFile>xml</FormatoFile>
+<titolo>snnsnjnjsnjsn nnwknaknnw nnnwnwiniwn nwineiwniwnie</titolo>
+<descrizione>njdnjnjnwjnjnjwnjwn  jwbjw</descrizione>
+<materia>Informatica</materia>
+<classi>
+    <classe>5a informatica</classe>
+</classi>
+</compito>
+<compito>
+    <codiceCompito>40</codiceCompito>
+<creatore>prof1</creatore>
+<data>04/07/2017</data>
+<percorsoFile>/Professori/compiti/xml/Esercizi40.xml</percorsoFile>
+<FormatoFile>xml</FormatoFile>
+<titolo>Esercizi</titolo>
+<descrizione>Fate questi esercizi in preparazione del compito</descrizione>
+<materia>Informatica</materia>
+<classi>
+    <classe>5a informatica</classe>
+<classe>4a informatica</classe>
+</classi>
+</compito>
 </compiti>
