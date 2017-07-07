@@ -18,16 +18,18 @@ QGroupBox *GestPostsGroup::loadPage(int indice)
     QGridLayout* lay = new QGridLayout(temp);
     int totpost = post.size();
     if(totpost==0){
-        lay->addWidget(new QLabel("Non ci sono post"),0,Qt::AlignTop);
+        lay->addWidget(new QLabel("Non ci sono post"),0,0,1,3,Qt::AlignTop);
     }else{
 
-        QFont f("Times",13);
+        QFont f("Times",11);
+        f.setUnderline(true);
         QLabel* la = new QLabel(QString::number(totpost)+" post trovati");
         la->setFont(f);
         lay->addWidget(la,0,0,1,1,Qt::AlignTop);
 
         int i = totpost - 1 - indice;
         int conta = 0;
+        f = QFont("Times", 9);
       for(; i >= 0 && conta < maxPerPage; --i){
         vector<string> v = ctrl->daiInfoPost(daiNomeGruppo(),post[i]);
 
@@ -39,14 +41,22 @@ QGroupBox *GestPostsGroup::loadPage(int indice)
         lay->addWidget(la,conta+1, 0,1,1,Qt::AlignTop);
 
 
-        buttonGroup* b = new buttonGroup("Visualizza",group,this,"",post[i]);
+        buttonGroup* b = new buttonGroup("Visita",group,this,"",post[i]);
         b->setFont(f);
         b->setCursor(QCursor(Qt::PointingHandCursor));
+        b->setFixedSize(150,30);
         connect(b,SIGNAL(clicked(bool)),b,SLOT(GotoPost()));
         lay->addWidget(b,conta+1, 1,1,1,Qt::AlignTop);
 
         b = new buttonGroup("Elimina post",group,this,"",post[i]);
         b->setFont(f);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                         "background-color: #990000;"
+                         "color: white;"
+                         " border-radius: 5px;}"
+                         "QPushButton:pressed {"
+                         " background-color:#660000;}");
         b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(deletePost()));
         lay->addWidget(b,conta+1, 2,1,1,Qt::AlignTop);
@@ -58,7 +68,7 @@ QGroupBox *GestPostsGroup::loadPage(int indice)
           i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
           QPushButton* b = new QPushButton(temp);
           b->setIcon(i1);
-          b->setFixedSize(200,40);
+          b->setFixedSize(150,40);
           b->setIconSize(QSize(200,40));
           b->setStyleSheet("QPushButton{"
                            "background-color: #336699;"
@@ -105,6 +115,12 @@ GestPostsGroup::GestPostsGroup(ControllerAdminSistema *c, const QString &name, Q
     Header();
     BodyAndFooter();
     layout->addWidget(sc,1);
+    setStyleSheet("QPushButton{"
+                             "background-color: #336699; "
+                             "border-radius: 5px; "
+                             "color: white;}"
+                             "QPushButton:pressed {"
+                            " background-color:#003300;}");
 }
 
 void GestPostsGroup::Header()
@@ -115,30 +131,30 @@ void GestPostsGroup::Header()
 
     QPushButton* b = new QPushButton("Indietro", head);
     b->setCursor(QCursor(Qt::PointingHandCursor));
-    b->setFixedSize(300,40);
-    b->setFont(QFont("Times", 13));
+    b->setFixedSize(250,40);
+    b->setFont(QFont("Times", 11));
+    connect(b,SIGNAL(clicked(bool)),this, SLOT(TornaIndietro()));
+    lay->addWidget(b,0, Qt::AlignLeft);
+
+    QFont f("Times",10);
+    searchbox = new QLineEdit(head);
+    searchbox->setPlaceholderText("Cerca un post");
+    searchbox->setFont(f);
+    searchbox->setMaxLength(50);
+    searchbox->setFixedSize(300,40);
+    b = new QPushButton("Cerca",head);
+    b->setFont(f);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    b->setFixedSize(100,40);
     b->setStyleSheet("QPushButton{"
                      "background-color: #336699; "
                      "border-radius: 5px 5px 5px 5px; "
                      "color: white;}"
                      "QPushButton:pressed {"
                     " background-color:#003300;}");
-    connect(b,SIGNAL(clicked(bool)),this, SLOT(TornaIndietro()));
-    lay->addWidget(b,0, Qt::AlignLeft);
-
-    QFont f("Times",13);
-    searchbox = new QLineEdit(head);
-    searchbox->setPlaceholderText("Cerca un post (al massimo 50 caratteri)");
-    searchbox->setFont(f);
-    searchbox->setMaxLength(50);
-    searchbox->setFixedSize(400,50);
-    b = new QPushButton("Cerca",head);
-    b->setFont(f);
-    b->setCursor(QCursor(Qt::PointingHandCursor));
-    b->setFixedSize(100,30);
     connect(b,SIGNAL(clicked(bool)),this,SLOT(cercaPost()));
-    lay->addWidget(searchbox,0,Qt::AlignTop);
-    lay->addWidget(b,0,Qt::AlignTop);
+    lay->addWidget(searchbox,0,Qt::AlignTop|Qt::AlignRight);
+    lay->addWidget(b,0,Qt::AlignTop|Qt::AlignRight);
 
     layout->addWidget(head,0,Qt::AlignTop);
 }
@@ -184,12 +200,12 @@ void GestPostsGroup::goPrev()
 void GestPostsGroup::deletePost(unsigned int i)
 {
     if(ctrl->removePost(group, i)){
-        QMessageBox::information(this,"","Post eliminato!");
+        QMessageBox::information(0,"","Post eliminato!");
         post = GiveIndexesPost();
         reloadWindow();
     }
     else
-        QMessageBox::information(this,"Errore","E' avvenuto un errore");
+        QMessageBox::information(0,"Errore","E' avvenuto un errore");
 }
 
 void GestPostsGroup::cercaPost()

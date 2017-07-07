@@ -11,7 +11,6 @@ private:
 QScrollArea* SpazioLavoro;
 public:
     HomePageAdminBiblio(ControllerAdminBiblio *ptr = 0);
-    ~HomePageAdminBiblio();
 public slots:
     void reloadWindow();
     void setOnGestioneLibri();

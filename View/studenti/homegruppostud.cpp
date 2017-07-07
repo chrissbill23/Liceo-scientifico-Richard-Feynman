@@ -13,7 +13,7 @@ QGroupBox *HomeGruppoStud::loadPage()
 {
     QGroupBox* temp = new QGroupBox;
 
-    QFont f("Times",20);
+    QFont f("Times",15);
     f.setBold(true);
 
     QLabel* title = new QLabel(daiNomeGruppo(),temp);
@@ -21,7 +21,8 @@ QGroupBox *HomeGruppoStud::loadPage()
 
     buttonGroup* b1 = new buttonGroup("Info gruppo",daiNomeGruppo(),this);
     b1->setToolTip("Informazioni");
-    b1->setFixedSize(200,50);
+    b1->setFixedSize(150,40);
+    b1->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b1,SIGNAL(clicked(bool)),b1,SLOT(viewInfoGroup()));
 
     tab = new QTabWidget(temp);
@@ -31,11 +32,11 @@ QGroupBox *HomeGruppoStud::loadPage()
     mySpace = new PersonalSpaceGroupStud(ctrl, daiNomeGruppo());
     tab->addTab(mySpace, "Spazio personale");
     }
-    tab->setFont(QFont("Times",13));
-    tab->setStyleSheet("QTabWidget::tab-bar{width: 80em;}"
-                     "QTabWidget{border-radius: 15px;}"
+    tab->setFont(QFont("Times",11));
+    tab->setStyleSheet("QTabWidget::tab-bar{width: 50em;}"
+                     "QTabWidget{border-radius: 9px;}"
                      "QTabWidget::pane{ border-top: 2px solid #336699;}"
-                     "QTabBar::tab{min-width: 8ex; padding: 2em;}"
+                     "QTabBar::tab{min-width: 3ex; padding: 1em;}"
                      "QTabBar::tab:selected {"
                      "font: bold; color: #336699;"
                      "}");
@@ -43,7 +44,8 @@ QGroupBox *HomeGruppoStud::loadPage()
     QPushButton* b = new QPushButton(this);
     b->setIcon(i);
     b->setToolTip("Ricarica finestra");
-    b->setFixedSize(50,50);
+    b->setFixedSize(40,40);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(reloadWindow()));
     QVBoxLayout* lay = new QVBoxLayout(temp);
     lay->addWidget(title,0,Qt::AlignHCenter);
@@ -81,8 +83,15 @@ void HomeGruppoStud::reloadWindow()
 
     post->reloadWindow();
 
-    if(mySpace)
-    mySpace->reloadWindow();
+    if(mySpace){
+        if(!ctrl->isIscrittoInGroup(daiNomeGruppo())){
+            tab->removeTab(1);
+            delete mySpace;
+            mySpace = 0;
+        }
+        else
+             mySpace->reloadWindow();
+    }
     else {
         mySpace = new PersonalSpaceGroupStud(ctrl,daiNomeGruppo(),this);
         tab->addTab(mySpace, "Spazio personale");

@@ -29,7 +29,7 @@ void SearchResultLibri::InserInAnnoEdizione()
 {
     int anno = QDate::currentDate().year();
 
-    annoEdizione->addItem("Anni edizione",-1);
+    annoEdizione->addItem("Anno edizione",-1);
 
     for(int i = anno; i >= 1920; --i)
         annoEdizione->addItem(QString::number(i),i);
@@ -55,29 +55,23 @@ QGroupBox *SearchResultLibri::loadPage(int indice)
                          "border-bottom: 2px solid black;"
                          "border-radius: 0;}");
 
-    title->setFont(QFont("Times", 15));
+    title->setFont(QFont("Times", 14));
     title->setFixedHeight(50);
 
-    temp->addWidget(title,0,0,1,6);
+    temp->addWidget(title,0,0,1,4);
 
 
-    QFont f("Times", 13);
+    QFont f("Times", 12);
+    f.setBold(true);
+    f.setUnderline(true);
 
-    QLabel* lab = new QLabel("Codice Libro", contenuto);
+    QLabel* lab = new QLabel("Titolo", contenuto);
     lab->setFont(f);
     temp->addWidget(lab,3,0,1,1,Qt::AlignTop);
 
-    lab = new QLabel("Titolo", contenuto);
-    lab->setFont(f);
-    temp->addWidget(lab,3,1,1,1,Qt::AlignTop);
-
     lab = new QLabel("Autore", contenuto);
     lab->setFont(f);
-    temp->addWidget(lab,3,2,1,1,Qt::AlignTop);
-
-    lab = new QLabel("Anno Edizione", contenuto);
-    lab->setFont(f);
-    temp->addWidget(lab,3,3,1,1,Qt::AlignTop);
+    temp->addWidget(lab,3,1,1,1,Qt::AlignTop);
 
     int tot = codiciLibri.size();
     if(tot > indice){
@@ -90,72 +84,56 @@ QGroupBox *SearchResultLibri::loadPage(int indice)
 
         int row = 4;
         int it = indice;
+        f = QFont("Times",11);
         for(; it < tot && it < maxPerPage*currPage; ++it){
             const QString& code = QString::fromStdString(codiciLibri[it]);
-            lab = new QLabel(code, contenuto);
-            lab->setFont(f);
-            temp->addWidget(lab,row,0,1,1,Qt::AlignTop);
 
             lab = new QLabel(ctrl->daiTitoloLibro(code), contenuto);
             lab->setFont(f);
-            temp->addWidget(lab,row,1,1,1,Qt::AlignTop);
+            lab->setFixedWidth(300);
+            temp->addWidget(lab,row,0,1,1,Qt::AlignTop);
 
             lab = new QLabel(ctrl->daiAutoreLibro(code), contenuto);
             lab->setFont(f);
-            temp->addWidget(lab,row,2,1,1,Qt::AlignTop);
+            lab->setFixedWidth(300);
+            temp->addWidget(lab,row,1,1,1,Qt::AlignTop);
 
-            lab = new QLabel(ctrl->daiAnnoEdizioneLibro(code), contenuto);
-            lab->setFont(f);
-            temp->addWidget(lab,row,3,1,1,Qt::AlignTop);
-
-            bibliobutton* b = new bibliobutton("vedi libro", code,false,"",this);
+            bibliobutton* b = new bibliobutton("Leggi", code,false,"",this);
             b->setFont(QFont("Times", 9));
             b->setFixedSize(100,30);
-            b->setStyleSheet("QPushButton{"
-                             "background-color: green;"
-                             "border: 2px solid;"
-                             "border-radius: 5px 5px 5px 5px; "
-                             "color: white;}"
-                             "QPushButton:pressed {"
-                             "background-color:#003300;}");
+            b->setCursor(QCursor(Qt::PointingHandCursor));
             connect(b,SIGNAL(clicked(bool)),b,SLOT(viewLibro()));
-            temp->addWidget(b,row,4,1,1,Qt::AlignTop);
+            temp->addWidget(b,row,2,1,1,Qt::AlignTop);
 
-            b = new bibliobutton("info libro", code,false,"",this);
+            b = new bibliobutton("Dettagli", code,false,"",this);
             b->setFont(QFont("Times", 9));
             b->setFixedSize(100,30);
-            b->setStyleSheet("QPushButton{"
-                             "background-color: green;"
-                             "border: 2px solid;"
-                             "border-radius: 5px 5px 5px 5px; "
-                             "color: white;}"
-                             "QPushButton:pressed {"
-                             "background-color:#003300;}");
+            b->setCursor(QCursor(Qt::PointingHandCursor));
             connect(b,SIGNAL(clicked(bool)),b,SLOT(viewInfoLibro()));
-            temp->addWidget(b,row,5,1,1,Qt::AlignTop);
+            temp->addWidget(b,row,3,1,1,Qt::AlignTop);
 
             ++row;
         }
 
+        QGroupBox* footer = new QGroupBox(contenuto);
+        footer->setStyleSheet("QGroupBox{border: 0;}");
+        QGridLayout* footerLay = new QGridLayout(footer);
+        footer->setLayout(footerLay);
+
         lab = new QLabel("pagina "+QString::number(currPage)+"/"+QString::number(totPage));
-        lab->setFont(f);
-        temp->addWidget(lab,row+2,2,1,1,Qt::AlignHCenter);
+        lab->setFont(QFont("Times",9));
+        footerLay->addWidget(lab,0,1,1,1,Qt::AlignHCenter);
+        footerLay->setColumnStretch(0,1);
+        footerLay->setColumnStretch(2,1);
         QIcon i1;
         if(currPage > 1){
             i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
             QPushButton* b = new QPushButton(contenuto);
             b->setIcon(i1);
-            b->setFixedSize(200,40);
-            b->setIconSize(QSize(200,40));
-            b->setStyleSheet("QPushButton{"
-                             "background-color: #336699;"
-                             "border: 2px solid;"
-                             "border-radius: 5px 5px 5px 5px; "
-                             "color: white;}"
-                             "QPushButton:pressed {"
-                             "background-color:#003300;}");
+            b->setFixedSize(80,40);
+            b->setIconSize(QSize(80,40));
             b->setCursor(QCursor(Qt::PointingHandCursor));
-            temp->addWidget(b,row+2,0,1,1,Qt::AlignLeft);
+            footerLay->addWidget(b,0,0,1,1,Qt::AlignLeft);
             connect(b,SIGNAL(clicked(bool)),this,SLOT(goPrev()));
         }
 
@@ -163,19 +141,13 @@ QGroupBox *SearchResultLibri::loadPage(int indice)
             i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
             QPushButton* b2 = new QPushButton(contenuto);
             b2->setIcon(i1);
-            b2->setFixedSize(200,40);
-            b2->setIconSize(QSize(200,40));
-            b2->setStyleSheet("QPushButton{"
-                              "background-color: #336699;"
-                              "border: 2px solid;"
-                              "border-radius: 5px 5px 5px 5px; "
-                              "color: white;}"
-                              "QPushButton:pressed {"
-                              "background-color:#003300;}");
+            b2->setFixedSize(80,40);
+            b2->setIconSize(QSize(80,40));
             b2->setCursor(QCursor(Qt::PointingHandCursor));
             connect(b2,SIGNAL(clicked(bool)),this,SLOT(goNext()));
-            temp->addWidget(b2,row+2,5,1,1,Qt::AlignRight);
+            footerLay->addWidget(b2,0,2,1,1,Qt::AlignRight);
         }
+        temp->addWidget(footer,row+2,0,1,4);
 
 
 
@@ -192,7 +164,6 @@ SearchResultLibri::SearchResultLibri(Controller *c, QWidget *parent):FinestreBib
 categoriaLibri(0), annoEdizione(0), searchBox(new QLineEdit(this)), lay(0),currPage(1),totPage(1)
 {
     codiciLibri = getController()->CodiciLibri();
-    setStyleSheet("background-color: none;");
 }
 
 vector<string> SearchResultLibri::daiCodiciLibri() const
@@ -273,18 +244,11 @@ void SearchResultLibri::Header()
                              "border-radius: 0;"
                              "color: black;"
                              "padding-left: 0.5em;");
-   searchBox->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
    searchBox->setFont(QFont("Times",11));
+   searchBox->setMaximumWidth(300);
    QPushButton* b = new QPushButton("Cerca", head);
    b->setFixedSize(150, 30);
    b->setCursor(QCursor(Qt::PointingHandCursor));
-   b->setStyleSheet("QPushButton{"
-                           "background-color: green;"
-                           "border: 2px solid;"
-                           "border-radius: 5px 5px 5px 5px; "
-                           "color: white;}"
-                           "QPushButton:pressed {"
-                           "background-color:#003300;}");
    connect(b,SIGNAL(clicked(bool)),this,SLOT(Sort()));
 
    temp->addWidget(searchBox,1,3);

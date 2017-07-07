@@ -13,7 +13,7 @@ void PrimoPianoWidg::switchBookPP(unsigned int indice)
     contenuto->setStyleSheet("QGroupBox{border: 0;}");
     QGridLayout* lay = new QGridLayout(contenuto);
 
-    QFont f("Times", 13);
+    QFont f("Times", 10);
     f.setUnderline(true);
     f.setBold(true);
     if(codeBookPP.size() > indice){
@@ -21,36 +21,34 @@ void PrimoPianoWidg::switchBookPP(unsigned int indice)
 
         QIcon i1;
         int i = indice;
+        bool checkPrev = false;
         if(i-1 >= 0){
+        checkPrev = true;
         i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
         QPushButton* b = new QPushButton(contenuto);
         b->setIcon(i1);
-        b->setFixedSize(100,300);
-        b->setIconSize(QSize(100,300));
-        b->setStyleSheet("QPushButton{"
-                         "background-color: #29abe2;"
-                         "border: 2px solid;"
-                         "border-radius: 5px 5px 5px 5px; "
-                         "color: white;}"
-                         "QPushButton:pressed {"
-                         "background-color:#003300;}");
+        b->setFixedSize(100,150);
+        b->setIconSize(QSize(100,150));
         b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),this,SLOT(goPrev()));
         lay->addWidget(b,1,0,1,1,Qt::AlignLeft);
+            if(indice + 1 == codeBookPP.size())
+                lay->setColumnStretch(1,1);
         }
 
         QLabel* title = new QLabel(ctrl->daiTitoloLibro(QString::fromStdString(codeBookPP[indice])));
-        title->setStyleSheet("color: black;");
         title->setFont(f);
+        title->setAlignment(Qt::AlignCenter);
         lay->addWidget(title,0,1,1,1,Qt::AlignHCenter);
 
         QLabel* copert = new QLabel(contenuto);
-        copert->setFixedSize(800,300);
-        copert->setStyleSheet("color: #29abe2;");
+        copert->setFixedSize(520,320);
+        copert->setStyleSheet("color: red;");
         const QString& copertina = ctrl->daiCopertinaLibro(QString::fromStdString(codeBookPP[indice]));
         if(copertina == ""){
             copert->setText("Non ci sono copertine per questo libro");
             copert->setFont(f);
+            copert->setAlignment(Qt::AlignCenter);
         }
         else{
             copert->setPixmap(QPixmap(copertina));
@@ -59,26 +57,14 @@ void PrimoPianoWidg::switchBookPP(unsigned int indice)
         lay->addWidget(copert,1,1,1,1, Qt::AlignHCenter);
 
 
-        bibliobutton* b = new bibliobutton("Info libro",QString::fromStdString(codeBookPP[indice]), false,"",this);
+        bibliobutton* b = new bibliobutton("Dettagli",QString::fromStdString(codeBookPP[indice]), false,"",this);
         b->setFixedSize(200,30);
-        b->setStyleSheet("QPushButton{"
-                         "background-color: #29abe2; "
-                         "border-radius: 5px 5px 5px 5px; "
-                         "color: white;}"
-                         "QPushButton:pressed {"
-                        " background-color:#003300;}");
         b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(viewInfoLibro()));
         lay->addWidget(b,2,1,1,1,Qt::AlignHCenter);
 
-        b = new bibliobutton("Leggi libro",QString::fromStdString(codeBookPP[indice]), false,"",this);
+        b = new bibliobutton("Leggi",QString::fromStdString(codeBookPP[indice]), false,"",this);
         b->setFixedSize(200,30);
-        b->setStyleSheet("QPushButton{"
-                         "background-color: #29abe2; "
-                         "border-radius: 5px 5px 5px 5px; "
-                         "color: white;}"
-                         "QPushButton:pressed {"
-                        " background-color:#003300;}");
         b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(viewLibro()));
 
@@ -88,18 +74,13 @@ void PrimoPianoWidg::switchBookPP(unsigned int indice)
         i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
         QPushButton* b2 = new QPushButton(contenuto);
         b2->setIcon(i1);
-        b2->setFixedSize(100,300);
-        b2->setIconSize(QSize(100,300));
-        b2->setStyleSheet("QPushButton{"
-                            "background-color: #29abe2;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
+        b2->setFixedSize(100,150);
+        b2->setIconSize(QSize(100,150));
         b2->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b2,SIGNAL(clicked(bool)),this,SLOT(goNext()));
         lay->addWidget(b2,1,2,1,1,Qt::AlignRight);
+        if(!checkPrev)
+            lay->setColumnStretch(1,1);
         }
 
     }
@@ -131,13 +112,12 @@ void PrimoPianoWidg::reloadWindow()
 
 void PrimoPianoWidg::BodyAndFooter()
 {
-    QFont f("Times", 15);
+    QFont f("Times", 14);
     f.setBold(true);
-    f.setUnderline(true);
 
-    QLabel* lab = new QLabel("Primo piano:",this);
+    QLabel* lab = new QLabel("PRIMO PIANO:",this);
     lab->setFont(f);
-    lab->setStyleSheet("color: black;");
+    lab->setStyleSheet("color: #663300;");
 
     layout->addWidget(lab, 0);
     switchBookPP(0);

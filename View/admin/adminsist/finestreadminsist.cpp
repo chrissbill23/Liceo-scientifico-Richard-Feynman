@@ -5,6 +5,12 @@
 
 FinestreAdminSist::FinestreAdminSist(ControllerAdminSistema *ptr):finestreAdmin(ptr), ctrl(ptr){
 
+    setStyleSheet("QPushButton{"
+                         "background-color: #336699; "
+                         "border-radius: 5px; "
+                         "color: white;}"
+                         "QPushButton:pressed {"
+                        " background-color:#003300;}");
 }
 
 ControllerAdminSistema *FinestreAdminSist::getController() const
@@ -15,7 +21,7 @@ ControllerAdminSistema *FinestreAdminSist::getController() const
 void FinestreAdminSist::addPreside() const
 {
     FormAddPreside temp(ctrl);
-    temp.setFixedSize(600,700);
+    temp.setFixedSize(600,600);
     temp.exec();
 }
 

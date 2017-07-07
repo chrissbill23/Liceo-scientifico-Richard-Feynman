@@ -77,16 +77,16 @@ void FormEditGroup::salva()
     const QString& ris = inputCorretto();
 
     if(ris != "")
-        QMessageBox::information(this,"ERRORE", ris);
+        QMessageBox::information(0,"ERRORE", ris);
     else{
         const QString& na = name->text();
         const QString& des = descrizione->toPlainText();
         const QString& cat = categoria->itemData(categoria->currentIndex()).toString();
         if(ctrl->editGroup(nomeGruppo,na,des, cat)){
-        QMessageBox::information(this,"","Gruppo modificato con successo");
+        QMessageBox::information(0,"","Gruppo modificato con successo");
         close();
         }
-        else QMessageBox::information(this,"ERRORE!","E' avvenuto un errore, potrebbe essere:\n"
+        else QMessageBox::information(0,"ERRORE!","E' avvenuto un errore, potrebbe essere:\n"
                                                      "-un errore con i file"
                                                      "-ha inserito uno dei seguenti caratteri vietati: < & \""
                                                      "-Non ha inserito nessun carattere");

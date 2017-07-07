@@ -19,17 +19,17 @@ ControllerAdmin *finestreAdmin::getController() const
 
 void finestreAdmin::Header()
 {
-    QFont f("Times", 11);
+    QFont f("Times", 10);
 
     if(p)
         delete p;
     p = new QGridLayout(this);
-    QPushButton* biblio = new QPushButton("Visita la Biblioteca", this);
-    biblio->setFixedSize(200, 40);
+    QPushButton* biblio = new QPushButton("Biblioteca", this);
+    biblio->setFixedSize(150, 40);
     biblio->setFont(f);
     biblio->setStyleSheet("QPushButton{"
                           "background-color: green; "
-                          "border-radius: 5px 5px 5px 5px; "
+                          "border-radius: 5px; "
                           "color: white;}"
                           "QPushButton:pressed {"
                          " background-color:#003300;}");

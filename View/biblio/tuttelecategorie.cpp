@@ -17,16 +17,18 @@ QGroupBox *TutteleCategorie::loadPage(int indice)
     QLabel* title = new QLabel("CATEGORIE", contenuto);
     title->setStyleSheet("QLabel{"
                          "padding-bottom: 0.4em; "
-                         "border-bottom: 2px solid white;"
+                         "border-bottom: 2px solid;"
                          "border-radius: 0;}");
 
-    title->setFont(QFont("Times", 15));
+    title->setFont(QFont("Times", 14));
     title->setFixedHeight(50);
 
     temp->addWidget(title,0,0,1,3);
 
 
-    QFont f("Times", 13);
+    QFont f("Times", 12);
+    f.setBold(true);
+    f.setUnderline(true);
 
     QLabel* lab = new QLabel("Nome categoria", contenuto);
     lab->setFont(f);
@@ -41,22 +43,17 @@ QGroupBox *TutteleCategorie::loadPage(int indice)
 
         int row = 4;
         int it = indice;
+        f = QFont("Times", 11);
         for(; it < tot && it < maxPerPage*currPage; ++it){
 
             lab = new QLabel(QString::fromStdString(categorie[it]), contenuto);
             lab->setFont(f);
             temp->addWidget(lab,row,0,1,1,Qt::AlignTop);
 
-            bibliobutton* b = new bibliobutton("vedi i libri in questa categoria", "",true, QString::fromStdString(categorie[it]),this);
+            bibliobutton* b = new bibliobutton("Libri di questa categoria", "",true, QString::fromStdString(categorie[it]),this);
             b->setFont(QFont("Times", 9));
-            b->setFixedSize(200,30);
-            b->setStyleSheet("QPushButton{"
-                             "background-color: #336699;"
-                             "border: 2px solid;"
-                             "border-radius: 5px 5px 5px 5px; "
-                             "color: white;}"
-                             "QPushButton:pressed {"
-                             "background-color:#003300;}");
+            b->setFixedSize(220,35);
+            b->setCursor(QCursor(Qt::PointingHandCursor));
             connect(b,SIGNAL(clicked(bool)),b,SLOT(viewLibriInCat()));
             temp->addWidget(b,row,1,1,1,Qt::AlignTop);
 
@@ -64,22 +61,15 @@ QGroupBox *TutteleCategorie::loadPage(int indice)
         }
 
         lab = new QLabel("pagina "+QString::number(currPage)+"/"+QString::number(totPage));
-        lab->setFont(f);
+        lab->setFont(QFont("Times",9));
         temp->addWidget(lab,row+2,1,1,1,Qt::AlignHCenter);
         QIcon i1;
         if(indice > 0){
             i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
             QPushButton* b = new QPushButton(contenuto);
             b->setIcon(i1);
-            b->setFixedSize(200,40);
-            b->setIconSize(QSize(200,40));
-            b->setStyleSheet("QPushButton{"
-                             "background-color: #336699;"
-                             "border: 2px solid;"
-                             "border-radius: 5px 5px 5px 5px; "
-                             "color: white;}"
-                             "QPushButton:pressed {"
-                             "background-color:#003300;}");
+            b->setFixedSize(80,40);
+            b->setIconSize(QSize(80,40));
             b->setCursor(QCursor(Qt::PointingHandCursor));
             temp->addWidget(b,row+2,0,1,1,Qt::AlignLeft);
             connect(b,SIGNAL(clicked(bool)),this,SLOT(goPrev()));
@@ -89,15 +79,8 @@ QGroupBox *TutteleCategorie::loadPage(int indice)
             i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
             QPushButton* b2 = new QPushButton(contenuto);
             b2->setIcon(i1);
-            b2->setFixedSize(200,40);
-            b2->setIconSize(QSize(200,40));
-            b2->setStyleSheet("QPushButton{"
-                              "background-color: #336699;"
-                              "border: 2px solid;"
-                              "border-radius: 5px 5px 5px 5px; "
-                              "color: white;}"
-                              "QPushButton:pressed {"
-                              "background-color:#003300;}");
+            b2->setFixedSize(80,40);
+            b2->setIconSize(QSize(80,40));
             b2->setCursor(QCursor(Qt::PointingHandCursor));
             connect(b2,SIGNAL(clicked(bool)),this,SLOT(goNext()));
             temp->addWidget(b2,row+2,2,1,1,Qt::AlignRight);
@@ -122,7 +105,6 @@ TutteleCategorie::TutteleCategorie(Controller *c, QWidget *parent) : FinestreBib
  BodyAndFooter();
  giveLayout()->addWidget(sc,2,0,1,4);
  setWindowTitle("Categorie");
- setStyleSheet("background-color: #33cccc;");
 }
 
 void TutteleCategorie::reloadWindow()
@@ -135,22 +117,15 @@ void TutteleCategorie::Header()
     FinestreBiblioteca::Header();
 
     searchBox = new QLineEdit(this);
-    searchBox->setFixedSize(400,50);
-    searchBox->setFont(QFont("Times",12));
-    searchBox->setPlaceholderText("Cerca una categoria");
+    searchBox->setFixedSize(400,40);
+    searchBox->setFont(QFont("Times",11));
+    searchBox->setPlaceholderText("Che categoria cerchi?");
     searchBox->setStyleSheet("background-color: white;");
 
     giveLayout()->addWidget(searchBox,1,2);
 
     QPushButton* b = new QPushButton("Cerca",this);
-    b->setFixedHeight(50);
-    b->setStyleSheet("QPushButton{"
-                      "background-color: #336699;"
-                      "border: 2px solid;"
-                      "border-radius: 5px 5px 5px 5px;"
-                      "color: white;}"
-                      "QPushButton:pressed {"
-                      "background-color:#003300;}");
+    b->setFixedHeight(40);
     connect(b,SIGNAL(clicked(bool)),this,SLOT(searchCategoria()));
     giveLayout()->addWidget(b,1,3);
 }

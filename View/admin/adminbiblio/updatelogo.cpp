@@ -42,12 +42,12 @@ updateLogo::updateLogo(ControllerAdminBiblio *c, QWidget *parent) : QDialog(pare
 void updateLogo::salva()
 {
     if (path->text() == ""){
-        QMessageBox::information(this,"Errore","Devi Selezionare un file");
+        QMessageBox::information(0,"Errore","Devi Selezionare un file");
     }
     else{
         if(ctrl->cambiaLogo(path->text()))
-            QMessageBox::information(this,"","Salvato con successo");
-        else QMessageBox::information(this,"Errore","Errore fatale nel salvataggio");
+            QMessageBox::information(0,"","Salvato con successo");
+        else QMessageBox::information(0,"Errore","Errore fatale nel salvataggio");
     }
 }
 

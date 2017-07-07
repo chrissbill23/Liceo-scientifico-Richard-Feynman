@@ -33,16 +33,16 @@ void FinestreStudenti::HomePageGroup()
 }
 void FinestreStudenti::Header()
 {
-    QFont f("Times", 11);
+    QFont f("Times", 10);
     if(p)
         delete p;
     p = new QGridLayout(this);
-    QPushButton* biblio = new QPushButton("Visita la Biblioteca", this);
-    biblio->setFixedSize(200, 40);
+    QPushButton* biblio = new QPushButton("Biblioteca", this);
+    biblio->setFixedSize(150, 40);
     biblio->setFont(f);
     biblio->setStyleSheet("QPushButton{"
                           "background-color: green; "
-                          "border-radius: 5px 5px 5px 5px; "
+                          "border-radius: 5px; "
                           "color: white;}"
                           "QPushButton:pressed {"
                          " background-color:#003300;}");
@@ -51,14 +51,14 @@ void FinestreStudenti::Header()
     logout->setFixedSize(150, 40);
     logout->setStyleSheet("QPushButton{"
                           "background-color: #990000;"
-                          " border-radius: 5px 5px 5px 5px;}"
+                          " border-radius: 5px;}"
                           "QPushButton:pressed {"
                           " background-color:#660000;}");
     logout->setCursor(QCursor(Qt::PointingHandCursor));
     logout->setFont(f);
     connect(biblio,SIGNAL(clicked()), this, SLOT(HomePageBiblio()));
     connect(logout,SIGNAL(clicked()), this, SLOT(signout()));
-    p->addWidget(biblio, 0, 3);
-    p->addWidget(logout, 0, 4);
+    p->addWidget(biblio, 0, 1,1,1,Qt::AlignRight);
+    p->addWidget(logout, 0, 2);
     setLayout(p);
 }

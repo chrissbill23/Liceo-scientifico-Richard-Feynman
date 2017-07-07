@@ -14,7 +14,6 @@ public:
     ViewCompitiStud(ControllerStud* c);
     QWidget* listaCompiti(int) const;
     bool sort();
-    ~ViewCompitiStud();
 protected:
     void BodyAndFooter();
 public slots:

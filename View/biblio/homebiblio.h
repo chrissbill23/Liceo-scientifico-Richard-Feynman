@@ -17,7 +17,6 @@ public:
     HomeBiblio(Controller* u);
 protected:
     void BodyAndFooter();
-    void Header();
 public slots:
     void reloadWindow();
     void SearchBookResult()const;

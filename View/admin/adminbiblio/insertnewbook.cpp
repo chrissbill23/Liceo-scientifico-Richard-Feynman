@@ -46,6 +46,7 @@ InsertNewBook::InsertNewBook(ControllerAdminBiblio *c, QWidget *parent) : QDialo
     form->setWidget(loadDialog());
     form->setWidgetResizable(true);
     lay->addWidget(form);
+    setWindowTitle("Nuovo libro");
 }
 
 QGroupBox *InsertNewBook::loadDialog()
@@ -67,7 +68,7 @@ QGroupBox *InsertNewBook::loadDialog()
     lab->setFont(QFont("Times", 12));
     layTemp->addWidget(lab,0,Qt::AlignTop);
 
-    QFont f("Times",14);
+    QFont f("Times",11);
 
     lab = new QLabel("(*) Titolo: ", temp);
     lab->setFont(f);
@@ -95,10 +96,10 @@ QGroupBox *InsertNewBook::loadDialog()
     lab = new QLabel("(*)Carica file (.pdf): ", temp);
     lab->setFont(f);
     layTemp->addWidget(lab,0,Qt::AlignTop);
-    file->setFixedHeight(50);
+    file->setFixedHeight(40);
     QPushButton* b = new QPushButton("Sfoglia",temp);
-    b->setFixedSize(200,50);
-    b->setFont(QFont("Times",11));
+    b->setFixedSize(150,40);
+    b->setFont(QFont("Times",9));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(loadFile()));
     QHBoxLayout* layTemp2 = new QHBoxLayout;
     layTemp2->addWidget(file,1);
@@ -108,11 +109,11 @@ QGroupBox *InsertNewBook::loadDialog()
     lab = new QLabel("Copertina: ", temp);
     lab->setFont(f);
     layTemp->addWidget(lab,0,Qt::AlignTop);
-    copertina->setFixedHeight(50);
+    copertina->setFixedHeight(40);
     b = new QPushButton("Sfoglia",temp);
     connect(b,SIGNAL(clicked(bool)),this,SLOT(loadCopertina()));
-    b->setFixedSize(200,50);
-    b->setFont(QFont("Times",11));
+    b->setFixedSize(150,40);
+    b->setFont(QFont("Times",9));
     layTemp2 = new QHBoxLayout;
     layTemp2->addWidget(copertina,1);
     layTemp2->addWidget(b,0);
@@ -187,7 +188,7 @@ void InsertNewBook::salva()
                         check = ctrl->aggiungiCategoriaAlibro(codice,ris);
                 }
                 if(check){
-                QMessageBox::information(this, "", "Salvato con successo!");
+                QMessageBox::information(0, "", "Salvato con successo!");
                 QWidget* p = form->widget();
                 if(p)
                     delete p;
@@ -196,8 +197,8 @@ void InsertNewBook::salva()
                 return;
             }
         }
-       QMessageBox::information(this, "Errore", codice);
+       QMessageBox::information(0, "Errore", codice);
 
     }
-    else QMessageBox::information(this, "Errore", "Tutti i campi obbligatori devono essere compilati");
+    else QMessageBox::information(0, "Errore", "Tutti i campi obbligatori devono essere compilati");
 }

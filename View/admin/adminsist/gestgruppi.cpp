@@ -38,26 +38,29 @@ QGroupBox *GestGruppi::loadPage()
     QGridLayout* lay = new QGridLayout(temp);
     temp->setLayout(lay);
 
-    QFont f("Times",13);
+    QFont f("Times",11);
     f.setUnderline(true);
 
     QLabel* lab = new QLabel(QString::number(gruppi.size())+" gruppi trovati", temp);
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 4em;");
     lay->addWidget(lab,0,0,1,1,Qt::AlignTop);
 
-    f = QFont("Times",14);
+    f = QFont("Times",12);
     f.setBold(true);
 
     lab = new QLabel("Nome gruppo",temp);
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 1em;");
     lay->addWidget(lab,1,0,1,1,Qt::AlignTop);
 
-     f = QFont("Times", 11);
+     f = QFont("Times", 10);
     int row = 2;
      for(list<string>::const_iterator it=gruppi.begin(); it != gruppi.end(); ++it)
       {
         lab = new QLabel(QString::fromStdString((*it)),temp);
         lab->setFont(f);
+        lab->setFixedWidth(300);
         lay->addWidget(lab,row,0,1,1,Qt::AlignTop);
 
         buttonGroup* b = new buttonGroup("Info gruppo",QString::fromStdString((*it)), this);
@@ -80,12 +83,19 @@ QGroupBox *GestGruppi::loadPage()
 
         b = new buttonGroup("Elimina gruppo",QString::fromStdString((*it)), this);
         b->setFixedSize(150, 30);
+        b->setStyleSheet("QPushButton{"
+                         "background-color: #990000;"
+                         "color: white;"
+                         " border-radius: 5px;}"
+                         "QPushButton:pressed {"
+                         " background-color:#660000;}");
         b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b, SIGNAL(clicked(bool)), this, SLOT(ElimGroup()));
         lay->addWidget(b,row,4,1,1,Qt::AlignTop);
 
         ++row;
      }
+     lay->setRowStretch(row+1,1);
 
      return temp;
 }
@@ -97,6 +107,12 @@ GestGruppi::GestGruppi(ControllerAdminSistema *c, const QString &name, QWidget *
     Header();
     BodyAndFooter();
     setLayout(lay);
+    setStyleSheet("QPushButton{"
+                             "background-color: #336699; "
+                             "border-radius: 5px 5px 5px 5px; "
+                             "color: white;}"
+                             "QPushButton:pressed {"
+                            " background-color:#003300;}");
 }
 
 void GestGruppi::Header()
@@ -107,8 +123,8 @@ void GestGruppi::Header()
 
     QPushButton* b = new QPushButton("Indietro", head);
     b->setCursor(QCursor(Qt::PointingHandCursor));
-    b->setFixedSize(300,40);
-    b->setFont(QFont("Times", 13));
+    b->setFixedSize(200,40);
+    b->setFont(QFont("Times", 11));
     b->setStyleSheet("QPushButton{"
                      "background-color: #336699; "
                      "border-radius: 5px 5px 5px 5px; "
@@ -119,20 +135,27 @@ void GestGruppi::Header()
     layout->addWidget(b,0, Qt::AlignLeft);
 
     searchBox = new QLineEdit(head);
-    searchBox->setFixedSize(400,40);
-    searchBox->setFont(QFont("Times",13));
-    searchBox->setPlaceholderText("Inserisce una parola chiave...");
+    searchBox->setFixedSize(300,40);
+    searchBox->setFont(QFont("Times",10));
+    searchBox->setPlaceholderText("Cosa cerchi?");
+    searchBox->setMaxLength(26);
     b = new QPushButton("Cerca",head);
     b->setFixedSize(100,40);
-    b->setFont(QFont("Times",13));
+    b->setFont(QFont("Times",10));
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px 5px 5px 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
     connect(b,SIGNAL(clicked(bool)),this,SLOT(ShowResult()));
     layout->addWidget(searchBox,0,Qt::AlignRight);
     layout->addWidget(b,0,Qt::AlignRight);
 
     QHBoxLayout* p = new QHBoxLayout;
     categ = new QComboBox(head);
-    categ->setFont(QFont("Times",13));
-    categ->setFixedSize(500,50);
+    categ->setFont(QFont("Times",10));
+    categ->setFixedSize(220,40);
     categ->setCursor(QCursor(Qt::PointingHandCursor));
     InsertInCategoria();
     connect(categ,SIGNAL(currentIndexChanged(int)),this,SLOT(switchCath()));
@@ -140,21 +163,39 @@ void GestGruppi::Header()
 
     b = new QPushButton("Aggiungi categoria", head);
     b->setFixedSize(200,40);
-    b->setFont(QFont("Times",13));
+    b->setFont(QFont("Times",9));
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px 5px 5px 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(addCathegory()));
     p->addWidget(b,0,Qt::AlignLeft);
 
     b = new QPushButton("Elimina categoria", head);
     b->setFixedSize(200,40);
-    b->setFont(QFont("Times",13));
+    b->setFont(QFont("Times",9));
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #990000;"
+                     "color: white;"
+                     " border-radius: 5px;}"
+                     "QPushButton:pressed {"
+                     " background-color:#660000;}");
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(removeCathegory()));
     p->addWidget(b,0,Qt::AlignLeft);
 
     b = new QPushButton("Aggiungi gruppo", head);
     b->setFixedSize(200,40);
-    b->setFont(QFont("Times",13));
+    b->setFont(QFont("Times",9));
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px 5px 5px 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(addNewGroup()));
     p->addWidget(b,1,Qt::AlignLeft);
@@ -168,6 +209,7 @@ void GestGruppi::BodyAndFooter()
 {
     body = new QScrollArea(this);
 
+    gruppi = ctrl->GiveGroupsInCathegory("");
     body->setWidget(loadPage());
     body->setWidgetResizable(true);
     body->setFrameShape(QFrame::NoFrame);
@@ -199,15 +241,16 @@ void GestGruppi::switchCath()
     }
     else
         gruppi = ctrl->GiveGroupsInCathegory("");
-    reloadWindow();
 
+    body->setWidget(loadPage());
+    body->setWidgetResizable(true);
 }
 
 void GestGruppi::addCathegory()
 {
     popUpDialog temp(1,4);
 
-    QFont f("Times",14);
+    QFont f("Times",12);
     f.setBold(true);
 
     QLabel* tit = new QLabel("Inserisci il nome della categoria",&temp);
@@ -216,7 +259,7 @@ void GestGruppi::addCathegory()
 
     QLineEdit* text = new QLineEdit(&temp);
     text->setFont(QFont("Times",13));
-    text->setFixedHeight(50);
+    text->setFixedHeight(40);
     temp.push_back_Widget(text);
 
     QPushButton* b = new QPushButton("Salva", &temp);
@@ -227,7 +270,7 @@ void GestGruppi::addCathegory()
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(500,400);
+    temp.setFixedSize(500,200);
     temp.setWindowTitle("Aggiungi categoria");
     if(temp.exec() == QDialog::Accepted){
         const QString& testo = text->text();
@@ -235,7 +278,7 @@ void GestGruppi::addCathegory()
             const QString& ris = ctrl->addGroupCathegory(testo);
             if(ris == ""){
                 QMessageBox::information(&temp,"", "Salvato con successo!");
-                reloadWindow();
+               reloadWindow();
             }
             else QMessageBox::information(&temp,"ERRORE!!", ris);
         }
@@ -254,8 +297,8 @@ void GestGruppi::removeCathegory()
         const QString& cath = QString::fromStdString(*it);
         text->addItem(cath,cath);
     }
-    text->setFont(QFont("Times",13));
-    text->setFixedHeight(50);
+    text->setFont(QFont("Times",9));
+    text->setFixedHeight(30);
     temp.push_back_Widget(text);
 
     QPushButton* b = new QPushButton("Salva", &temp);
@@ -266,7 +309,7 @@ void GestGruppi::removeCathegory()
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(500,400);
+    temp.setFixedSize(500,200);
     temp.setWindowTitle("Elimina categoria");
     if(temp.exec() == QDialog::Accepted){
         const QString& testo = text->itemData(text->currentIndex()).toString();
@@ -286,16 +329,16 @@ void GestGruppi::addNewGroup()
 {
     popUpDialog temp(1,7);
 
-    QFont f("Times",14);
+    QFont f("Times",12);
     f.setBold(true);
 
-    QLabel* lab = new QLabel("Nome categoria:",&temp);
+    QLabel* lab = new QLabel("Nome:",&temp);
     lab->setFont(f);
     temp.push_back_Widget(lab);
 
     QLineEdit* name = new QLineEdit(&temp);
     name->setFont(QFont("Times",13));
-    name->setFixedHeight(50);
+    name->setFixedHeight(40);
     temp.push_back_Widget(name);
 
     lab = new QLabel("Descrizione:",&temp);
@@ -313,8 +356,8 @@ void GestGruppi::addNewGroup()
         const QString& cath = QString::fromStdString(*it);
         catego->addItem(cath,cath);
     }
-    catego->setFont(QFont("Times",13));
-    catego->setFixedHeight(50);
+    catego->setFont(QFont("Times",9));
+    catego->setFixedHeight(30);
     temp.push_back_Widget(catego);
 
     QPushButton* b = new QPushButton("Salva", &temp);
@@ -367,10 +410,10 @@ void GestGruppi::ElimGroup()
     if(b){
         const QString ris = ctrl->removeGroup(b->giveGroupName());
         if( ris == ""){
-        QMessageBox::information(this,"","Gruppo Eliminato!");
+        QMessageBox::information(0,"","Gruppo Eliminato!");
         switchCath();
         }
-        else QMessageBox::information(this,"ERRORE!",ris);
+        else QMessageBox::information(0,"ERRORE!",ris);
     }
 }
 

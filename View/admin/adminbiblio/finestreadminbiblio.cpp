@@ -9,7 +9,14 @@
 #include <QMessageBox>
 #include <QLabel>
 
-FinestreAdminBiblio::FinestreAdminBiblio(ControllerAdminBiblio* ptr, QWidget *parent): finestreAdmin(ptr,parent), ctrl(ptr){}
+FinestreAdminBiblio::FinestreAdminBiblio(ControllerAdminBiblio* ptr, QWidget *parent): finestreAdmin(ptr,parent), ctrl(ptr){
+    setStyleSheet("QPushButton{"
+                         "background-color: #336699; "
+                         "border-radius: 5px; "
+                         "color: white;}"
+                         "QPushButton:pressed {"
+                        " background-color:#003300;}");
+}
 
 ControllerAdminBiblio *FinestreAdminBiblio::getController() const
 {
@@ -21,42 +28,21 @@ void FinestreAdminBiblio::Header()
     finestreAdmin::Header();
     QGridLayout* layout = giveLayout();
 
-    QPushButton*b = new QPushButton("Inserici un nuovo libro/giornale", this);
-    b->setStyleSheet("QPushButton{"
-                            "background-color: green;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
-    b->setFixedSize(300, 40);
+    QPushButton*b = new QPushButton("Nuovo libro/giornale", this);
+    b->setFixedSize(150, 40);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(CaricaNewBook()));
     layout->addWidget(b,0,0,1,1,Qt::AlignLeft);
 
-    b = new QPushButton("Aggiungi categoria", this);
-    b->setStyleSheet("QPushButton{"
-                            "background-color: green;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
-    b->setFixedSize(300, 40);
+    b = new QPushButton("Nuova categoria", this);
+    b->setFixedSize(150, 40);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(addCategoria()));
     layout->addWidget(b,0,1,1,1,Qt::AlignLeft);
 
 
     b = new QPushButton("Cambia logo", this);
-    b->setStyleSheet("QPushButton{"
-                            "background-color: green;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
-    b->setFixedSize(300, 40);
+    b->setFixedSize(150, 40);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(cambiaLogo()));
 
@@ -77,7 +63,7 @@ void FinestreAdminBiblio::CaricaNewBook()
 void FinestreAdminBiblio::addCategoria()
 {
         popUpDialog temp(1,3);
-        temp.setFixedSize(500,500);
+        temp.setFixedSize(500,200);
         temp.setWindowTitle("Aggiungi categoria");
 
         QLabel* lab = new QLabel("Inserire il nome della categoria", &temp);
@@ -111,19 +97,19 @@ void FinestreAdminBiblio::addCategoria()
 void FinestreAdminBiblio::eliminaLibro(const QString &codice)
 {
     if(ctrl->eliminaLibro(codice)){
-       QMessageBox::information(this,"","Eliminato con successo");
+       QMessageBox::information(0,"","Eliminato con successo");
        reloadWindow();
     }
-    else QMessageBox::information(this,"Errore","Errore fatale nella cancellazione");
+    else QMessageBox::information(0,"Errore","Errore fatale nella cancellazione");
 }
 
 void FinestreAdminBiblio::eliminaCateg(const QString &cath)
 {
     if(ctrl->eliminaCategoria(cath)){
-       QMessageBox::information(this,"","Eliminato con successo");
+       QMessageBox::information(0,"","Eliminato con successo");
        reloadWindow();
     }
-    else QMessageBox::information(this,"Errore","Errore fatale nella cancellazione");
+    else QMessageBox::information(0,"Errore","Errore fatale nella cancellazione");
 }
 
 void FinestreAdminBiblio::updateInfoLibro(const QString& code)
@@ -138,26 +124,27 @@ void FinestreAdminBiblio::aggiungiPrimoPiano(const QString &code)
 {
     const QString& ris = ctrl->aggiungiInPrimoPiano(code);
     if(ris == ""){
-       QMessageBox::information(this,"","Aggiunto al primo piano");
+       QMessageBox::information(0,"","Aggiunto al primo piano");
        reloadWindow();
     }
-    else QMessageBox::information(this,"Errore",ris);
+    else QMessageBox::information(0,"Errore",ris);
 }
 
 void FinestreAdminBiblio::elimDaPrimoPiano(const QString &code)
 {
     if(ctrl->rimuoviLibroDaPrimoPiano(code)){
-       QMessageBox::information(this,"","Rimosso da primo piano con successo!");
+       QMessageBox::information(0,"","Rimosso da primo piano con successo!");
        reloadWindow();
     }
-    else QMessageBox::information(this,"Errore","Errore durente la rimossione");
+    else QMessageBox::information(0,"Errore","Errore durente la rimossione");
 }
 
 void FinestreAdminBiblio::cambiaLogo()
 {
     updateLogo temp(ctrl);
 
-    temp.setFixedSize(400,400);
+    temp.setFixedSize(400,200);
+    temp.setWindowTitle("Nuovo logo biblioteca");
     temp.exec();
 
 

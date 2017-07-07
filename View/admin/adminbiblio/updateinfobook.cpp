@@ -176,11 +176,11 @@ void updateInfoBook::salva()
                         check = ctrl->aggiungiCategoriaAlibro(codice,ris);
                 }
                 if(check){
-                QMessageBox::information(this, "", "Salvato con successo!");
+                QMessageBox::information(0, "", "Salvato con successo!");
                 close();
             }
-           else QMessageBox::information(this, "Errore", "Errore fatale nel salvataggio");
+           else QMessageBox::information(0, "Errore", "Errore fatale nel salvataggio");
 
     }
-    else QMessageBox::information(this, "Errore", "Tutti i campi obbligatori devono essere compilati");
+    else QMessageBox::information(0, "Errore", "Tutti i campi obbligatori devono essere compilati");
 }

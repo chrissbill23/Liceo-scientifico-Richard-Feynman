@@ -8,8 +8,7 @@
 #include <QGroupBox>
 #include <QScrollArea>
 
-HomePageStud::HomePageStud(ControllerStud*contrl):FinestreStudenti(contrl),gruppi(0),
-                                            compiti(0),
+HomePageStud::HomePageStud(ControllerStud*contrl):FinestreStudenti(contrl),gruppi(0), compiti(0),
                                             profile(0)
 {
     Header();
@@ -43,25 +42,32 @@ void HomePageStud::BodyAndFooter()
         setLayout(p);
     }
     gruppi = new QGroupBox( this);
-    compiti = new QGroupBox(this);
+    compiti = new QPushButton("Fai i compiti",this);
     profile = new QGroupBox(this);
-    gruppi->setStyleSheet("QGroupBox{border-radius: 15px 15px 15px 15px; background-color: #476b6b;}");
+    gruppi->setStyleSheet("QGroupBox{border-radius: 15px; "
+                          "background-color: #669999;}");
     QVBoxLayout* l = new QVBoxLayout;
-    QVBoxLayout* l2 =new QVBoxLayout;
     InsertInGruppi();
     gruppi->setFixedHeight(350);
-    compiti->setStyleSheet("QGroupBox{border-radius: 15px 15px 15px 15px; background-color: #4d2600; }");
-    InsertInCompiti();
-    compiti->setFixedHeight(400);
-    profile->setStyleSheet("QGroupBox{border-radius: 15px 15px 15px 15px; background-color: #00004d;}");
-    profile->setFixedHeight(300);
+    gruppi->setMaximumWidth(500);
+    compiti->setStyleSheet("QPushButton{"
+                            "background-color: #336699; "
+                            "border-radius: 5px; "
+                            "color: white;}"
+                            "QPushButton:pressed {"
+                           " background-color:#003300;}");
+    compiti->setFixedHeight(40);
+    compiti->setMaximumWidth(500);
+    compiti->setCursor(QCursor(Qt::PointingHandCursor));
+    connect(compiti,SIGNAL(clicked(bool)),this,SLOT(vediCompiti()));
+    profile->setStyleSheet("QGroupBox{border-radius: 15px; background-color: #D1CAB0;}");
+    profile->setMaximumSize(500,600);
     InsertInProfile();
     l->addWidget(gruppi);
     l->addWidget(compiti);
-    p->addLayout(l2, 1,0,Qt::AlignTop);
-    p->addLayout(l, 1, 1,Qt::AlignTop);
-    p->addWidget(profile, 1, 3,1,2,Qt::AlignTop);
-
+    p->addLayout(l, 1, 0,Qt::AlignTop);
+    p->addWidget(profile, 1, 1,1,2,Qt::AlignTop);
+    p->setRowStretch(2,1);
 }
 
 void HomePageStud::Cerca()
@@ -77,19 +83,17 @@ void HomePageStud::TuttiIGruppi()
                     {
                              QLabel* g = new QLabel(QString::fromStdString((*it)), &win);
                              QFont f = QFont("Times", 9);
-                             g->setStyleSheet("QLabel{"
-                                                      "color: white;"
-                                                      "background-color: #476b6b;"
-                                                      "}");
+                             g->setStyleSheet("QLabel{background-color: #669999; color: white; "
+                                              "margin-bottom: 0.4em;}");
+
                              g->setFont(f);
-                             buttonGroup* b = new buttonGroup("Clicca Per Entrare",QString::fromStdString((*it)));
+                             buttonGroup* b = new buttonGroup("Entra",QString::fromStdString((*it)));
                              b->setStyleSheet("QPushButton{"
-                                              "background-color: green;"
-                                              "border: 2px solid;"
-                                              "border-radius: 5px 5px 5px 5px; "
+                                              "background-color: #336699; "
+                                              "border-radius: 5px; "
                                               "color: white;}"
                                               "QPushButton:pressed {"
-                                              "background-color:#003300;}");
+                                             " background-color:#003300;}");
                              b->setFixedSize(150, 30);
                              b->setCursor(QCursor(Qt::PointingHandCursor));
                              connect(b, SIGNAL(clicked(bool)), this, SLOT(HomePageGroup()));
@@ -97,7 +101,6 @@ void HomePageStud::TuttiIGruppi()
                              win.push_back_Widget(b);
                             }
             win.setFixedSize(600,600);
-            win.setStyleSheet("QWidget{background-color: #476b6b;}");
             win.setWindowTitle("Tutti i tuoi gruppi");
             win.exec();
 }
@@ -118,9 +121,7 @@ void HomePageStud::InsertInGruppi()
     QFont f("Times", 11);
 
     QLabel* title= new QLabel("I TUOI GRUPPI", gruppi);
-    title->setStyleSheet("QLabel{"
-                         "color: white;"
-                         "background-color: #476b6b;"
+    title->setStyleSheet("QLabel{background-color: #669999; color: white;"
                          "height: 2em;}");
 
     title->setFont(f);
@@ -138,19 +139,16 @@ void HomePageStud::InsertInGruppi()
                     {
                              QLabel* g=new QLabel(QString::fromStdString((*it)), gruppi);
                              f = QFont("Times", 9);
-                             g->setStyleSheet("QLabel{"
-                                                      "color: white;"
-                                                      "background-color: #476b6b;"
+                             g->setStyleSheet("QLabel{background-color: #669999; color: white;"
                                                       "}");
                              g->setFont(f);
-                             buttonGroup* b = new buttonGroup("Clicca Per Entrare",QString::fromStdString((*it)));
+                             buttonGroup* b = new buttonGroup("Entra",QString::fromStdString((*it)));
                              b->setStyleSheet("QPushButton{"
-                                              "background-color: green;"
-                                              "border: 2px solid;"
-                                              "border-radius: 5px 5px 5px 5px; "
+                                              "background-color: #336699; "
+                                              "border-radius: 5px; "
                                               "color: white;}"
                                               "QPushButton:pressed {"
-                                              "background-color:#003300;}");
+                                             " background-color:#003300;}");
                              b->setFixedSize(150, 30);
                              b->setCursor(QCursor(Qt::PointingHandCursor));
                              connect(b, SIGNAL(clicked(bool)), this, SLOT(HomePageGroup()));
@@ -160,40 +158,37 @@ void HomePageStud::InsertInGruppi()
                             }
 QPushButton* b;
     if(size> 8){
-    b = new QPushButton("Vedi Altri Tuoi Gruppi", gruppi);
+    b = new QPushButton("Tutti i tuoi gruppi", gruppi);
     b->setStyleSheet("QPushButton{"
-                     "background-color: green;"
-                     "border-radius: 5px 5px 5px 5px;"
-                     "border: 2px solid;"
+                     "background-color: #336699; "
+                     "border-radius: 5px; "
                      "color: white;}"
                      "QPushButton:pressed {"
-                     "background-color:#003300;}");
+                    " background-color:#003300;}");
     b->setFixedSize(150, 30);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(TuttiIGruppi()));
     p->addWidget(b,conta, 0);
-    b = new QPushButton("Visita Altri Gruppi", gruppi);
+    b = new QPushButton("Scopri altri Gruppi", gruppi);
     b->setStyleSheet("QPushButton{"
-                     "background-color: #990000;"
-                     "border-radius: 5px 5px 5px 5px;"
-                     "border: 2px solid;"
+                     "background-color: #336699; "
+                     "border-radius: 5px; "
                      "color: white;}"
                      "QPushButton:pressed {"
-                     "background-color:#660000;}");
+                    " background-color:#003300;}");
     b->setFixedSize(150, 30);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(Cerca()));
     p->addWidget(b,conta, 1);
     }
     else{
-        b = new QPushButton("Visita Altri Gruppi", gruppi);
+        b = new QPushButton("Scopri altri Gruppi", gruppi);
         b->setStyleSheet("QPushButton{"
-                         "background-color: #990000;"
-                         "border-radius: 5px 5px 5px 5px;"
-                         "border: 2px solid;"
+                         "background-color: #336699; "
+                         "border-radius: 5px; "
                          "color: white;}"
                          "QPushButton:pressed {"
-                         "background-color:#660000;}");
+                        " background-color:#003300;}");
         b->setFixedSize(150, 30);
         b->setCursor(QCursor(Qt::PointingHandCursor));
 
@@ -214,12 +209,11 @@ QPushButton* b;
         p->addWidget(g,1, 0,2,3);
         QPushButton* b= new QPushButton("Scopri Tutti Gruppi", gruppi);
         b->setStyleSheet("QPushButton{"
-                         "background-color: #990000;"
-                         "border-radius: 5px 5px 5px 5px;"
-                         "border: 2px solid;"
+                         "background-color: #336699; "
+                         "border-radius: 5px; "
                          "color: white;}"
                          "QPushButton:pressed {"
-                         "background-color:#660000;}");
+                        " background-color:#003300;}");
         b->setFixedSize(150, 30);
         b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),this,SLOT(Cerca()));
@@ -229,110 +223,70 @@ QPushButton* b;
     gruppi->setLayout(p);
 }
 
-void HomePageStud::InsertInCompiti() const
-{
-    QFont f("Times", 11);
 
-    QLabel* title= new QLabel("I TUOI COMPITI", compiti);
-    title->setStyleSheet("QLabel{"
-                         "color: yellow;"
-                         "background-color: #4d2600;}");
-
-    title->setFont(f);
-    title->setFixedHeight(20);
-
-    QGridLayout* p = new QGridLayout(compiti);
-    p->addWidget(title,0, 0,1,2);
-
-    list<string> v = getController()->MaterieInsegnate();
-     int conta =1;
-                for(list<string>::const_iterator it=v.begin(); it != v.end(); ++it){
-                             QLabel* g=new QLabel(QString::fromStdString(*it), compiti);
-                             g->setStyleSheet("QLabel{color: yellow; background-color: #4d2600;}");
-
-                             QPushButton* b= new QPushButton("Clicca Per Vedere", compiti);
-                             b->setStyleSheet("QPushButton{"
-                                              "background-color: green;"
-                                              "border: 2px solid;"
-                                              "border-radius: 5px 5px 5px 5px; "
-                                              "color: white;}"
-                                              "QPushButton:pressed {"
-                                              "background-color:#003300;}");
-                             b->setFixedSize(150, 30);
-                             b->setCursor(QCursor(Qt::PointingHandCursor));
-                             connect(b,SIGNAL(clicked(bool)),this,SLOT(vediCompiti()));
-
-                             p->addWidget(g,conta, 0,1,3);
-                             p->addWidget(b,conta, 4);
-                             ++conta;
-                            }
-   QPushButton* b= new QPushButton("Cerca Un Eserciziario", gruppi);
-    b->setStyleSheet("QPushButton{"
-                                 "background-color: green;"
-                                 "border-radius: 5px 5px 5px 5px;"
-                                 "border: 2px solid;"
-                                 "color: white;"
-                                 "margin:0; }"
-                                 "QPushButton:pressed {"
-                                 "background-color:#003300;}");
-    b->setFixedSize(150, 30);
-    b->setCursor(QCursor(Qt::PointingHandCursor));
-    connect(b,SIGNAL(clicked(bool)),this, SLOT(HomePageBiblio()));
-
-    p->addWidget(b,conta, 0);
-
-    compiti->setLayout(p);
-
-}
 
 void HomePageStud::InsertInProfile() const
 {
-    QFont f("Times", 11);
+    QFont f("Times", 12);
 
-    QLabel* title= new QLabel("IL TUO PROFILO", profile);
-    title->setStyleSheet("QLabel{background-color: #00004d; color: #29abe2;}");
+    QLabel* title= new QLabel("PROFILO", profile);
+    title->setStyleSheet("QLabel{background-color: #D1CAB0; "
+                         "margin-bottom: 0.4em;}");
 
     title->setFont(f);
-    title->setFixedHeight(20);
 
     ControllerStud* ctrl = getController();
     QGridLayout* p = new QGridLayout(profile);
     p->addWidget(title,0, 0,1,2);
     QLabel* g = new QLabel(profile);
-    g->setFixedSize(100,100);
+    g->setFixedSize(150,200);
     g->setPixmap(QPixmap(ctrl->fotoprofilo()).scaled(g->width(),g->height()));
-    p->addWidget(g,1, 0,1,2);
+    p->addWidget(g,1, 0,5,1, Qt::AlignTop);
 
     list<string> v1 = ctrl->CampiDatiProfile();
     list<string> v2 = ctrl->DaiValoreCampiDatiProfile();
 
      int conta = 2;
                 for(list<string>::const_iterator it=v1.begin(); it != v1.end(); ++it){
-                             g=new QLabel(QString::fromStdString(*it)+":", profile);
-                             g->setStyleSheet("QLabel{color: #29abe2; background-color: #00004d;}");
+                             g = new QLabel(QString::fromStdString(*it)+":");
+                             g->setStyleSheet("background-color: #D1CAB0;");
 
-                             p->addWidget(g,conta, 0);
+                             p->addWidget(g,conta, 1,1,1, Qt::AlignTop);
                              ++conta;
                             }
                 conta = 2;
                 for(list<string>::const_iterator it2 = v2.begin(); it2 != v2.end(); ++it2){
-                    g = new QLabel(QString::fromStdString(*it2), profile);
-                    g->setStyleSheet("QLabel{border-radius: 15px 15px 15px 15px; background-color: white; padding-left: 1em;}");
+                    g = new QLabel(QString::fromStdString(*it2));
+                    g->setStyleSheet("QLabel{border-radius: 5px;"
+                                     " background-color: white; "
+                                     "padding: 0.4em 0 0.4em 0.4em;}");
 
-                    p->addWidget(g,conta, 1,1,3);
+                    p->addWidget(g,conta, 2,1,1, Qt::AlignTop);
                     ++conta;
 
                 }
-    QPushButton* b = new QPushButton("Cambia foto profilo", profile);
-    b->setStyleSheet("QPushButton{border-radius: 15px;}");
-    b->setFixedHeight(30);
+    QPushButton* b = new QPushButton("Cambia foto", profile);
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
+    b->setFixedSize(125,30);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(cambiafotoProfilo()));
-    p->addWidget(b,conta+1,0,1,4);
+    p->addWidget(b,1,1,1,1, Qt::AlignTop);
     b = new QPushButton("Cambia password", profile);
-    b->setStyleSheet("QPushButton{border-radius: 15px;}");
-    b->setFixedHeight(30);
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
+    b->setFixedSize(150,30);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(cambiaPassword()));
-    p->addWidget(b,conta+2,0,1,4);
+    p->addWidget(b,1,2,1,4);
     p->setSpacing(4);
     profile->setLayout(p);
 

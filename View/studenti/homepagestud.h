@@ -6,12 +6,12 @@
 class QGroupBox;
 class QVBoxLayout;
 class QScrollArea;
-
+class QPushButton;
 class HomePageStud: public FinestreStudenti {
     Q_OBJECT
 private:
     QGroupBox* gruppi;
-    QGroupBox* compiti;
+    QPushButton* compiti;
     QGroupBox* profile;
     void InsertInGruppi();
     void InsertInCompiti() const;
