@@ -15,27 +15,27 @@ login::login(loginController *c,QWidget *parent):QWidget(parent),
                         passWord(new QLineEdit(this)), accedi(new QPushButton(tr("Accedi"), this)), controller(c),
                         errore(new QLabel(this)), tentativi(0)
 {
-    QFont f("Times", 13);
+    QFont f("Times", 11);
     nomeUtente->setMaxLength(15);
     nomeUtente-> setStyleSheet("height: 3em; background-color: white; "
-                               "color: black; border-radius: 10px 10px 10px 10px; "
+                               "color: black; border-radius: 10px; "
                                "padding-left: 0.5em;");
     nomeUtente->setFixedWidth(400);
     nomeUtente->setFont(f);
-    nomeUtente->setPlaceholderText("Inserisci il tuo nome utente");
+    nomeUtente->setPlaceholderText("Nome utente");
 
     passWord->setEchoMode(QLineEdit::Password);
     passWord->setFixedWidth(400);
     passWord->setMaxLength(15);
     passWord->setStyleSheet("height: 3em;background-color: white; "
-                            "color: black; border-radius: 10px 10px 10px 10px; "
+                            "color: black; border-radius: 10px; "
                             "padding-left: 0.5em");
     passWord->setFont(f);
-    passWord->setPlaceholderText("Inserisci la password di accesso");
+    passWord->setPlaceholderText("Password");
 
     accedi-> setStyleSheet("QPushButton{background-color: #206020; "
                            "color: white; "
-                           "border-radius: 5px 5px 5px 5px; "
+                           "border-radius: 5px; "
                            "}"
                            " QPushButton:hover{background-color: #e62e00;}");
     accedi->setFont(f);
@@ -51,7 +51,7 @@ login::login(loginController *c,QWidget *parent):QWidget(parent),
     label->setFixedSize(400,300);
     label->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
     label->setPixmap(QPixmap(":/Database/immagini/logoscuolablu.jpg").scaled(label->width(),label->height()));
-    label->setStyleSheet("border: 2px solid #602020; border-radius: 10px 10px 10px 10px");
+    label->setStyleSheet("border: 2px solid #602020; border-radius: 10px;");
 
 
 
@@ -62,9 +62,8 @@ login::login(loginController *c,QWidget *parent):QWidget(parent),
     layout->addWidget(passWord,0,Qt::AlignTop|Qt::AlignHCenter);
     layout->addWidget(accedi,1,Qt::AlignTop|Qt::AlignHCenter);
     layout->setAlignment(Qt::AlignCenter);
-    layout->setContentsMargins(11,200,11,11);
+    layout->setContentsMargins(11,100,11,11);
 
-    resize(1500,1000);
     setWindowTitle(tr("log in"));
     setStyleSheet(" background-color: #29abe2");
     qApp->setStyleSheet("QLineEdit:focus {border: 2px solid #194d19;}");

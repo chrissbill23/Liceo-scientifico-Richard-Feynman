@@ -17,7 +17,7 @@ private:
     QTextEdit* Rispondi;
     GroupBoxRispostePost* Risposte;
     ControllerGruppoUser* ctrl;
-    QGroupBox *Domanda();
+    QScrollArea *Domanda();
 public:
     Post(ControllerGruppoUser *c, const QString &n, int p);
     void BodyAndFooter();

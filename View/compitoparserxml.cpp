@@ -40,13 +40,27 @@ void CompitoParserXml::parse()
 
     if(f.apriFile()){
         lay->addWidget(valAutomatica,0,Qt::AlignTop|Qt::AlignLeft);
-        lay->addWidget(new QLabel(giveController()->getCompitoAutore(giveCodice()), temp),0,Qt::AlignTop|Qt::AlignLeft);
-        lay->addWidget(new QLabel(QString::fromStdString(f.daiTestoIn("titolo"))),0,Qt::AlignTop|Qt::AlignCenter);
+
+        QFont font ("Times", 14);
+        font.setBold(true);
+        font.setUnderline(true);
+
+        QLabel* titolo = new QLabel(QString::fromStdString(f.daiTestoIn("titolo")), temp);
+        titolo->setFont(font);
+        lay->addWidget(titolo,0,Qt::AlignTop|Qt::AlignCenter);
+
+        setWindowTitle(titolo->text());
+
         int totDom = f.totNodi("domanda");
         bool DomandaRispmult = false;
-        for(int i = 0; i < totDom; ++i){
 
-            lay->addWidget(new QLabel("Domanda "+QString::number(i+1)+" :", this),0,Qt::AlignTop|Qt::AlignLeft);
+        font = QFont ("Times", 12);
+        font.setBold(true);
+
+        for(int i = 0; i < totDom; ++i){
+            QLabel* domanda = new QLabel("Domanda "+QString::number(i+1)+" :", temp);
+            domanda->setFont(font);
+            lay->addWidget(domanda,0,Qt::AlignTop|Qt::AlignLeft);
             string s = f.daiTestoIn("tipoDomanda",i);
 
             if(s == "domanda a risposta multipla"){
@@ -56,7 +70,6 @@ void CompitoParserXml::parse()
                         QList<string>::fromStdList(f.daiTestoDiNodi("testoRisposta","domanda",i)),
                         QList<string>::fromStdList(f.daiTestoDiNodi("corretta","domanda",i)));
             d->setIntoAnswWidg();
-            d->setFixedWidth(200);
             d->setStyleSheet("border: 0;");
             lay->addWidget(d,1,Qt::AlignTop|Qt::AlignLeft);
             }
@@ -64,26 +77,44 @@ void CompitoParserXml::parse()
                 DomandaAperta* d = new DomandaAperta(this);
                 d->EditDomanda(QString::fromStdString(f.daiTestoIn("testoDomanda",i)));
                 d->setIntoAnswWidg();
-                d->setFixedWidth(500);
+                d->setFixedHeight(400);
                 d->setStyleSheet("QGroupBox{border: 0;}");
-                lay->addWidget(d,1,Qt::AlignTop|Qt::AlignLeft);
+                lay->addWidget(d,1,Qt::AlignTop);
             }
         }
 
         if(DomandaRispmult){
             if(risultDM)
                 delete risultDM;
-            risultDM = new QPushButton("Vedi correzione domande aperte",temp);
+            risultDM = new QPushButton("Vedi correzione domande chiuse",temp);
+            risultDM->setFixedSize(200,30);
+            risultDM->setStyleSheet("QPushButton{"
+                                    "background-color: #336699; "
+                                    "border-radius: 5px 5px 5px 5px; "
+                                    "color: white;}"
+                                    "QPushButton:pressed {"
+                                   " background-color:#003300;}");
+            risultDM->setFont(QFont("Times", 8));
+            risultDM->setCursor(QCursor(Qt::PointingHandCursor));
             connect(risultDM, SIGNAL(clicked(bool)),this,SLOT(CorrezioneAutomatica()));
-            lay->addWidget(risultDM,0,Qt::AlignTop|Qt::AlignCenter);
+            lay->addWidget(risultDM,0,Qt::AlignTop|Qt::AlignHCenter);
         }
         hasAnsw = giveController()->hasAnsweredCompito(giveCodice());
         if(!hasAnsw){
             if(salva)
                 delete salva;
-            salva = new QPushButton("Salva Modifiche",temp);
+            salva = new QPushButton("Salva",temp);
+            salva->setFixedSize(150,30);
+            salva->setStyleSheet("QPushButton{"
+                                 "background-color: #336699; "
+                                 "border-radius: 5px 5px 5px 5px; "
+                                 "color: white;}"
+                                 "QPushButton:pressed {"
+                                " background-color:#003300;}");
+            salva->setFont(QFont("Times", 8));
+            salva->setCursor(QCursor(Qt::PointingHandCursor));
             connect(salva, SIGNAL(clicked(bool)),this, SLOT(salvaRisposta()));
-            lay->addWidget(salva,1,Qt::AlignTop|Qt::AlignCenter);
+            lay->addWidget(salva,1,Qt::AlignTop|Qt::AlignHCenter);
         }
     }
     else lay->addWidget(new QLabel("Errore nell'apertura del file"));
@@ -140,5 +171,7 @@ void CompitoParserXml::salvaRisposta()
         QMessageBox::information(const_cast<CompitoParserXml*>(this), "", "Salvato con successo!");
         hasAnsw = true;
         delete salva;
+        giveController()->ReloadAllWindows();
+        close();
     }
 }

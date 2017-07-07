@@ -20,14 +20,14 @@ public:
     virtual Controller* getController()const;
 public slots: 
     virtual void reloadWindow() = 0;
+    virtual void viewInfoClasse(const QString& classe)const;
+    virtual void viewMaterieInsegnate()const;
+    virtual void viewPdfFile(const QString&)const;
     void signout();
     void HomePageBiblio()const;
     void TornaIndietro()const;
-    void show();  
-    virtual void viewPdfFile(const QString&)const;
-    virtual void viewInfoLibro(const QString &code)const;
-    virtual void viewInfoClasse(const QString& classe)const;
-    virtual void viewMaterieInsegnate()const;
+    void show();
+    void viewInfoLibro(const QString &code)const;
     void viewLibriInCateg(const QString& cath);
     void cambiaPassword();
     void cambiafotoProfilo() const;

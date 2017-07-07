@@ -9,7 +9,7 @@
 #include <QTextEdit>
 #include <QMessageBox>
 
-int ViewCompiti::maxPerPage = 2;
+int ViewCompiti::maxPerPage = 10;
 
 ViewCompiti::ViewCompiti(ControllerCompitiUser *c) : Finestre(c), lay(0), Materia(0), classe(0), ctrl(c)
 {
@@ -19,6 +19,12 @@ ViewCompiti::ViewCompiti(ControllerCompitiUser *c) : Finestre(c), lay(0), Materi
     if(tot % maxPerPage > 0 || tot == 0)
         ++totPage;
     currPage = 1;
+    setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
 }
 
 QComboBox *ViewCompiti::Materie()
@@ -26,8 +32,8 @@ QComboBox *ViewCompiti::Materie()
     if(Materia)
         delete Materia;
     Materia = new QComboBox(this);
-    Materia->setFixedSize(300,50);
-    Materia->setFont(QFont("Times",12));
+    Materia->setFixedSize(300,40);
+    Materia->setFont(QFont("Times",10));
 
     Materia->addItem("Tutte le materie", -1);
 
@@ -44,8 +50,8 @@ QComboBox *ViewCompiti::Classi()
     if(classe)
         delete classe;
     classe = new QComboBox(this);
-    classe->setFixedSize(300,50);
-    classe->setFont(QFont("Times",12));
+    classe->setFixedSize(300,40);
+    classe->setFont(QFont("Times",10));
 
     classe->addItem("Tutte le classi", -1);
 
@@ -117,7 +123,7 @@ void ViewCompiti::parseCompitoFile(const QString & codice) const
     if(formato == "xml"){
         CompitoParserXml temp(codice, ctrl);
         temp.parse();
-        temp.setFixedSize(900,700);
+        temp.setFixedSize(800,700);
         temp.exec();
     }
     else{
@@ -136,6 +142,10 @@ void ViewCompiti::FiltraRisultati()
 
 void ViewCompiti::commentaRisp(const QString &codice, int risposta) const
 {
+    if(ctrl->HasRispCompitoCom(codice, risposta)){
+        QMessageBox::information(0,"","Ha già commentato questo elaborato");
+        return;
+    }
     popUpDialog temp(1,3);
 
     QTextEdit* t = new QTextEdit(&temp);
@@ -149,14 +159,14 @@ void ViewCompiti::commentaRisp(const QString &codice, int risposta) const
         {
             QMessageBox::information(&temp, "Errore","E' avvenuto un errore");
         }
-        else QMessageBox::information(&temp, "Errore","Commento salvato");
+        else QMessageBox::information(&temp, "","Commento salvato");
     }
 }
 
 void ViewCompiti::viewCommento(const QString &codice, int risposta) const
 {
     if(!ctrl->HasRispCompitoCom(codice, risposta)){
-        QMessageBox::information(const_cast<ViewCompiti*>(this), "","Non ci sono ancora commenti");
+        QMessageBox::information(0, "","Non ci sono ancora commenti");
     }
     else{
         popUpDialog temp(1,1);
@@ -169,17 +179,17 @@ void ViewCompiti::viewCommento(const QString &codice, int risposta) const
 
 void ViewCompiti::elimCompito(const QString &codice)
 {
-    if(QMessageBox::information(this, "ATTENZIONE!!!","Eliminando il compito/esercizio, non sarà più"
+    if(QMessageBox::information(0, "ATTENZIONE!!!","Eliminando il compito/esercizio, non sarà più"
                                                     " possibile recuperarlo con i suoi elaborati.\n\n"
                                                     "Sei sicuro di voler continuare ?",
                              QMessageBox::Yes,QMessageBox::No) == QMessageBox::Yes){
         if(ctrl->eliminaCompito(codice)){
-            QMessageBox::information(this, "","Eliminato con successo!");
-            reloadWindow();
+            QMessageBox::information(0, "","Eliminato con successo!");
+            FiltraRisultati();
         }
-        else QMessageBox::information(this, "Errore","E' avvenuto un errore");
+        else QMessageBox::information(0, "Errore","E' avvenuto un errore");
     }
-    else QMessageBox::information(this,"", "Annullato con successo!");
+    else QMessageBox::information(0,"", "Annullato con successo!");
 }
 
 void ViewCompiti::Header()
@@ -187,9 +197,16 @@ void ViewCompiti::Header()
     if(lay)
         delete lay;
     lay = new QGridLayout(this);
-    QPushButton* b = new QPushButton("Torna indietro", this);
-    b->setFixedSize(300,40);
-    b->setStyleSheet("background-color: green; color: white;");
+    QPushButton* b = new QPushButton("Indietro", this);
+    b->setFixedSize(150,40);
+    b->setFont(QFont("Times",11));
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px 5px 5px 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(TornaIndietro()));
     lay->addWidget(b,0,0,1,1,Qt::AlignLeft);
     setLayout(lay);
@@ -198,6 +215,68 @@ void ViewCompiti::Header()
 void ViewCompiti::setTotPage(int tot)
 {
     totPage = tot;
+}
+
+void ViewCompiti::InfoCompito(const QString & code) const
+{
+    popUpDialog temp(1,17);
+    temp.setFixedSize(700,500);
+
+
+    QFont f("Times",14);
+    f.setBold(true);
+    QFont f2("Times",12);
+
+    QLabel* lab = new QLabel("Data: ",&temp);
+    lab->setFont(f);
+    temp.push_back_Widget(lab);
+    const QString& date = ctrl->getCompitoData(code);
+    lab = new QLabel(date, &temp);
+    lab->setFont(f2);
+    temp.push_back_Widget(lab);
+
+    lab = new QLabel("Titolo: ",&temp);
+    lab->setFont(f);
+    temp.push_back_Widget(lab);
+    const QString& tit = ctrl->getCompitoTitolo(code);
+    lab = new QLabel(tit, &temp);
+    lab->setFont(f2);
+    temp.push_back_Widget(lab);
+    temp.setWindowTitle(tit);
+
+    lab = new QLabel("Autore: ",&temp);
+    lab->setFont(f);
+    temp.push_back_Widget(lab);
+    lab = new QLabel(ctrl->getCompitoAutore(code), &temp);
+    lab->setFont(f2);
+    temp.push_back_Widget(lab);
+
+    lab = new QLabel("Descrizione: ",&temp);
+    lab->setFont(f);
+    temp.push_back_Widget(lab);
+    lab = new QLabel(ctrl->getCompitoDescrizione(code), &temp);
+    lab->setFont(f2);
+    temp.push_back_Widget(lab);
+
+    lab = new QLabel("Materia: ",&temp);
+    lab->setFont(f);
+    temp.push_back_Widget(lab);
+    lab = new QLabel(ctrl->getCompitoMateria(code), &temp);
+    lab->setFont(f2);
+    temp.push_back_Widget(lab);
+
+    lab = new QLabel("Classi assegnate: ",&temp);
+    lab->setFont(f);
+    temp.push_back_Widget(lab);
+    lab = new QLabel(&temp);
+    list<string> l = ctrl->classiCompito(code);
+    for(list<string>:: const_iterator it4 = l.begin(); it4 != l.end(); ++ it4){
+        lab->setText(lab->text() + QString::fromStdString(*it4)+". ");
+    }
+    lab->setFont(f2);
+    temp.push_back_Widget(lab);
+
+    temp.exec();
 }
 
 QGridLayout *ViewCompiti::giveLayout() const

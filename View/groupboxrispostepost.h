@@ -6,7 +6,7 @@
 class QScrollArea;
 class ControllerGruppoUser;
 class QTextEdit;
-class QVBoxLayout;
+class QHBoxLayout;
 class GroupBoxRispostePost : public QGroupBox
 {
     Q_OBJECT
@@ -16,7 +16,7 @@ private:
     QTextEdit* Rispondi;
     QScrollArea* scroll;
     ControllerGruppoUser* ctrl;
-    QVBoxLayout* lay;
+    QHBoxLayout* lay;
     int totRisp, totPage, currPage;
     static int maxPerPage;
 

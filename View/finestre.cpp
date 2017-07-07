@@ -55,10 +55,10 @@ void Finestre::viewPdfFile(const QString & path) const
 void Finestre::viewInfoLibro(const QString& code) const
 {
     popUpDialog temp(1,17);
-    temp.setFixedSize(700,700);
+    temp.setFixedSize(600,650);
 
     QLabel* lab = new QLabel(&temp);
-    lab->setFixedSize(temp.width()-100,400);
+    lab->setFixedSize(temp.width()-100,300);
     lab->setStyleSheet("color: #29abe2;");
     const QString& path = ctrl->daiCopertinaLibro(code);
     if(path != ""){
@@ -186,7 +186,8 @@ void Finestre::viewMaterieInsegnate() const
     tit->setFont(f2);
     temp.push_back_Widget(tit);
     }
-    temp.setFixedSize(500,600);
+    temp.setFixedSize(500,550);
+    temp.setWindowTitle("Materie insegnate");
     temp.exec();
 }
 
@@ -214,12 +215,11 @@ void Finestre::viewLibriInCateg(const QString &cath)
         b->setFont(QFont("Times", 9));
         b->setFixedSize(100,30);
         b->setStyleSheet("QPushButton{"
-                         "background-color: green;"
-                         "border: 2px solid;"
-                         "border-radius: 5px 5px 5px 5px; "
+                         "background-color: #336699; "
+                         "border-radius: 5px; "
                          "color: white;}"
                          "QPushButton:pressed {"
-                         "background-color:#003300;}");
+                        " background-color:#003300;}");
         connect(b,SIGNAL(clicked(bool)),b,SLOT(viewLibro()));
         temp.push_back_Widget(b);
 
@@ -227,12 +227,11 @@ void Finestre::viewLibriInCateg(const QString &cath)
         b->setFont(QFont("Times", 9));
         b->setFixedSize(100,30);
         b->setStyleSheet("QPushButton{"
-                         "background-color: green;"
-                         "border: 2px solid;"
-                         "border-radius: 5px 5px 5px 5px; "
+                         "background-color: #336699; "
+                         "border-radius: 5px; "
                          "color: white;}"
                          "QPushButton:pressed {"
-                         "background-color:#003300;}");
+                        " background-color:#003300;}");
         connect(b,SIGNAL(clicked(bool)),b,SLOT(viewInfoLibro()));
         temp.push_back_Widget(b);
 
@@ -245,15 +244,16 @@ void Finestre::cambiaPassword()
     popUpDialog temp(1,4);
 
     QFont f("Times",13);
-    QLabel* tit = new QLabel("La password deve avere un minimo di 8 caratteri e al più 15 caratteri.\n"
-                             " Non puo' contenere spazi o tab, e i seguenti carattei: < & \" ", &temp);
+    QLabel* tit = new QLabel("La password:\n"
+                             "-deve avere un minimo di 8 caratteri e al più 15 caratteri.\n"
+                             "-Non puo' contenere spazi, tab, e i caratteri > < & \"", &temp);
     tit->setFont(f);
     temp.push_back_Widget(tit);
 
 
     QLineEdit* pass = new QLineEdit(&temp);
     pass->setPlaceholderText("Inserisci la nuova password");
-    pass->setFixedHeight(50);
+    pass->setFixedSize(400,50);
     pass->setMaxLength(15);
     pass->setEchoMode(QLineEdit::Password);
     pass->setFont(f);
@@ -261,17 +261,18 @@ void Finestre::cambiaPassword()
 
     QLineEdit* repass = new QLineEdit(&temp);
     repass->setPlaceholderText("Reinserisci la password");
-    repass->setFixedHeight(50);
+    repass->setFixedSize(400,50);
     repass->setEchoMode(QLineEdit::Password);
     repass->setMaxLength(15);
     repass->setFont(f);
     temp.push_back_Widget(repass);
 
     QPushButton* b = new QPushButton("Salva",&temp);
+    b->setFixedSize(400,30);
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(accept()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(500,300);
+    temp.setFixedSize(650,400);
     temp.setWindowTitle("Cambio password");
     while(temp.exec() == QDialog::Accepted && ( pass->text() == "" || repass->text() == "")){
         if( pass->text() != "" ){
@@ -287,13 +288,14 @@ void Finestre::cambiaPassword()
         const QString& passText = pass->text();
         const QString& repassText = repass->text();
         if(passText.size() < 8 || repassText.size() < 8 ){
-            QMessageBox::information(&temp,"ERRORE", "Password non corretta, sono richiesti almeno 8 caratteri e/o cifre");
+            QMessageBox::information(&temp,"ERRORE", "Password non corretta.\n"
+                                                     "Sono richiesti almeno 8 caratteri e/o cifre");
             return;
         }
         if(passText == repassText){
          if(ctrl->CambioPassword(passText)){
              QMessageBox::information(&temp,"","Il cambio password è avvenuto con successo\n"
-                                           "La chiediamo di rieffettuare l'accesso");
+                                           "Le chiediamo di rieffettuare l'accesso");
              signout();
          }
          else QMessageBox::information(&temp,"ERRORE", "E' avvenuto un errore, verifica di aver inserito\n"

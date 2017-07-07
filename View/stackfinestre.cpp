@@ -21,8 +21,8 @@ void StackFinestre::TogliDistruggi(nodo* p)
 }
 
 StackFinestre::StackFinestre(loginController *l, QStackedWidget *parent) :
-    QStackedWidget(parent),logger(l),first(0), currentWidg(0){
-
+    QStackedWidget(parent),logger(l),first(0), last(0), currentWidg(0){
+    setMinimumSize(1024,768);
 }
 
 
@@ -86,13 +86,15 @@ void StackFinestre::setToPrevWidget()
         currentWidg = currentWidg->prec;
         AdaptStyleSheet();
         QStackedWidget::setCurrentWidget(currentWidg->info);
+        TogliDistruggi(currentWidg->next);
+        currentWidg->next = 0;
     }
 }
 
 void StackFinestre::reset()
 {
     TogliDistruggi(first);
-    first = last = currentWidg=0;
+    first = last = currentWidg = 0;
 }
 
 void StackFinestre::closeEvent(QCloseEvent *event)

@@ -41,6 +41,7 @@ public slots:
     virtual void goNext();
     virtual void goPrev();
     virtual void reloadWindow();
+    void InfoCompito(const QString&)const;
 protected:
     static int maxPerPage;
     int totPage;

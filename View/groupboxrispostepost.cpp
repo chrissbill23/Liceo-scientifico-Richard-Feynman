@@ -9,7 +9,7 @@
 #include <QDate>
 #include <QMessageBox>
 
-int GroupBoxRispostePost::maxPerPage = 3;
+int GroupBoxRispostePost::maxPerPage = 7;
 
 QGroupBox *GroupBoxRispostePost::Risposte(int indice)
 {
@@ -18,9 +18,9 @@ QGroupBox *GroupBoxRispostePost::Risposte(int indice)
     QGridLayout* p = new QGridLayout(temp);
     temp->setLayout(p);
 
-    QFont f("Times",14);
+    QFont f("Times",11);
     f.setUnderline(true);
-    QLabel* lab = new QLabel(QString::number(totRisp)+" Risposte",temp);
+    QLabel* lab = new QLabel(QString::number(totRisp)+" Risposte\n\n",temp);
     p->addWidget(lab,0,0,1,1);
     lab->setFont(f);
     int i = totRisp - 1- indice;
@@ -30,9 +30,10 @@ QGroupBox *GroupBoxRispostePost::Risposte(int indice)
         const QString& dataR = ctrl->daiDataRisposta(gruppo,post,i);
         const QString& autor = ctrl->daiAutoreRisposta(gruppo,post,i);
         const QString& foto = ctrl->getGroupMemberFotoProfile(autor);
-        const QString& testo = ctrl->daiTestoRisposta(gruppo,post,i);
+        QString testo = ctrl->daiTestoRisposta(gruppo,post,i);
 
 
+        QVBoxLayout* l = new QVBoxLayout;
         lab = new QLabel(temp);
         lab->setFont(QFont("Times",10));
         lab->setFixedSize(60,60);
@@ -42,38 +43,61 @@ QGroupBox *GroupBoxRispostePost::Risposte(int indice)
         }
         else {
             lab->setText("Nessuna foto profilo");
-            lab->setFont(QFont("Times", 15));
+            lab->setFont(QFont("Times", 13));
         }
-        p->addWidget(lab,conta*2+1,0,1,1,Qt::AlignTop);
+        l->addWidget(lab,0,Qt::AlignTop);
 
         lab = new QLabel(autor,temp);
-        lab->setFont(QFont("Times",10));
-        p->addWidget(lab,conta*2+2,0,1,1,Qt::AlignTop);
+        lab->setFont(QFont("Times",9));
+        l->addWidget(lab,1,Qt::AlignTop);
 
-        lab = new QLabel(dataR+"\n"+testo,temp);
+        p->addLayout(l,conta*2+1,0,1,1,Qt::AlignTop);
+
+        l = new QVBoxLayout;
+        int tot = testo.size()/100;
+        while(tot > 0){
+            testo.insert(tot*50,"\n");
+            --tot;
+        }
+        f = QFont("Times",9);
+        f.setBold(true);
+        lab = new QLabel(dataR,temp);
+        lab->setFont(f);
+        l->addWidget(lab,0,Qt::AlignTop);
+        lab = new QLabel(testo+"\n\n",temp);
         lab->setFont(QFont("Times",10));
-        p->addWidget(lab,conta*2+1,1,1,1,Qt::AlignTop);
+        l->addWidget(lab,1,Qt::AlignTop);
+
+        p->addLayout(l,conta*2+2,0,1,1,Qt::AlignTop);
         p->setSpacing(3);
         ++conta;
     }
 
+    QGroupBox* footer = new QGroupBox(temp);
+    footer->setStyleSheet("QGroupBox{border: 0;}");
+    QGridLayout* footerLay = new QGridLayout(footer);
+    footer->setLayout(footerLay);
+
     lab = new QLabel("pagina "+QString::number(currPage)+"/"+QString::number(totPage));
-    lab->setFont(f);
-    p->addWidget(lab,conta*2+2,1,1,1,Qt::AlignHCenter);
+    lab->setFont(QFont("Times",8));
+    footerLay->addWidget(lab,0,1,1,1,Qt::AlignHCenter);
+    footerLay->setColumnStretch(0,1);
+    footerLay->setColumnStretch(2,1);
+
     QIcon i1;
     if(currPage > 1){
         i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
         QPushButton* b = new QPushButton(temp);
         b->setIcon(i1);
-        b->setFixedSize(200,40);
-        b->setIconSize(QSize(200,40));
+        b->setFixedSize(150,30);
+        b->setIconSize(QSize(150,30));
         b->setStyleSheet("QPushButton{"
                          "border: 0;"
                          "border-radius: 5px 5px 5px 5px; }"
                          "QPushButton:pressed {"
                          "background-color:#003300;}");
         b->setCursor(QCursor(Qt::PointingHandCursor));
-        p->addWidget(b,conta*2+2,0,1,1,Qt::AlignLeft);
+        footerLay->addWidget(b,0,0,1,1,Qt::AlignLeft);
         connect(b,SIGNAL(clicked(bool)),this,SLOT(goPrev()));
     }
 
@@ -81,8 +105,8 @@ QGroupBox *GroupBoxRispostePost::Risposte(int indice)
         i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
         QPushButton* b2 = new QPushButton(temp);
         b2->setIcon(i1);
-        b2->setFixedSize(200,40);
-        b2->setIconSize(QSize(200,40));
+        b2->setFixedSize(150,30);
+        b2->setIconSize(QSize(150,30));
         b2->setStyleSheet("QPushButton{"
                           "border: 0;"
                           "border-radius: 5px 5px 5px 5px; }"
@@ -90,9 +114,10 @@ QGroupBox *GroupBoxRispostePost::Risposte(int indice)
                           "background-color:#003300;}");
         b2->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b2,SIGNAL(clicked(bool)),this,SLOT(goNext()));
-        p->addWidget(b2,conta*2+2,2,1,1,Qt::AlignRight);
+        footerLay->addWidget(b2,0,2,1,1,Qt::AlignRight);
     }
 
+    p->addWidget(footer,conta*2,0,1,2);
 
     return temp;
 }
@@ -137,17 +162,21 @@ void GroupBoxRispostePost::goPrev()
 }
 
 GroupBoxRispostePost::GroupBoxRispostePost(ControllerGruppoUser *c, const QString &n, int p, QWidget *parent): QGroupBox(parent),
-    post(p),gruppo(n),Rispondi(0),scroll(0), ctrl(c),lay(new QVBoxLayout(this)), totRisp(0), totPage(1), currPage(1)
+    post(p),gruppo(n),Rispondi(0),scroll(0), ctrl(c),lay(new QHBoxLayout(this)), totRisp(0), totPage(1), currPage(1)
 {
     Rispondi = new QTextEdit(this);
-    Rispondi->setFixedSize(600,300);
     Rispondi->setFont(QFont("Times",11));
+    Rispondi->setFixedSize(500,200);
+    Rispondi->setPlaceholderText("Rispondi...");
     QPushButton* b = new QPushButton("Invia",this);
-    b->setFixedSize(300,40);
+    b->setFixedSize(150,40);
     connect(b,SIGNAL(clicked(bool)),this,SLOT(rispondi()));
-    lay->addWidget(Rispondi,0,Qt::AlignTop);
-    lay->addWidget(b,0,Qt::AlignTop);
 
+    QVBoxLayout* lay2 = new QVBoxLayout;
+    lay2->addWidget(Rispondi,0,Qt::AlignTop);
+    lay2->addWidget(b,1,Qt::AlignTop);
+
+    lay->addLayout(lay2,0);
     totRisp = ctrl->totRisposteAPost(gruppo,post);
 
     totPage = totRisp / maxPerPage;

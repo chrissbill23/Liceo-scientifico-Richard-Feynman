@@ -36,6 +36,7 @@ QGroupBox *SearchGroup::loadPage()
     if(searchBox->text() != "")
         lab->setText(lab->text()+" per \""+searchBox->text()+"\"");
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 4em;");
     lay->addWidget(lab,0,0,1,1,Qt::AlignTop);
 
     f = QFont("Times",14);
@@ -43,6 +44,7 @@ QGroupBox *SearchGroup::loadPage()
 
     lab = new QLabel("Nome gruppo",temp);
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 1em;");
     lay->addWidget(lab,1,0,1,1,Qt::AlignTop);
 
      f = QFont("Times", 9);
@@ -51,16 +53,25 @@ QGroupBox *SearchGroup::loadPage()
       {
         lab = new QLabel(QString::fromStdString((*it)),temp);
         lab->setFont(f);
+        lab->setFixedWidth(300);
         lay->addWidget(lab,row,0,1,1,Qt::AlignTop);
 
         buttonGroup* b = new buttonGroup("Visita Gruppo",QString::fromStdString((*it)), this);
         b->setFixedSize(150, 30);
         b->setCursor(QCursor(Qt::PointingHandCursor));
+        b->setStyleSheet("QPushButton{"
+                         "background-color: #336699; "
+                         "border-radius: 5px; "
+                         "color: white;}"
+                         "QPushButton:pressed {"
+                        " background-color:#003300;}");
         connect(b, SIGNAL(clicked(bool)), b, SLOT(GiveHomeGroup()));
         lay->addWidget(b,row,1,1,1,Qt::AlignTop);
 
         ++row;
      }
+
+     lay->setRowStretch(row+1,1);
 
      return temp;
 
@@ -85,7 +96,7 @@ void SearchGroup::Header()
     QPushButton* b = new QPushButton("Indietro", head);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     b->setFixedSize(300,40);
-    b->setFont(QFont("Times", 13));
+    b->setFont(QFont("Times", 11));
     b->setStyleSheet("QPushButton{"
                      "background-color: #336699; "
                      "border-radius: 5px 5px 5px 5px; "
@@ -97,18 +108,25 @@ void SearchGroup::Header()
 
     searchBox = new QLineEdit(head);
     searchBox->setFixedSize(400,40);
-    searchBox->setFont(QFont("Times",13));
+    searchBox->setFont(QFont("Times",10));
     searchBox->setPlaceholderText("Inserisci una parola chiave");
     b = new QPushButton("Cerca",head);
     b->setFixedSize(100,40);
-    b->setFont(QFont("Times",13));
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    b->setFont(QFont("Times",10));
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
     connect(b,SIGNAL(clicked(bool)),this,SLOT(ShowResult()));
     lay->addWidget(searchBox,0,Qt::AlignRight);
     lay->addWidget(b,0,Qt::AlignRight);
 
     categ = new QComboBox(head);
-    categ->setFont(QFont("Times",13));
-    categ->setFixedSize(500,50);
+    categ->setFont(QFont("Times",10));
+    categ->setFixedSize(300,40);
     categ->setCursor(QCursor(Qt::PointingHandCursor));
     InsertInCategoria();
     connect(categ,SIGNAL(currentIndexChanged(int)),this,SLOT(switchCath()));

@@ -11,15 +11,15 @@
 FormAddPostGroup::FormAddPostGroup(ControllerGruppoUser *c, const QString &group, QWidget *parent) : QDialog(parent), ctrl(c),
     titolo(new QLineEdit(this)), testo(new QTextEdit(this)), groupName(group)
 {
-    QFont f("Times",14);
+    QFont f("Times",12);
     titolo->setMaxLength(70);
     titolo->setFixedHeight(50);
     titolo->setFont(f);
     titolo->setPlaceholderText("Inserire il titolo del post( massimo di 70 caratteri)");
-    QLabel* testoTitle = new QLabel("Inserire il testo del post (3000 caratteri al massimo", testo);
+    QLabel* testoTitle = new QLabel("Inserire il testo del post (3000 caratteri al massimo)", testo);
     testoTitle->setFont(f);
     testo->setFont(f);
-    testo->setFixedHeight(500);
+    testo->setFixedHeight(600);
 
     QPushButton* b = new QPushButton("Crea post", this);
     connect(b,SIGNAL(clicked(bool)), this, SLOT(salva()));

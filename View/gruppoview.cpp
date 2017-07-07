@@ -49,8 +49,8 @@ void GruppoView::Header()
     QHBoxLayout* lay = new QHBoxLayout(head);
         QPushButton* b = new QPushButton("Indietro",head);
         b->setCursor(QCursor(Qt::PointingHandCursor));
-        b->setFixedSize(300,40);
-        b->setFont(QFont("Times", 13));
+        b->setFixedSize(200,40);
+        b->setFont(QFont("Times", 11));
         b->setStyleSheet("QPushButton{"
                          "background-color: #336699; "
                          "border-radius: 5px 5px 5px 5px; "
@@ -64,8 +64,8 @@ void GruppoView::Header()
         if(ctrl->isIscrittoInGroup(nomeGroup)){
                     buttonGroup* b2 = new buttonGroup("Annulla iscrizione",nomeGroup,this);
                     b2->setCursor(QCursor(Qt::PointingHandCursor));
-                    b2->setFixedSize(300,40);
-                    b2->setFont(QFont("Times", 13));
+                    b2->setFixedSize(200,40);
+                    b2->setFont(QFont("Times", 11));
                     b2->setStyleSheet("QPushButton{"
                                      "background-color: #990000; "
                                      "border-radius: 5px 5px 5px 5px; "
@@ -79,8 +79,8 @@ void GruppoView::Header()
         else{
                     buttonGroup* b2 = new buttonGroup("Iscriviti",nomeGroup,this);
                     b2->setCursor(QCursor(Qt::PointingHandCursor));
-                    b2->setFixedSize(300,40);
-                    b2->setFont(QFont("Times", 13));
+                    b2->setFixedSize(200,40);
+                    b2->setFont(QFont("Times", 11));
                     b2->setStyleSheet("QPushButton{"
                                      "background-color: #336699; "
                                      "border-radius: 5px 5px 5px 5px; "
@@ -134,7 +134,7 @@ void GruppoView::RemoveMeFromGroup(const QString &group)
 void GruppoView::CreaNuovoPost()
 {
     FormAddPostGroup temp(ctrl,nomeGroup);
-    temp.setFixedSize(900,800);
+    temp.setFixedSize(700,600);
     temp.exec();
     reloadWindow();
 }

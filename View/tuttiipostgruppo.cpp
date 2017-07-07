@@ -18,16 +18,15 @@ QGroupBox *TuttiIPostGruppo::loadPost(int indice)
     if(totpost==0){
         lay->addWidget(new QLabel("Non ci sono post"),0,Qt::AlignTop);
     }else{
-        QFont f("Times",13);
+        QFont f("Times",10);
         searchbox = new QLineEdit(temp);
         searchbox->setPlaceholderText("Cerca un post (al massimo 50 caratteri)");
         searchbox->setFont(f);
         searchbox->setMaxLength(50);
-        searchbox->setFixedSize(400,50);
+        searchbox->setFixedSize(400,40);
         QPushButton* b = new QPushButton("Cerca",temp);
-        b->setFont(f);
         b->setCursor(QCursor(Qt::PointingHandCursor));
-        b->setFixedSize(100,30);
+        b->setFixedSize(150,30);
         connect(b,SIGNAL(clicked(bool)),this,SLOT(cercaPost()));
         lay->addWidget(searchbox,0,Qt::AlignTop);
         lay->addWidget(b,0,Qt::AlignTop);
@@ -43,9 +42,11 @@ QGroupBox *TuttiIPostGruppo::loadPost(int indice)
         buttonGroup* b = new buttonGroup("["+QString::fromStdString(v[0])+"]  "
                 +QString::fromStdString(v[1])+ ":  "+QString::fromStdString(v[2]),groupName,this,"",post[i]);
         b->setFont(f);
+        b->setFixedHeight(40);
         b->setCursor(QCursor(Qt::PointingHandCursor));
+        b->setStyleSheet("padding: 0 1em 0 1em; ");
         connect(b,SIGNAL(clicked(bool)),b,SLOT(GotoPost()));
-        lay->addWidget(b,0,Qt::AlignTop);
+        lay->addWidget(b,0,Qt::AlignTop|Qt::AlignHCenter);
         ++conta;
         }
       QHBoxLayout* lay2 = new QHBoxLayout;
