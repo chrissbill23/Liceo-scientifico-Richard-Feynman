@@ -35,12 +35,13 @@ public:
     list<string> daiSessioniClassi()const;
     list<string> daiIndirizzoClassi()const;
     filexml giveSchedaClasse(const string& nome)const;
-    string checkForbiddenCharacters(const string& s)const;
-    bool isNumeric(const string& s)const;
-    bool hasSpaceOrTab(const string &s) const;
-    bool hasSpaceOrTabFirst(const string& s)const;
-    bool hasSpaceOrTabLast(const string& s)const;
-    bool HasNoChar(const string& s)const;
+    static bool isNumeric(const string& s);
+    static bool hasSpaceOrTab(const string &s);
+    static bool hasSpaceOrTabFirst(const string& s);
+    static bool hasSpaceOrTabLast(const string& s);
+    static bool HasNoChar(const string& s);
+    static string checkForbiddenCharacters(const string& s);
+
 
 };
 

@@ -8,6 +8,7 @@ private:
     string EditStudNomeUtente(const string& matricola, const string& nu) const;
     string checkInputFormAddStud(const string& matricola, const string &nu, const string &pw, const string& cognome,
                                  const string& nome, const string &classe, const string &luogo, int g, int m, int a);
+    string insertNewStudMatricola(const string& matricola, const string &nu)const;
 public:
     bool esiste() const;
     Segretario(string NomeUtente);
@@ -21,7 +22,6 @@ public:
     bool esisteNomeUtenteStud(const string& nu)const;
     string InsertNewStud(const string& matricola, const string &nu, const string &pw, const string& cognome,
                                  const string& nome, const string &classe, const string &luogo, int g, int m, int a);
-    string insertNewStudMatricola(const string& matricola, const string &nu)const;
     string EditStudCognome(const string& matricola, const string& cognome)const;
     string EditStudNome(const string& matricola, const string& nome)const;
     string EditStudDataNascita(const string& matricola, int g, int m, int a)const;

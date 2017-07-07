@@ -157,6 +157,7 @@ string Presidente::generaMail(const string &nome, const string &Cognome) const
     mail = mail + QString::number(l.size()+1).toStdString();
     mail = mail+"@mail.it";
 
+
     return mail;
 
 }

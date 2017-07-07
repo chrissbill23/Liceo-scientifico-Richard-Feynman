@@ -8,11 +8,12 @@ class compitiUser : virtual public Utente
 public:
     string getPdfCompitoPath(const string&) const;
     virtual vector<string> codiciCompiti()const;
-    void SortcodiciCompitibyMateria(vector<string> &, const string&)const;
-    void SortcodiciCompitibyClasse(vector<string> &, const string&)const;
+    virtual void SortcodiciCompitibyMateria(vector<string> &, const string&)const;
+    virtual void SortcodiciCompitibyClasse(vector<string> &, const string&)const;
     virtual vector<string> giveCompitiDates()const;
     virtual vector<string> giveCompitiTitle()const;
     list<string> classiCompito(const string &codice)const;
+    string getCompitoData(const string& code)const;
     string getCompitoFormato(const string&)const;
     string getCompitoTitolo(const string&)const;
     string getCompitoDescrizione(const string&)const;

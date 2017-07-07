@@ -69,30 +69,32 @@ bool Professore::CambiaPassword(const string &newPass) const
 }
 
 string Professore::createNewCompitoXml(const string &data, const string &titolo, const string &descr,
-                                     const string &materia, const string &classe) const
+                                     const string &materia, const string &classe, string& check) const
 {
-    string check = checkForbiddenCharacters(data);
+    check = checkForbiddenCharacters(data);
     if(check != "")
-        return check;
+        return "";
     check = checkForbiddenCharacters(titolo);
     if(check != "")
-        return check;
+        return "";
     check = checkForbiddenCharacters(descr);
     if(check != "")
-        return check;
+        return "";
     check = checkForbiddenCharacters(materia);
     if(check != "")
-        return check;
+        return "";
     check = checkForbiddenCharacters(classe);
     if(check != "")
-        return check;
-    if(HasNoChar(data) || HasNoChar(titolo)|| HasNoChar(descr)||HasNoChar(materia)||HasNoChar(classe))
-        return "Tutti i campi sono obbligatori";
+        return "";
+    if(HasNoChar(data) || HasNoChar(titolo)|| HasNoChar(descr)||HasNoChar(materia)||HasNoChar(classe)){
+        check = "Tutti i campi sono obbligatori";
+        return "";
+    }
     filexml f1(ProfFolder+"/compiti/Info.xml");
 
   if(f1.apriFile()){
       string code = QString::number(f1.totNodi("compito")).toStdString();
-      if(f1.esisteTesto(code))
+      while(f1.esisteTesto(code))
           code = code + "0";
     string path = ProfFolder+"/compiti/xml/"+titolo+code+".xml";
     filexml f2 = filexml::createNewXml(path, "compito");
@@ -134,6 +136,7 @@ string Professore::createNewCompitoXml(const string &data, const string &titolo,
     return path;
     }
 }
+  check = "Errore con i file";
   return "";
 }
 
@@ -227,7 +230,7 @@ bool Professore::loadCompitoPdf(const string &filePath, const string & data, con
 
   if(f1.apriFile()){
       string code = QString::number(f1.totNodi("compito")).toStdString();
-      if(f1.esisteTesto(code))
+      while(f1.esisteTesto(code))
           code = code + "0";
         string path = ProfFolder+"/compiti/pdf/"+titolo+code+".pdf";
       if(QFile::copy(QString::fromStdString(filePath),QDir::currentPath()+"/../progetto-pao-2017/Database"+QString::fromStdString(path))){
@@ -286,6 +289,28 @@ vector<string> Professore::giveCompitiDates() const
 {
     filexml f1(ProfFolder+"/compiti/Info.xml");
     return f1.daiTestoDiNodiVect("data",daiNomeUtente(),"compito");
+}
+
+void Professore::SortcodiciCompitibyMateria(vector<std::string> & l, const std::string & materia) const
+{
+    filexml f1("/Professori/compiti/Info.xml");
+    for(vector<string>::iterator it = l.begin(); it != l.end(); ++it){
+        if(!f1.akinTo("compito",*it,materia) || !f1.akinTo("compito",*it,daiNomeUtente())){
+            l.erase(it);
+            --it;
+        }
+    }
+}
+
+void Professore::SortcodiciCompitibyClasse(vector<std::string> & l, const std::string &classe) const
+{
+    filexml f1("/Professori/compiti/Info.xml");
+    for(vector<string>::iterator it = l.begin(); it != l.end(); ++it){
+        if(!f1.akinTo("compito",*it,classe) || !f1.akinTo("compito",*it,daiNomeUtente())){
+            l.erase(it);
+            --it;
+        }
+    }
 }
 
 bool Professore::commentaRispCompito(const string &codice, int risposta, const string &commento) const

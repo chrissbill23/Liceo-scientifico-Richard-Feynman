@@ -50,6 +50,12 @@ list<string> compitiUser::classiCompito(const string& codice) const
     return f1.daiTestoDiNodi("classe",codice,"compito");
 }
 
+string compitiUser::getCompitoData(const string &code) const
+{
+    filexml f1("/Professori/compiti/Info.xml");
+    return f1.daiTestoIn("data",f1.posNodo("codiceCompito",code));
+}
+
 string compitiUser::getCompitoFormato(const string & codice) const
 {
     filexml f1("/Professori/compiti/Info.xml");
@@ -83,7 +89,10 @@ string compitiUser::getCompitoClasse(const string & codice) const
 string compitiUser::getCompitoAutore(const string & codice) const
 {
     filexml f1("/Professori/compiti/Info.xml");
-    return f1.daiTestoIn("creatore",f1.posNodo("codiceCompito",codice));
+    filexml f2("/Professori/NUProf.xml");
+    filexml f3(f2.daiTestoIn("schedaPersonale",
+            f2.posNodo("NomeUtente",f1.daiTestoIn("creatore",f1.posNodo("codiceCompito",codice)))));
+    return f3.daiTestoIn("Nome") + " "+ f3.daiTestoIn("Cognome") ;
 }
 
 vector<string> compitiUser::giveCompitiDates() const

@@ -65,45 +65,47 @@ filexml Utente::giveSchedaClasse(const string &nome) const
     return f1.daiTestoIn("riferimentoFile",f1.posNodo("nome",nome));
 }
 
-string Utente::checkForbiddenCharacters(const string &s) const
+string Utente::checkForbiddenCharacters(const string &s)
 {
     const QString& temp = QString::fromStdString(s);
     int i = temp.indexOf("<",0);
+    if(i == -1)
+        i = temp.indexOf(">",0);
     if(i == -1)
         i = temp.indexOf("&",0);
     if(i==-1)
        i = temp.indexOf("\"",0);
     if(i != -1)
-        return "Sono vietati i seguenti caratteri: < & \"";
+        return "Sono vietati i seguenti caratteri: > < & \"";
 
     return "";
 }
 
-bool Utente::isNumeric(const string &s) const
+bool Utente::isNumeric(const string &s)
 {
     QRegExp check("^[0-9]{1,}$");
     return check.indexIn(QString::fromStdString(s),0) != -1;
 }
 
-bool Utente::hasSpaceOrTab(const std::string &s) const
+bool Utente::hasSpaceOrTab(const std::string &s)
 {
     QRegExp check("[\\s\\t]{1,}");
     return check.indexIn(QString::fromStdString(s),0) != -1;
 }
 
-bool Utente::hasSpaceOrTabFirst(const string &s) const
+bool Utente::hasSpaceOrTabFirst(const string &s)
 {
     QRegExp check("^[\\s,\\t]{1,}");
     return check.indexIn(QString::fromStdString(s),0) != -1;
 }
 
-bool Utente::hasSpaceOrTabLast(const string &s) const
+bool Utente::hasSpaceOrTabLast(const string &s)
 {
     QRegExp check("[\\s,\\t]{1,}$");
     return check.indexIn(QString::fromStdString(s),0) != -1;
 }
 
-bool Utente::HasNoChar(const std::string &s) const
+bool Utente::HasNoChar(const std::string &s)
 {
     QRegExp check("[a-z,A-Z,0-9]");
     return check.indexIn(QString::fromStdString(s),0) == -1;

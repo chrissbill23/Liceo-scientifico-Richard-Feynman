@@ -65,7 +65,6 @@ SOURCES += main.cpp\
     View/impiegato/agendabox.cpp \
     View/impiegato/notifichemailbox.cpp \
     View/impiegato/listamail.cpp \
-    View/impiegato/prof/compitiniwidgbox.cpp \
     View/impiegato/prof/createcompito.cpp \
     View/impiegato/prof/createxmlcompito.cpp \
     View/impiegato/prof/domandarispmult.cpp \
@@ -173,7 +172,6 @@ HEADERS  += \
     View/impiegato/agendabox.h \
     View/impiegato/notifichemailbox.h \
     View/impiegato/listamail.h \
-    View/impiegato/prof/compitiniwidgbox.h \
     View/impiegato/prof/createcompito.h \
     View/impiegato/prof/createxmlcompito.h \
     View/impiegato/prof/domandarispmult.h \

@@ -56,7 +56,7 @@ string AdminBiblio::aggiungiNuovoLibro(const string &titolo, const string &descr
         return "Il percorso al file è vuoto";
 
     string codiceLibro = QString::number(file.totNodi("libro")).toStdString();
-    if(file.esisteTesto("codiceLibro",codiceLibro))
+    while(file.esisteTesto("codiceLibro",codiceLibro))
         codiceLibro = codiceLibro+"0";
     string path = "/Biblioteca/libri/libro"+codiceLibro+".pdf";
     if(QFile::copy(QString::fromStdString(filePath), QDir::currentPath()+"/../progetto-pao-2017/Database"+
@@ -227,12 +227,14 @@ bool AdminBiblio::eliminaLibro(const string &codiceLibro)
 {
     int pos = file.posNodo("libro",codiceLibro);
     if(pos != -1){
+        if(rimuoviLibroDaPrimoPiano(codiceLibro)){
       bool check =  QFile::remove(QDir::currentPath()+"/../progetto-pao-2017/Database"+QString::fromStdString(file.daiTestoIn("percorsoFile",pos)));
       QString copertina = QString::fromStdString(file.daiTestoIn("copertina",pos));
       if(copertina != "")
           check = QFile::remove(QDir::currentPath()+copertina);
         file.EliminaNodo("libro",pos);
         return check && file.salva();
+        }
     }
     return false;
 }

@@ -17,7 +17,7 @@ public:
     bool CambiaFotoProfilo(const string &path) const;
     bool CambiaPassword(const string &newPass) const;
     string createNewCompitoXml(const string & data, const string &titolo, const string& descr,
-                             const string& materia, const string& classe) const;
+                             const string& materia, const string& classe, string &check) const;
     string aggiungiDomandaARispMult(const string& path, const string& domanda,
                                   const list<string> & risposte, const list<bool> & corrette );
     string aggiungiDomandaAperta(const string& path, const string& domanda);
@@ -28,6 +28,8 @@ public:
     vector<string> codiciCompiti()const;
     vector<string> giveCompitiTitle()const;
     vector<string> giveCompitiDates()const;
+    void SortcodiciCompitibyMateria(vector<string> &, const string&)const;
+    void SortcodiciCompitibyClasse(vector<string> &, const string&)const;
     bool commentaRispCompito(const string &codice, int risposta, const string &commento) const;
     bool cancellaCompito(const string& codice)const;
     string aggiungiClasseACompito(const string& codice, const string& classe)const;
