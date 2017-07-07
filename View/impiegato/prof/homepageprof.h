@@ -2,7 +2,6 @@
 #define HOMEPAGEPROF_H
 
 #include "finestreprof.h"
-class CompitiniWidgBox;
 class HomePageProf: public FinestreProf{
 private:
     QGroupBox* compiti;

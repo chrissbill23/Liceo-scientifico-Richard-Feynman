@@ -15,115 +15,109 @@ QGroupBox *EditRemoveStud::loadPage(int indice)
 
     QGridLayout* p = new QGridLayout(temp);
     temp->setLayout(p);
-    QFont f("Times", 16);
-    f.setBold(true);
-    QLabel* title = new QLabel("Tutti gli studenti", temp);
-    title->setFont(f);
-    p->addWidget(title,0,0);
 
     int tot = matricola.size();
 
-    f = QFont("Times", 14);
+    QFont f("Times", 12);
     f.setBold(true);
 
-    title = new QLabel("Matricola", temp);
+    QLabel* title = new QLabel("Matricola", temp);
     title->setFont(f);
     p->addWidget(title,1,0);
 
-    title = new QLabel("Nome", temp);
+    title = new QLabel("Cognome", temp);
     title->setFont(f);
     p->addWidget(title,1,1);
 
-    title = new QLabel("Cognome", temp);
-    title->setFont(f);
-    p->addWidget(title,1,2);
-
-    title = new QLabel("Classe", temp);
-    title->setFont(f);
-    p->addWidget(title,1,3);
-
-    f = QFont("Times", 14);
+    f = QFont("Times", 11);
     f.setUnderline(true);
     title = new QLabel(QString::number(tot)+" studenti trovati", temp);
     title->setFont(f);
-    p->addWidget(title,2,0);
+    p->addWidget(title,0,0);
 
     if(tot > indice){
-    int row = 3;
-    f = QFont("Times", 12);
+    int row = 2;
+    f = QFont("Times", 10);
     int i = indice;
     for(; i < tot && i < currPage*maxPerPage; ++i){
 
         title = new QLabel(QString::fromStdString(matricola[i]), temp);
+        title->setFixedWidth(150);
         title->setFont(f);
         p->addWidget(title,row,0,1,1,Qt::AlignTop);
 
-        title = new QLabel(QString::fromStdString(nome[i]), temp);
+        title = new QLabel(QString::fromStdString(cognome[i]), temp);
+        title->setFixedWidth(200);
         title->setFont(f);
         p->addWidget(title,row,1,1,1,Qt::AlignTop);
 
-        title = new QLabel(QString::fromStdString(cognome[i]), temp);
-        title->setFont(f);
-        p->addWidget(title,row,2,1,1,Qt::AlignTop);
-
-        title = new QLabel(QString::fromStdString(classe[i]), temp);
-        title->setFont(f);
-        p->addWidget(title,row,3,1,1,Qt::AlignTop);
-
-        buttonGestStud* b = new buttonGestStud("Info",QString::fromStdString(matricola[i]),this);
+        buttonGestStud* b = new buttonGestStud("Dettagli",QString::fromStdString(matricola[i]),this);
+        b->setFixedSize(150,40);
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(viewInfo()));
-        p->addWidget(b,row,4,1,1,Qt::AlignTop);
+        p->addWidget(b,row,2,1,1,Qt::AlignTop);
 
-        b = new buttonGestStud("Modifica info",QString::fromStdString(matricola[i]),this);
+        b = new buttonGestStud("Modifica",QString::fromStdString(matricola[i]),this);
+        b->setFixedSize(150,40);
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(editStud()));
-        p->addWidget(b,row,5,1,1,Qt::AlignTop);
+        p->addWidget(b,row,3,1,1,Qt::AlignTop);
 
-        b = new buttonGestStud("Rimuovi studente",QString::fromStdString(matricola[i]),this);
+        b = new buttonGestStud("Elimina",QString::fromStdString(matricola[i]),this);
+        b->setFixedSize(150,40);
+        b->setStyleSheet("QPushButton{"
+                         "background-color: #990000;"
+                         "color: white;"
+                         " border-radius: 5px 5px 5px 5px;}"
+                         "QPushButton:pressed {"
+                         " background-color:#660000;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(removeStud()));
-        p->addWidget(b,row,6,1,1,Qt::AlignTop);
+        p->addWidget(b,row,4,1,1,Qt::AlignTop);
 
         ++row;
     }
-
-    QLabel* lab = new QLabel("pagina "+QString::number(currPage)+"/"+QString::number(totPage));
-    lab->setFont(f);
-    p->addWidget(lab,row+2,2,1,1,Qt::AlignHCenter);
+    //-------il footer------------------
+    QGroupBox* footer = new QGroupBox(temp);
+    footer->setStyleSheet("QGroupBox{border: 0;}");
+    QGridLayout* footerLay = new QGridLayout;
+    footer->setLayout(footerLay);
+    //----------Previous button
     QIcon i1;
+
     if(currPage > 1){
         i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
         QPushButton* b = new QPushButton(temp);
         b->setIcon(i1);
-        b->setFixedSize(200,40);
-        b->setIconSize(QSize(200,40));
-        b->setStyleSheet("QPushButton{"
-                         "background-color: #336699;"
-                         "border: 2px solid;"
-                         "border-radius: 5px 5px 5px 5px; "
-                         "color: white;}"
-                         "QPushButton:pressed {"
-                         "background-color:#003300;}");
+        b->setFixedSize(100,30);
+        b->setIconSize(QSize(100,30));
         b->setCursor(QCursor(Qt::PointingHandCursor));
-        p->addWidget(b,row+2,0,1,1,Qt::AlignLeft);
+        footerLay->addWidget(b,0,0,1,1,Qt::AlignLeft);
         connect(b,SIGNAL(clicked(bool)),this,SLOT(goPrev()));
     }
+    //-------Numero pagina----------
+    QLabel* lab = new QLabel("pagina "+QString::number(currPage)+"/"+QString::number(totPage));
+    lab->setFont(f);
+    lab->setAlignment(Qt::AlignCenter);
+    footerLay->addWidget(lab,0,1,1,1,Qt::AlignHCenter);
+    footerLay->setColumnStretch(0,1);
+    footerLay->setColumnStretch(2,1);
+
+    //----------------------Next button--------------------
 
     if(i < tot){
         i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
         QPushButton* b2 = new QPushButton(temp);
         b2->setIcon(i1);
-        b2->setFixedSize(200,40);
-        b2->setIconSize(QSize(200,40));
-        b2->setStyleSheet("QPushButton{"
-                          "background-color: #336699;"
-                          "border: 2px solid;"
-                          "border-radius: 5px 5px 5px 5px; "
-                          "color: white;}"
-                          "QPushButton:pressed {"
-                          "background-color:#003300;}");
+        b2->setFixedSize(100,30);
+        b2->setIconSize(QSize(100,30));
         b2->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b2,SIGNAL(clicked(bool)),this,SLOT(goNext()));
-        p->addWidget(b2,row+2,5,1,1,Qt::AlignRight);
+        footerLay->addWidget(b2,0,2,1,1,Qt::AlignRight);
     }
+
+
+     p->addWidget(footer,row+1,0,1,5);
     }
 
 p->setContentsMargins(10,0,10,0);
@@ -137,7 +131,12 @@ EditRemoveStud::EditRemoveStud(ControllerSegretario *ptr,QWidget* parent):Finest
 {
     Header();
     BodyAndFooter();
-    setStyleSheet("background-color: none;");
+    setStyleSheet("QPushButton{background-color: #336699; "
+                              "border-radius: 5px; "
+                               "color: white;}"
+                               "QPushButton:pressed {"
+                                "background-color:#003300;}");
+    setWindowTitle(tr("Gestione Studenti"));
     setLayout(lay);
 }
 
@@ -149,11 +148,10 @@ void EditRemoveStud::reloadWindow()
 void EditRemoveStud::Header()
 {
     QGroupBox* temp = new QGroupBox(this);
-    setWindowTitle(tr("Modifica/Rimuovi Studente"));
 
-    QPushButton* indietro = new QPushButton("Torna indietro",this);
+    QPushButton* indietro = new QPushButton("Indietro",this);
     indietro->setFixedSize(200, 40);
-    indietro->setFont(QFont("Times",12));
+    indietro->setFont(QFont("Times",11));
     indietro->setStyleSheet("QPushButton{"
                           "background-color: #336699; "
                           "border-radius: 5px 5px 5px 5px; "
@@ -164,15 +162,22 @@ void EditRemoveStud::Header()
     connect(indietro,SIGNAL(clicked(bool)),this,SLOT(TornaIndietro()));
 
     QLabel* title = new QLabel("Cerca uno studente:", temp);
-    title->setFont(QFont("Times", 13));
+    title->setFont(QFont("Times", 10));
     QFont f("Times", 10);
     cerca->setMaxLength(40);
-    cerca->setFixedSize(500,40);
-    cerca->setPlaceholderText("nome, cognome, nome utente dello studente...");
+    cerca->setFixedSize(400,40);
+    cerca->setPlaceholderText("nome, cognome, nome utente...");
     cerca->setFont(f);
     QPushButton* search = new QPushButton("Cerca", temp);
-    search->setFont(f);
-    search->setFixedHeight(40);
+    search->setFont(QFont("Times",9));
+    search->setFixedSize(150,30);
+    search->setStyleSheet("QPushButton{"
+                          "background-color: #336699; "
+                          "border-radius: 5px 5px 5px 5px; "
+                          "color: white;}"
+                          "QPushButton:pressed {"
+                         " background-color:#003300;}");
+    search->setCursor(QCursor(Qt::PointingHandCursor));
     connect(search,SIGNAL(clicked(bool)),this,SLOT(cercaStud()));
 
     QGridLayout* p = new QGridLayout(temp);

@@ -128,7 +128,7 @@ QGroupBox *FormEditStudInfo::loadPage()
 
 
     QGridLayout* ly = new QGridLayout(temp);
-    QFont f("Times", 15);
+    QFont f("Times", 14);
 
     errore->setFont(f);
     ly->addWidget(errore,0,0, Qt::AlignTop);
@@ -136,7 +136,7 @@ QGroupBox *FormEditStudInfo::loadPage()
     title->setFont(f);
     ly->addWidget(title,1,0,Qt::AlignTop);
 
-    f = QFont("Times", 13);
+    f = QFont("Times", 11);
     title = new QLabel("Cognome (*) ",temp);
     title->setFont(f);
     ly->addWidget(title,2,0,Qt::AlignTop);
@@ -195,14 +195,24 @@ QGroupBox *FormEditStudInfo::loadPage()
 
     QPushButton* b = new QPushButton("Salva modifiche",temp);
     b->setFont(f);
+    b->setFixedSize(150,40);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(salvaTutto()));
-    ly->addWidget(b,12,0,Qt::AlignTop);
+    ly->addWidget(b,12,0,Qt::AlignTop|Qt::AlignCenter);
 
 
     b = new QPushButton("Annulla",temp);
     b->setFont(f);
+    b->setFixedSize(150,40);
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #990000;"
+                     "color: white;"
+                     " border-radius: 5px 5px 5px 5px;}"
+                     "QPushButton:pressed {"
+                     " background-color:#660000;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(close()));
-    ly->addWidget(b,13,0,Qt::AlignTop);
+    ly->addWidget(b,13,0,Qt::AlignTop|Qt::AlignCenter);
 
 
 
@@ -219,6 +229,8 @@ FormEditStudInfo::FormEditStudInfo(ControllerSegretario *c, const QString &matr,
     sc->setWidget(loadPage());
     sc->setWidgetResizable(true);
     lay->addWidget(sc,0);
+
+    setWindowTitle("Modifica dati studente");
     setLayout(lay);
 
 }
@@ -265,7 +277,7 @@ void FormEditStudInfo::salvaTutto()
        return;
       }
 
-        QMessageBox::information(this,"","Salvato con successo");
+        QMessageBox::information(0,"","Salvato con successo");
         close();
 
 

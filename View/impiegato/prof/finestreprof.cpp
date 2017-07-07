@@ -16,7 +16,7 @@ ControllerProf *FinestreProf::getController() const
 
 void FinestreProf::CreateNewCompito()
 {
-    CreateCompito n(ctrl,this);
+    CreateCompito n(ctrl);
     n.exec();
 }
 

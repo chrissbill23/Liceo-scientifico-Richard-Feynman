@@ -23,6 +23,7 @@ public slots:
     void viewcommentRisp()const;
     void elimCompito();
     void aggiungiClasse();
+    void Dettagli()const;
 };
 
 #endif // BUTTONCOMPITO_H

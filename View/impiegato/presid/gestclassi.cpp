@@ -49,41 +49,64 @@ void GestClassi::InsertInComboBoxes()
    }
 }
 
-QWidget *GestClassi::loadPage(int)
+QWidget *GestClassi::loadPage()
 {
     QGroupBox* temp = new QGroupBox;
     QGridLayout* p = new QGridLayout(temp);
 
     temp->setLayout(p);
 
-    QFont f("Times", 14);
+    QFont f("Times", 10);
     f.setBold(true);
 
     QLabel* lab = new QLabel("Classe",temp);
     lab->setFont(f);
-    p->addWidget(lab,0,0,1,1,Qt::AlignTop);
+    lab->setStyleSheet("margin-bottom: 1em;");
+    p->addWidget(lab,1,0,1,1,Qt::AlignTop);
 
     int tot = classes.size();
 
     lab = new QLabel(QString::number(tot)+" classi trovate",temp);
-    lab->setFont(QFont("Times",12));
-    p->addWidget(lab,1,0,1,1,Qt::AlignTop);
+    f = QFont("Times",9);
+    f.setUnderline(true);
+    lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 5em;");
+    p->addWidget(lab,0,0,1,1,Qt::AlignTop);
 
-    f = QFont("Times",12);
-    for(int i = 0; i < tot; ++i){
+    f = QFont("Times",9);
+    int i = 0;
+    for(; i < tot; ++i){
         const QString& cl = QString::fromStdString(classes[i]);
         lab = new QLabel(cl,temp);
         lab->setFont(f);
+        lab->setFixedWidth(300);
         p->addWidget(lab,i+2,0,1,1,Qt::AlignTop);
 
-        buttonGestClassi* b = new buttonGestClassi("Info",cl,this);
+        buttonGestClassi* b = new buttonGestClassi("Dettagli",cl,this);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                              "background-color: #336699; "
+                              "border-radius: 5px; "
+                              "color: white;}"
+                              "QPushButton:pressed {"
+                             " background-color:#003300;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b, SLOT(viewInfoClasse()));
         p->addWidget(b,i+2,1,1,1,Qt::AlignTop);
 
-        b = new buttonGestClassi("Rimuovi classe",cl,this);
+        b = new buttonGestClassi("Elimina",cl,this);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                         "background-color: #990000;"
+                         "color: white;"
+                         " border-radius: 5px;}"
+                         "QPushButton:pressed {"
+                         " background-color:#660000;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b, SLOT(removeClass()));
         p->addWidget(b,i+2,2,1,1,Qt::AlignTop);
     }
+    p->setRowStretch(i+2,1);
 
     return temp;
 }
@@ -94,6 +117,7 @@ GestClassi::GestClassi(ControllerPreside *c, QWidget *parent):FinestrePreside(c,
     Header();
     BodyAndFooter();
     setStyleSheet("background-color: none");
+    setWindowTitle("Gestione classi");
 }
 
 void GestClassi::Header()
@@ -103,13 +127,13 @@ void GestClassi::Header()
 
     head->setLayout(p);
 
-    QFont f("Times",14);
-    QPushButton* previousWindow = new QPushButton("Torna Indietro", head);
-    previousWindow->setFixedSize(200, 40);
+    QFont f("Times",11);
+    QPushButton* previousWindow = new QPushButton("Indietro", head);
+    previousWindow->setFixedSize(150, 40);
     previousWindow->setFont(f);
     previousWindow->setStyleSheet("QPushButton{"
                           "background-color: #336699; "
-                          "border-radius: 5px 5px 5px 5px; "
+                          "border-radius: 5px; "
                           "color: white;}"
                           "QPushButton:pressed {"
                          " background-color:#003300;}");
@@ -129,14 +153,14 @@ void GestClassi::Header()
     logout->setFont(f);
     connect(logout,SIGNAL(clicked(bool)),this,SLOT(signout()));
 
-    p->addWidget(logout,0,6,1,1,Qt::AlignRight);
+    p->addWidget(logout,0,2,1,1,Qt::AlignRight);
 
     classi = new QComboBox(head);
     sessioni = new QComboBox(head);
     indirizzi = new QComboBox(head);
-    classi->setFixedSize(300,30);
-    sessioni->setFixedSize(300,30);
-    indirizzi->setFixedSize(300,30);
+    classi->setFixedSize(200,30);
+    sessioni->setFixedSize(200,30);
+    indirizzi->setFixedSize(200,30);
     InsertInComboBoxes();
 
 
@@ -144,46 +168,127 @@ void GestClassi::Header()
     connect(sessioni,SIGNAL(currentIndexChanged(int)),this,SLOT(cercaClasse()));
     connect(indirizzi,SIGNAL(currentIndexChanged(int)),this,SLOT(cercaClasse()));
 
-    p->addWidget(classi, 4,1,1,1,Qt::AlignLeft);
-    p->addWidget(sessioni, 4,2,1,1,Qt::AlignLeft);
-    p->addWidget(indirizzi, 4,3,1,1,Qt::AlignLeft);
+    QHBoxLayout* hla = new QHBoxLayout;
+    QVBoxLayout* box = new QVBoxLayout;
 
-    QPushButton* b = new QPushButton("Aggiungi nuova classe",this);
-    b->setFixedSize(200,30);
-    connect(b,SIGNAL(clicked(bool)),this,SLOT(aggiungiClasse()));
-    p->addWidget(b,1,0,1,1,Qt::AlignLeft);
+    //----------colonna 1---------------
 
-    b = new QPushButton("Aggiungi nuova sessione",this);
+    QPushButton* b = new QPushButton("Nuova sessione",this);
     b->setFixedSize(200,30);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #336699; "
+                          "border-radius: 5px 5px 5px 5px; "
+                          "color: white;}"
+                          "QPushButton:pressed {"
+                         " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(aggiungiSessClasse()));
-    p->addWidget(b,2,0,1,1,Qt::AlignLeft);
-    b = new QPushButton("Rimuovi sessione",this);
-    b->setFixedSize(200,30);
-    connect(b,SIGNAL(clicked(bool)),this,SLOT(rimuoviSessione()));
-    p->addWidget(b,2,1,1,1,Qt::AlignLeft);
+    box->addWidget(b,0,Qt::AlignHCenter);
 
-    b = new QPushButton("Aggiungi nuovo indirizzo",this);
-    b->setFixedSize(200,30);
+    b = new QPushButton("Nuova classe",this);
+    b->setFixedSize(150,30);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #336699; "
+                          "border-radius: 5px 5px 5px 5px; "
+                          "color: white;}"
+                          "QPushButton:pressed {"
+                         " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    connect(b,SIGNAL(clicked(bool)),this,SLOT(aggiungiClasse()));
+    box->addWidget(b,0,Qt::AlignHCenter);
+
+    b = new QPushButton("Nuovo indirizzo",this);
+    b->setFixedSize(150,30);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #336699; "
+                          "border-radius: 5px 5px 5px 5px; "
+                          "color: white;}"
+                          "QPushButton:pressed {"
+                         " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(aggiungiIndirClasse()));
-    p->addWidget(b,3,0,1,1,Qt::AlignLeft);
-    b = new QPushButton("Rimuovi indirizzo",this);
-    b->setFixedSize(200,30);
-    connect(b,SIGNAL(clicked(bool)),this,SLOT(rimuoviIndirizzo()));
-    p->addWidget(b,3,1,1,1,Qt::AlignLeft);
+    box->addWidget(b,0,Qt::AlignHCenter);
+
+    box->addWidget(classi,1,Qt::AlignHCenter);
+
+    hla->addLayout(box,0);
+
+    //----------colonna 2---------------
+    box = new QVBoxLayout;
 
     b = new QPushButton("Tutte le materie",this);
     b->setFixedSize(200,30);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #336699; "
+                          "border-radius: 5px 5px 5px 5px; "
+                          "color: white;}"
+                          "QPushButton:pressed {"
+                         " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(viewMaterieInsegnate()));
-    p->addWidget(b,1,6,1,1,Qt::AlignLeft);
-    b = new QPushButton("Aggiungi nuova materia",this);
-    b->setFixedSize(200,30);
-    connect(b,SIGNAL(clicked(bool)),this,SLOT(aggiungiMateria()));
-    p->addWidget(b,2,6,1,1,Qt::AlignLeft);
-    b = new QPushButton("Rimuovi materia",this);
-    b->setFixedSize(200,30);
-    connect(b,SIGNAL(clicked(bool)),this,SLOT(rimuoviMateria()));
-    p->addWidget(b,3,6,1,1,Qt::AlignLeft);
+    box->addWidget(b,0,Qt::AlignHCenter);
+    box->setStretch(0,1);
 
+    b = new QPushButton("Nuova materia",this);
+    b->setFixedSize(150,30);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #336699; "
+                          "border-radius: 5px 5px 5px 5px; "
+                          "color: white;}"
+                          "QPushButton:pressed {"
+                         " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    connect(b,SIGNAL(clicked(bool)),this,SLOT(aggiungiMateria()));
+    box->addWidget(b,0,Qt::AlignHCenter);
+
+    box->addWidget(sessioni,1,Qt::AlignHCenter);
+
+    hla->addLayout(box,0);
+    //----------colonna 3---------------
+
+    box = new QVBoxLayout;
+
+    b = new QPushButton("Elimina sessione",this);
+    b->setFixedSize(200,30);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #990000; color: white;"
+                          " border-radius: 5px 5px 5px 5px;}"
+                          "QPushButton:pressed {"
+                          " background-color:#660000;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    connect(b,SIGNAL(clicked(bool)),this,SLOT(rimuoviSessione()));
+    box->addWidget(b,0,Qt::AlignHCenter);
+
+    b = new QPushButton("Elimina indirizzo",this);
+    b->setFixedSize(150,30);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #990000; color: white;"
+                          " border-radius: 5px 5px 5px 5px;}"
+                          "QPushButton:pressed {"
+                          " background-color:#660000;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    connect(b,SIGNAL(clicked(bool)),this,SLOT(rimuoviIndirizzo()));
+    box->addWidget(b,0,Qt::AlignHCenter);
+
+
+
+    b = new QPushButton("Elimina materia",this);
+    b->setFixedSize(150,30);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #990000; color: white;"
+                          " border-radius: 5px 5px 5px 5px;}"
+                          "QPushButton:pressed {"
+                          " background-color:#660000;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    connect(b,SIGNAL(clicked(bool)),this,SLOT(rimuoviMateria()));
+    box->addWidget(b,0,Qt::AlignHCenter);
+
+    box->addWidget(indirizzi,1,Qt::AlignHCenter);
+    hla->addLayout(box,0);
+
+
+
+    p->addLayout(hla,1,1,1,1);
 
     if(!lay)
         lay = new QVBoxLayout(this);
@@ -194,7 +299,7 @@ void GestClassi::BodyAndFooter()
 {
     classes = ctrl->Classi();
     body = new QScrollArea(this);
-    body->setWidget(loadPage(0));
+    body->setWidget(loadPage());
     body->setWidgetResizable(true);
     lay->addWidget(body,1);
 }
@@ -204,7 +309,7 @@ void GestClassi::reloadWindow()
     classes = ctrl->Classi();
 
     InsertInComboBoxes();
-    body->setWidget(loadPage(0));
+    body->setWidget(loadPage());
     body->setWidgetResizable(true);
 }
 
@@ -295,6 +400,6 @@ void GestClassi::cercaClasse()
             }
         }
         InsertInComboBoxes();
-        body->setWidget(loadPage(0));
+        body->setWidget(loadPage());
         body->setWidgetResizable(true);
 }

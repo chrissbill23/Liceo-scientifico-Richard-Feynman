@@ -29,7 +29,7 @@ QGroupBox* listaMail::setPageRic(int indice)
 
     QGroupBox* box = new QGroupBox;
 
-    QFont f("Times",14);
+    QFont f("Times",11);
     f.setBold(true);
     f.setUnderline(true);
     QGridLayout* temp = new QGridLayout(box);
@@ -48,71 +48,109 @@ QGroupBox* listaMail::setPageRic(int indice)
     temp->addWidget(lab,0,2,Qt::AlignTop);
     temp->setHorizontalSpacing(0);
         if(tot == 0){
-            temp->addWidget(new QLabel("Nessun messaggio da mostrare",box),1,0,1,3);
+            lab = new QLabel("Nessun messaggio da mostrare",box);
+            lab->setAlignment(Qt::AlignCenter);
+            lab->setMargin(50);
+            temp->addWidget(lab,1,0,1,3);
+            temp->setRowStretch(2,1);
             }
         else{
 
             int row = 0;
             int readMail = ctrl->totNuoviMess()-1;
+            f = QFont("Times",10);
             for(int i = tot - 1 - indice; i>= 0 && row < max; --i){
 
 
                 lab = new QLabel(ctrl->LeggidataMail(i,ricevuti),box);
                 lab->setFont(f);
-                lab->setStyleSheet("padding: 10px 0 10px 0;");
-                lab->setFixedWidth(200);
+                lab->setStyleSheet("padding: 10px 0 10px 0; margin-right: 1em;");
+                lab->setFixedWidth(150);
                 temp->addWidget(lab,row+1,0,Qt::AlignTop);
 
                 lab = new QLabel(ctrl->LeggiMailOgge(i,ricevuti),box);
                 lab->setFont(f);
-                lab->setStyleSheet("padding: 10px 0 10px 0; ");
+                lab->setStyleSheet("padding: 10px 0 10px 0; margin-right: 2em;");;
                 lab->setFixedWidth(200);
                 temp->addWidget(lab,row+1,1,Qt::AlignTop);
 
                 lab = new QLabel(ctrl->LeggiMailSender(i,ricevuti),box);
                 lab->setFont(f);
-                lab->setStyleSheet("padding: 10px 0 10px 0;");
-                lab->setFixedWidth(200);
+                lab->setStyleSheet("padding: 10px 0 10px 0; margin-right: 2em;");
+                lab->setFixedWidth(250);
                 temp->addWidget(lab,row+1,2,Qt::AlignTop);
 
                 if(ctrl->isMailRead(i)){
-                buttonMail* b = new buttonMail("Visualizza",i,ricevuti,false, this);
+                buttonMail* b = new buttonMail("Leggi",i,ricevuti,false, this);
                 connect(b,SIGNAL(clicked(bool)),b,SLOT(receiveClickSig()));
-                b->setFixedSize(200,50);
+                b->setFixedSize(125,50);
                 temp->addWidget(b, row+1, 3,Qt::AlignTop);
                 }
                 else{
-                    buttonMail* b = new buttonMail("Visualizza",readMail,ricevuti,true, this);
+                    buttonMail* b = new buttonMail("Leggi",readMail,ricevuti,true, this);
                     connect(b,SIGNAL(clicked(bool)),b,SLOT(receiveClickSig()));
-                    b->setFixedSize(200,50);
+                    b->setFixedSize(125,50);
                     temp->addWidget(b, row+1, 3,Qt::AlignTop);
                     --readMail;
                 }
 
                 buttonMail*b = new buttonMail("Elimina",i,ricevuti,false, this);
+                b->setStyleSheet("QPushButton{"
+                                 "background-color: #990000;"
+                                 "border-radius: 5px; color: white;}"
+                                 "QPushButton:hover{"
+                                        "color: red;}"
+                                        "QPushButton:pressed {"
+                                        "color:#660000;}");
                 connect(b,SIGNAL(clicked(bool)),b,SLOT(elimMess()));
-                b->setFixedSize(200,50);
+                b->setFixedSize(125,50);
                 temp->addWidget(b, row+1, 4,Qt::AlignTop);
                 ++row;
               }
 
+            QGroupBox* footer = new QGroupBox(box);
+            footer->setStyleSheet("QGroupBox{border: 0;}");
+            QGridLayout* footerLay = new QGridLayout(footer);
+            footer->setLayout(footerLay);
+
             QLabel* lab = new QLabel("Pagina: "+QString::number(currPage)+"/"+QString::number(totPage));
-            temp->addWidget(lab,row+1,2);
-                QIcon i1;
-                if(currPage < totPage){
-                    i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
-                    QPushButton* b = new QPushButton("Next page",box);
-                    b->setIcon(i1);
-                    connect(b,SIGNAL(clicked(bool)),this,SLOT(goToNextPage()));
-                    temp->addWidget(b,row+1,3,1,2);
-                }
-                if(currPage > 1){
-                    i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
-                    QPushButton* b = new QPushButton("Previous page",box);
-                    b->setIcon(i1);
-                    connect(b,SIGNAL(clicked(bool)),this,SLOT(goToPrevPage()));
-                    temp->addWidget(b,row+1,0);
-                }
+            lab->setFont(QFont("Times",8));
+            footerLay->addWidget(lab,0,1,1,1,Qt::AlignHCenter);
+            footerLay->setColumnStretch(0,1);
+            footerLay->setColumnStretch(2,1);
+
+            QIcon i1;
+            if(currPage < totPage){
+                i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
+                QPushButton* b = new QPushButton("Next page",box);
+                b->setIcon(i1);
+                b->setFixedSize(120,30);
+                b->setCursor(QCursor(Qt::PointingHandCursor));
+                b->setStyleSheet("QPushButton{background-color: #669999; "
+                                 "color: white; border-radius: 5px;}"
+                                 "QPushButton:hover{"
+                                        "color: #29abe2;}"
+                                        "QPushButton:pressed {"
+                                        "color:#660000;}");
+                connect(b,SIGNAL(clicked(bool)),this,SLOT(goToNextPage()));
+                footerLay->addWidget(b,0,2,1,1,Qt::AlignRight);
+            }
+            if(currPage > 1){
+                i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
+                QPushButton* b = new QPushButton("Previous page",box);
+                b->setIcon(i1);
+                b->setFixedSize(120,30);
+                b->setStyleSheet("QPushButton{background-color: #669999; "
+                                   "color: white; border-radius: 5px;}"
+                                   "QPushButton:hover{"
+                                          "color: #29abe2;}"
+                                          "QPushButton:pressed {"
+                                          "color:#660000;}");
+                b->setCursor(QCursor(Qt::PointingHandCursor));
+                connect(b,SIGNAL(clicked(bool)),this,SLOT(goToPrevPage()));
+                footerLay->addWidget(b,0,0,1,1,Qt::AlignLeft);
+            }
+                temp->addWidget(footer,row+2,0,1,5);
         }
         return box;
 }
@@ -194,7 +232,7 @@ QGroupBox *listaMail::setPageInv(int indice)
 {
     QGroupBox* box = new QGroupBox;
 
-    QFont f("Times",14);
+    QFont f("Times",11);
     f.setBold(true);
     f.setUnderline(true);
     QGridLayout* temp = new QGridLayout(box);
@@ -214,61 +252,99 @@ QGroupBox *listaMail::setPageInv(int indice)
 
     temp->setHorizontalSpacing(0);
         if(tot == 0){
-            temp->addWidget(new QLabel("Nessun messaggio da mostrare",box),1,0,1,3);
+            lab = new QLabel("Nessun messaggio da mostrare",box);
+            lab->setAlignment(Qt::AlignCenter);
+            lab->setMargin(50);
+            temp->addWidget(lab,1,0,1,3);
+            temp->setRowStretch(2,1);
             }
         else{
 
             int row = 0;
+            f = QFont("Times",10);
             for(int i = tot - 1 - indice; i>= 0 && row < max; --i){
 
 
                 lab = new QLabel(ctrl->LeggidataMail(i,ricevuti),box);
                 lab->setFont(f);
-                lab->setStyleSheet("padding: 10px 0 10px 0;");
-                lab->setFixedWidth(200);
+                lab->setStyleSheet("padding: 10px 0 10px 0; margin-right: 1em;");
+                lab->setFixedWidth(150);
                 temp->addWidget(lab,row+1,0,Qt::AlignTop);
 
                 lab = new QLabel(ctrl->LeggiMailOgge(i,ricevuti),box);
                 lab->setFont(f);
-                lab->setStyleSheet("padding: 10px 0 10px 0; ");
+                lab->setStyleSheet("padding: 10px 0 10px 0; margin-right: 2em;");
                 lab->setFixedWidth(200);
                 temp->addWidget(lab,row+1,1,Qt::AlignTop);
 
                 lab = new QLabel(ctrl->LeggiMailDest(i),box);
                 lab->setFont(f);
-                lab->setStyleSheet("padding: 10px 0 10px 0;");
-                lab->setFixedWidth(200);
+                lab->setStyleSheet("padding: 10px 0 10px 0; margin-right: 2em;");
+                lab->setFixedWidth(250);
                 temp->addWidget(lab,row+1,2,Qt::AlignTop);
 
-                buttonMail* b = new buttonMail("Visualizza",i,ricevuti,false, this);
+                buttonMail* b = new buttonMail("Leggi",i,ricevuti,false, this);
                 connect(b,SIGNAL(clicked(bool)),b,SLOT(receiveClickSig()));
-                b->setFixedSize(200,50);
+                b->setFixedSize(125,50);
                 temp->addWidget(b, row+1, 3,Qt::AlignTop);
 
                 b = new buttonMail("Elimina",i,ricevuti,false, this);
+                b->setStyleSheet("QPushButton{"
+                                 "background-color: #990000;"
+                                 " border-radius: 5px; color: white;}"
+                                 "QPushButton:hover{"
+                                        "color: red;}"
+                                        "QPushButton:pressed {"
+                                        "color:#660000;}");
                 connect(b,SIGNAL(clicked(bool)),b,SLOT(elimMess()));
-                b->setFixedSize(200,50);
+                b->setFixedSize(125,50);
                 temp->addWidget(b, row+1, 4,Qt::AlignTop);
                 ++row;
               }
 
+            QGroupBox* footer = new QGroupBox(box);
+            footer->setStyleSheet("QGroupBox{border: 0;}");
+            QGridLayout* footerLay = new QGridLayout(footer);
+            footer->setLayout(footerLay);
+
             QLabel* lab = new QLabel("Pagina: "+QString::number(currPage)+"/"+QString::number(totPage));
-            temp->addWidget(lab,row+1,2);
+            lab->setFont(QFont("Times",8));
+            footerLay->addWidget(lab,0,1,1,1,Qt::AlignHCenter);
+            footerLay->setColumnStretch(0,1);
+            footerLay->setColumnStretch(2,1);
+
                 QIcon i1;
                 if(currPage < totPage){
                     i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
                     QPushButton* b = new QPushButton("Next page",box);
                     b->setIcon(i1);
+                    b->setFixedSize(120,30);
+                    b->setCursor(QCursor(Qt::PointingHandCursor));
+                    b->setStyleSheet("QPushButton{background-color: #669999; "
+                                     "color: white; border-radius: 5px;}"
+                                     "QPushButton:hover{"
+                                            "color: #29abe2;}"
+                                            "QPushButton:pressed {"
+                                            "color:#660000;}");
                     connect(b,SIGNAL(clicked(bool)),this,SLOT(goToNextPage()));
-                    temp->addWidget(b,row+1,3,1,2);
+                    footerLay->addWidget(b,0,2,1,1,Qt::AlignRight);
                 }
                 if(currPage > 1){
                     i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
                     QPushButton* b = new QPushButton("Previous page",box);
                     b->setIcon(i1);
+                    b->setFixedSize(120,30);
+                    b->setStyleSheet("QPushButton{background-color: #669999; "
+                                       "color: white; border-radius: 5px;}"
+                                       "QPushButton:hover{"
+                                              "color: #29abe2;}"
+                                              "QPushButton:pressed {"
+                                              "color:#660000;}");
+                    b->setCursor(QCursor(Qt::PointingHandCursor));
                     connect(b,SIGNAL(clicked(bool)),this,SLOT(goToPrevPage()));
-                    temp->addWidget(b,row+1,0);
+                    footerLay->addWidget(b,0,0,1,1,Qt::AlignLeft);
                 }
+                temp->addWidget(footer,row+2,0,1,5);
         }
         return box;
 }

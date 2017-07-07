@@ -21,14 +21,17 @@ LoadPDFcompito::LoadPDFcompito(ControllerProf *c, QWidget *parent) : createFileC
     lay->addWidget(filePath,0);
 
     QPushButton* b = new QPushButton("Sfoglia",this);
-    b->setFixedSize(200,40);
-    b->setFont(QFont("Times",13));
+    b->setFixedSize(150,40);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    b->setFont(QFont("Times",9));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(loadFile()));
     lay->addWidget(b,1);
 
     giveLayout()->addLayout(lay);
 
     b = new QPushButton("Carica file", this);
+    b->setFixedHeight(40);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     lay->addWidget(b,0,Qt::AlignTop);
     CreateCompito* grandParent = giveGrandParent();
     if(grandParent)
@@ -63,7 +66,7 @@ bool LoadPDFcompito::salva()
 
 void LoadPDFcompito::loadFile()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
+    QString fileName = QFileDialog::getOpenFileName(0,
             tr("Seleziona il file"), "",
             tr(" (*.pdf)"));
 

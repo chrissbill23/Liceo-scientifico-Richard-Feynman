@@ -19,24 +19,27 @@ QGroupBox *GestioneProfGroupBox::loadPage(int indice)
 
     int tot = prof.size();
 
-    QFont f("Times",13);
+    QFont f("Times",9);
     f.setUnderline(true);
-    QLabel* lab = new QLabel(QString::number(tot)+" professori", temp);
+    QLabel* lab = new QLabel(QString::number(tot)+" professori trovati", temp);
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 5em;");
     p->addWidget(lab,0,0);
 
-    f = QFont("Times",15);
+    f = QFont("Times",10);
     f.setBold(true);
 
     lab = new QLabel("Cognome",temp);
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 2em;");
     p->addWidget(lab,1,0);
     lab = new QLabel("Nome",temp);
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 2em;");
     p->addWidget(lab,1,1);
 
-    int row = 1;
-    f = QFont("Times",12);
+    int row = 2;
+    f = QFont("Times",9);
     for(int i = indice; i < tot && i < maxPerPage; ++i){
         const QString& pr = QString::fromStdString(prof[i]);
         const QString& nomeutente = pr;
@@ -45,35 +48,70 @@ QGroupBox *GestioneProfGroupBox::loadPage(int indice)
 
         lab = new QLabel(cognome, temp);
         lab->setFont(f);
-        p->addWidget(lab,row+1,0,1,1,Qt::AlignTop);
+        lab->setFixedWidth(150);
+        p->addWidget(lab,row,0,1,1,Qt::AlignTop);
 
         lab = new QLabel(nome, temp);
         lab->setFont(f);
-        p->addWidget(lab,row+1,1,1,1,Qt::AlignTop);
+        lab->setFixedWidth(150);
+        p->addWidget(lab,row,1,1,1,Qt::AlignTop);
 
-        buttonGestImp* b = new buttonGestImp("Info",nomeutente,this);
+        buttonGestImp* b = new buttonGestImp("Dettagli",nomeutente,this);
         b->setFont(f);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                              "background-color: #336699; "
+                              "border-radius: 5px; "
+                              "color: white;}"
+                              "QPushButton:pressed {"
+                             " background-color:#003300;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(vediInfoImp()));
-        p->addWidget(b,row+1,2,1,1,Qt::AlignTop);
+        p->addWidget(b,row,2,1,1,Qt::AlignTop);
 
         b = new buttonGestImp("Assegna classe",nomeutente,this);
         b->setFont(f);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                              "background-color: #336699; "
+                              "border-radius: 5px 5px 5px 5px; "
+                              "color: white;}"
+                              "QPushButton:pressed {"
+                             " background-color:#003300;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(AssegnaClasseProf()));
-        p->addWidget(b,row+1,3,1,1,Qt::AlignTop);
+        p->addWidget(b,row,3,1,1,Qt::AlignTop);
 
         b = new buttonGestImp("Togli classe",nomeutente,this);
         b->setFont(f);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                              "background-color: #336699; "
+                              "border-radius: 5px 5px 5px 5px; "
+                              "color: white;}"
+                              "QPushButton:pressed {"
+                             " background-color:#003300;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(RimuoviClasseProf()));
-        p->addWidget(b,row+1,4,1,1,Qt::AlignTop);
+        p->addWidget(b,row,4,1,1,Qt::AlignTop);
 
-        b = new buttonGestImp("Rimuovi professore",nomeutente,this);
+        b = new buttonGestImp("Rimuovi",nomeutente,this);
         b->setFont(f);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                         "background-color: #990000;"
+                         "color: white;"
+                         " border-radius: 5px;}"
+                         "QPushButton:pressed {"
+                         " background-color:#660000;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(ElimImp()));
-        p->addWidget(b,row+1,5,1,1,Qt::AlignTop);
+        p->addWidget(b,row,5,1,1,Qt::AlignTop);
 
         ++row;
 
     }
+    p->setRowStretch(row,1);
 
 
     return temp;
@@ -92,14 +130,21 @@ void GestioneProfGroupBox::Header()
 {
 
     searchBox = new QLineEdit(this);
-    searchBox->setFixedSize(400,50);
+    searchBox->setFixedSize(350,40);
     searchBox->setPlaceholderText("nome, cognome, materia, classe..");
-    searchBox->setFont(QFont("Times",14));
+    searchBox->setFont(QFont("Times",10));
     QHBoxLayout* temp = new QHBoxLayout;
     temp->addWidget(searchBox,1,Qt::AlignRight);
 
    QPushButton* b = new QPushButton("Cerca",this);
-    b->setFixedHeight(50);
+    b->setFixedSize(150,40);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #336699; "
+                          "border-radius: 5px 5px 5px 5px; "
+                          "color: white;}"
+                          "QPushButton:pressed {"
+                         " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(CercaImpiegato()));
 
     temp->addWidget(b,0,Qt::AlignRight);
@@ -201,27 +246,28 @@ void GestioneProfGroupBox::rimuoviImpiegato(const QString &nomeUtente)
 {
     QString ris = ctrl->rimuoviProf(nomeUtente);
     if(ris != "")
-        QMessageBox::information(this,"Errore", ris);
+        QMessageBox::information(0,"Errore", ris);
     else{
-        QMessageBox::information(this,"", "Professore rimosso");
+        QMessageBox::information(0,"", "Professore rimosso");
         reloadWindow();
     }
 }
 
 void GestioneProfGroupBox::CercaImpiegato()
 {
-    if(searchBox->text() == "")
         prof = ctrl->giveProfNU();
-    else{
         const string& parola = searchBox->text().toStdString();
         for(unsigned int i = 0; i<prof.size(); ++i){
             filexml f = ctrl->giveSchedaPersonaleProf(QString::fromStdString(prof[i]));
-            if(f.daiTextContainingText(parola).size() == 0){
+            if(f.daiTextContainingText("DatiOccupazione",parola).size() == 0){
                 prof.erase(prof.begin()+i);
                 --i;
             }
         }
-    }
-    reloadWindow();
+        totPage = prof.size() / maxPerPage;
+        if(prof.size() % maxPerPage > 0 || totPage == 0)
+            ++totPage;
+        contenuto->setWidget(loadPage(0));
+        contenuto->setWidgetResizable(true);
 }
 

@@ -1,5 +1,6 @@
 #include "createxmlcompito.h"
 #include "../../../Controller/controllerprof.h"
+#include "../../../Modello/Utente.h"
 #include "domandarispmult.h"
 #include "domandaaperta.h"
 #include "createcompito.h"
@@ -21,7 +22,7 @@ bool createXMLCompito::isOk()
 
     if(createFileCompito::isOk()){
     if(totDom.size() == 0){
-        error->setText("Errore: Si può creare un nuovo compito con almeno una domanda");
+        error->setText("Errore: il compito deve avere almeno una domanda");
         return false;
      }
     else{
@@ -76,24 +77,22 @@ void createXMLCompito::rimuoviUltimaDomanda()
 bool createXMLCompito::domandeCorrette() const
 {
     QLabel* error = giveError();
-    ControllerProf* ctrl = giveController();
-    QRegExp check("[a-z,A-Z,0-9]");
     for(QVector<DomandeCompito*>:: const_iterator it = totDom.begin(); it != totDom.end(); ++ it){
         DomandaRispMult* p = dynamic_cast<DomandaRispMult*>(*it);
         if(p){
-            error->setText(ctrl->checkForbiddenCharacters(p->getDomanda()));
+            error->setText(QString::fromStdString(Utente::checkForbiddenCharacters(p->getDomanda().toStdString())));
             if(error->text()!= "")
                 return false;
-            if(ctrl->HasNoChar(p->getDomanda())){
+            if(Utente::HasNoChar(p->getDomanda().toStdString())){
                 error->setText("Tutti i campi sono obbligatori");
                 return false;
             }
             QList<string> l = p->getRisposte();
             for(QList<string>::const_iterator it = l.begin(); it!= l.end(); ++it){
-                error->setText(ctrl->checkForbiddenCharacters(QString::fromStdString(*it)));
+                error->setText(QString::fromStdString(Utente::checkForbiddenCharacters(*it)));
                 if(error->text()!= "")
                     return false;
-                if(ctrl->HasNoChar(QString::fromStdString(*it))){
+                if(Utente::HasNoChar(*it)){
                     error->setText("Tutti i campi sono obbligatori");
                     return false;
                 }
@@ -102,10 +101,10 @@ bool createXMLCompito::domandeCorrette() const
         else{
             DomandaAperta* p2 = dynamic_cast<DomandaAperta*>(*it);
             if(p2){
-                error->setText(ctrl->checkForbiddenCharacters(p2->getDomanda()));
+                error->setText(QString::fromStdString(Utente::checkForbiddenCharacters(p2->getDomanda().toStdString())));
                 if(error->text()!= "")
                     return false;
-                if(error->text() == "" && ctrl->HasNoChar(p2->getDomanda())){
+                if(error->text() == "" && Utente::HasNoChar(p2->getDomanda().toStdString())){
                     error->setText("Tutti i campi sono obbligatori");
                     return false;
                 }
@@ -120,11 +119,12 @@ bool createXMLCompito::salva()
     ControllerProf* ctrl = giveController();
     QLabel* error = giveError();
    if(isOk()){
+       QString checkError = "";
        const QString& path = ctrl->createNewCompitoXml(QDate::currentDate().toString("dd/MM/yyyy"),
                                                giveTitolo()->text(),
                                                giveDescr()->toPlainText(),
                                                giveMateria()->itemData(giveMateria()->currentIndex()).toString(),
-                                               giveClasse()->itemData(giveClasse()->currentIndex()).toString());
+                                               giveClasse()->itemData(giveClasse()->currentIndex()).toString(), checkError);
        if(path != ""){
             for(QVector<DomandeCompito*>:: iterator it = totDom.begin(); it != totDom.end(); ++ it){
                 DomandaRispMult* p = dynamic_cast<DomandaRispMult*>(*it);
@@ -150,7 +150,7 @@ bool createXMLCompito::salva()
             return true;
 
        }
-       else error->setText(path);
+       else error->setText(checkError);
    }
     return false;
 }
@@ -160,23 +160,36 @@ createXMLCompito::createXMLCompito(ControllerProf *c, QWidget *parent):createFil
     loadHeader();
     QVBoxLayout* lay = giveLayout();
 
-    QPushButton* b = new QPushButton("Aggiungi domanda aperta", this);
+    QPushButton* b = new QPushButton("Nuova domanda aperta", this);
+    b->setFixedHeight(40);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(aggiungiDomandaAperta()));
     lay->addWidget(b,0,Qt::AlignTop);
-    b = new QPushButton("Aggiungi domanda a risposta multipla", this);
+    b = new QPushButton("Nuova domanda a risposta multipla", this);
+    b->setFixedHeight(40);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(aggiungiDomandaRispMult()));
     lay->addWidget(b,0,Qt::AlignTop);
-    b = new QPushButton("Rimuovi l'ultima domanda aggiunta", this);
+    b = new QPushButton("Rimuovi ultima domanda", this);
+    b->setFixedHeight(40);
+    b->setStyleSheet("QPushButton{ color: white;"
+                          "background-color: #990000;"
+                          " border-radius: 5px;}"
+                          "QPushButton:pressed {"
+                          " background-color:#660000;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(rimuoviUltimaDomanda()));
     lay->addWidget(b,1,Qt::AlignTop);
 
-    b = new QPushButton("Salva modifiche", this);
+    b = new QPushButton("Salva", this);
+    b->setFixedHeight(40);
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     lay->addWidget(b,0,Qt::AlignTop);
     CreateCompito* grandParent = giveGrandParent();
     if(grandParent)
     connect(b,SIGNAL(clicked(bool)),grandParent,SLOT(salvaXml()));
 
-    setWindowTitle("Aggiungi compito xml");
+    setWindowTitle("Nuovo compito xml");
 
 }
 

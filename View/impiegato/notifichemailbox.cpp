@@ -15,7 +15,7 @@ void NotificheMailBox::Body()
                          " padding-bottom: 0.4em; "
                          "border-radius:0;}");
 
-    title->setFont(QFont("Times", 15));
+    title->setFont(QFont("Times", 12));
     title->setFixedHeight(50);
     temp2->addWidget(title,0,0);
 
@@ -55,8 +55,12 @@ void NotificheMailBox::Body()
         QGridLayout* temp = new QGridLayout(elenco);
         int conta = 0;
         for(int i = tot-1; i >= 0; --i){
-            temp->addWidget(new QLabel(ctrl->LeggiMailSender(i,true), sottoBox),conta,0,1,4);
-            temp->addWidget(new QLabel(ctrl->LeggiMailOgge(i,true,true), sottoBox),conta,4,1,3);
+            l = new QLabel(ctrl->LeggiMailSender(i,true), sottoBox);
+            l->setFixedWidth(75);
+            temp->addWidget(l,conta,0,1,4,Qt::AlignLeft);
+            l = new QLabel(ctrl->LeggiMailOgge(i,true,true), sottoBox);
+            l->setFixedWidth(75);
+            temp->addWidget(l,conta,4,1,3,Qt::AlignLeft);
             temp->addWidget(new QLabel(ctrl->LeggidataMail(i,true,true), sottoBox),conta,8,1,3);
             buttonMail* b = new buttonMail("Vedi",i,true,true,fi);
             b->setCursor(QCursor(Qt::PointingHandCursor));
@@ -67,11 +71,10 @@ void NotificheMailBox::Body()
                                     "QPushButton:pressed {"
                                     "color:#660000;}");
             connect(b,SIGNAL(clicked(bool)),b, SLOT(receiveClickSig()));
-            temp->addWidget(b,conta,12);
+            temp->addWidget(b,conta,12,Qt::AlignLeft);
             ++conta;
         }
         elenco->setLayout(temp);
-        elenco->setStyleSheet("margin-left: 4px;");
         s->setWidget(elenco);
         s->setWidgetResizable(true);
     }
@@ -79,7 +82,7 @@ void NotificheMailBox::Body()
     temp2->addWidget(s,4,0,1,4);
 
 
-    b = new QPushButton("Invia Nuovo Messaggio", sottoBox);
+    b = new QPushButton("Invia mail", sottoBox);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     b->setFont(f);
     b->setStyleSheet("QPushButton:hover{"

@@ -16,11 +16,8 @@
 #include <QPushButton>
 
 FinestreImpiegato::FinestreImpiegato(ControllerImpiegato *ptr, QWidget* parent): Finestre(ptr, parent),ctrl(ptr),
-   FoglioPresenza(0),
-   t(0),
-   mess(0),
-   Agenda(0),
-   p(0){
+   FoglioPresenza(0),t(0),mess(0),Agenda(0),p(0)
+{
 }
 
 void FinestreImpiegato::Header()
@@ -38,26 +35,32 @@ void FinestreImpiegato::Header()
     if(FoglioPresenza)
         delete FoglioPresenza;
 
-    FoglioPresenza = new QLabel(QDate::currentDate().toString("dd/MMMM/yyyy")+"\n"+QTime::currentTime().toString("hh:mm:ss"), this);
+
+    QFont f("Times", 13);
+    FoglioPresenza = new QLabel(QTime::currentTime().toString("hh:mm:ss"), this);
     t = new QTimer(this);
-    mess = new NotificheMailBox(ctrl,this);
-    Agenda = new AgendaBox(this);
-    p = new QGridLayout(this);
-    QFont f("Times", 15);
     t->setInterval(1000);
     t->start();
        connect(t, SIGNAL(timeout()), this, SLOT(updateLabel()));
-    FoglioPresenza->setFont(f);
+    FoglioPresenza->setFont(QFont("Times",10));
     FoglioPresenza->setStyleSheet("QLabel{"
-                                  "background-color: white;"
-                                  "border-radius: 15px 15px 15px 15px; "
-                                  "color:#29abe2 ;"
-                                  "padding-left: 1em;}");
-    FoglioPresenza->setFixedSize(500,300);
-    FoglioPresenza->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+                                  "color: white ;}");
+    FoglioPresenza->setFixedSize(150,30);
+
+    mess = new NotificheMailBox(ctrl,this);
+    mess->setStyleSheet("border-radius: 15px; background-color: #264d73; color: white;");
+    mess->setFont(f);
+    mess->setMaximumWidth(450);
+
+    Agenda = new AgendaBox(this);
+    Agenda->setMaximumWidth(450);
+    Agenda->setStyleSheet("border:0;");
+
+
+    p = new QGridLayout(this);
     QPushButton* biblio = new QPushButton("Biblioteca", this);
     biblio->setFixedSize(150, 40);
-    biblio->setFont(f);
+    biblio->setFont(QFont("Times",11));
     biblio->setStyleSheet("QPushButton{"
                           "background-color: green; "
                           "border-radius: 5px 5px 5px 5px; "
@@ -75,21 +78,15 @@ void FinestreImpiegato::Header()
                           "QPushButton:pressed {"
                           " background-color:#660000;}");
     logout->setCursor(QCursor(Qt::PointingHandCursor));
-    logout->setFont(f);
+    logout->setFont(QFont("Times",11));
     connect(logout,SIGNAL(clicked()), this, SLOT(signout()));
 
-    mess->setStyleSheet("border-radius: 15px 15px 15px 15px; background-color: #264d73; color: white;");
-    mess->setFont(f);
-    mess->setFixedWidth(500);
 
-    Agenda->setStyleSheet("border-radius: 15px 15px 15px 15px; background-color: rgb(26, 163, 163); color: black;");
-    Agenda->setFont(f);
-
-    p->addWidget(FoglioPresenza,1,0,1,1, Qt::AlignTop);
-    p->addWidget(biblio,0,2,Qt::AlignRight);
-    p->addWidget(logout,0,3);
-    p->addWidget(mess,1,1,1,1,Qt::AlignTop);
-    p->addWidget(Agenda,1,2,1,2,Qt::AlignTop);
+    p->addWidget(FoglioPresenza,0,0,1,1, Qt::AlignTop);
+    p->addWidget(biblio,0,1,Qt::AlignRight);
+    p->addWidget(logout,0,2);
+    p->addWidget(mess,1,1,1,2,Qt::AlignTop);
+    p->addWidget(Agenda,2,0,1,1,Qt::AlignTop);
     setLayout(p);
 }
 
@@ -100,7 +97,7 @@ QGridLayout *FinestreImpiegato::giveLayout() const
 
 void FinestreImpiegato::updateLabel() const
 {
-    FoglioPresenza->setText(QDate::currentDate().toString("dd/MMMM/yyyy")+"\n"+QTime::currentTime().toString("hh:mm:ss"));
+    FoglioPresenza->setText(QTime::currentTime().toString("hh:mm:ss"));
 }
 
 void FinestreImpiegato::InviaNuovoMess()
@@ -190,6 +187,7 @@ void FinestreImpiegato::leggiMess(int i, bool ricevuta, bool OnlyUnread)
 
     MessaggioView read(ctrl);
     read.SelectMessage(i, ricevuta, OnlyUnread);
+    read.setFixedSize(600,600);
     read.exec();
     if(mess)
     mess->reload();

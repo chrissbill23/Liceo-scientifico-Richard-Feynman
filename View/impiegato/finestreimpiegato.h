@@ -23,7 +23,7 @@ private:
      QGridLayout* p;
 public:
     FinestreImpiegato(ControllerImpiegato* ptr, QWidget* parent = 0);
-    virtual void leggiMess(int i, bool ricevuta, bool OnlyUnread = true);
+    void leggiMess(int i, bool ricevuta, bool OnlyUnread = true);
     virtual void ElimMail(unsigned int i, bool ricevuta);
     QGridLayout* giveLayout()const;
     ControllerImpiegato* getController()const;

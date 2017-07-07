@@ -14,7 +14,7 @@
 ViewCompitiProf::ViewCompitiProf(ControllerProf *c) : ViewCompiti(c), sc(new QScrollArea(this)),ctrl(c){
     Header();
     BodyAndFooter();
-    setWindowTitle("Tutti i compiti/ esercizi");
+    setWindowTitle("Compiti");
 }
 
 QWidget *ViewCompitiProf::listaCompiti(int indice) const
@@ -24,102 +24,103 @@ QWidget *ViewCompitiProf::listaCompiti(int indice) const
     temp->setLayout(lay);
 
     vector<string> l = giveLista();
-    QFont f("Times", 13);
-    QLabel* lab = new QLabel("Codice Compito", temp);
+    QFont f("Times", 11);
+    f.setBold(true);
+    f.setUnderline(true);
+    QLabel* lab = new QLabel("Titolo", temp);
     lab->setFont(f);
     lay->addWidget(lab,0,0, 1,1,Qt::AlignLeft|Qt::AlignTop);
 
-    lab = new QLabel("Data", temp);
-    lab->setFont(f);
-    lay->addWidget(lab,0,1, 1,1,Qt::AlignLeft|Qt::AlignTop);
+    QPushButton*b = new QPushButton("Nuovo compito");
+    b->setFixedSize(150,30);
+    b->setFont(QFont("Times",9));
+    b->setStyleSheet("QPushButton{"
+                     "background-color: #336699; "
+                     "border-radius: 5px 5px 5px 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
+    connect(b,SIGNAL(clicked(bool)),this,SLOT(createCompito()));
+    lay->addWidget(b,0,5,1,1, Qt::AlignRight|Qt::AlignTop);
 
-    lab = new QLabel("Titolo", temp);
-    lab->setFont(f);
-    lay->addWidget(lab,0,2, 1,1,Qt::AlignLeft|Qt::AlignTop);
-
-    lab = new QLabel("Classi", temp);
-    lab->setFont(f);
-    lay->addWidget(lab,0,3, 1,1,Qt::AlignLeft|Qt::AlignTop);
-    lay->setRowStretch(1,0);
     if(l.size() > 0){
-        vector<string> l2 = ctrl->giveCompitiTitle();
-        vector<string> l3 = ctrl->giveCompitiDates();
 
         int inizio = l.size()-1*indice -1;
         int row = 1;
         int it = inizio;
-        int it2 = inizio;
-        int it3 = inizio;
         int conta = maxPerPage;
-        for(; it >= 0 && it2 >= 0 && it3 >= 0 && conta > 0; --it){
-            const QString& l1 = QString::fromStdString(l[it]);
-            const QString& l2Q = QString::fromStdString(l2[it2]);
-            const QString& l3Q = QString::fromStdString(l3[it3]);
-            lab = new QLabel(l1,temp);
+        f =  QFont("Times", 10);
+        for(; it >= 0 && conta > 0; --it){
+            const QString& code = QString::fromStdString(l[it]);
+            const QString& l2Q = ctrl->getCompitoTitolo(code);
+
+            lab = new QLabel(l2Q, temp);
+            lab->setFixedWidth(200);
+            lab->setStyleSheet("margin: 0 1em 0 0;");
             lab->setFont(f);
             lay->addWidget(lab, row,0, 1,1,Qt::AlignTop);
 
-            lab = new QLabel(l3Q,temp);
-            lab->setFont(f);
-            lay->addWidget(lab, row,1, 1,1,Qt::AlignTop);
+            buttonCompito* b = new buttonCompito("Dettagli", code,const_cast<ViewCompitiProf*>(this));
+            b->setFixedSize(125,40);
+            b->setCursor(QCursor(Qt::PointingHandCursor));
+            connect(b,SIGNAL(clicked(bool)),b,SLOT(Dettagli()));
+            lay->addWidget(b,row,1,1,1,Qt::AlignTop);
 
-            lab = new QLabel(l2Q, temp);
-            lab->setFont(f);
-            lay->addWidget(lab, row,2, 1,1,Qt::AlignTop);
-
-            lab = new QLabel(temp);
-            lab->setFont(f);
-            lab->setScaledContents(true);
-            list<string> temp = ctrl->classiCompito(l1);
-            for(list<string>:: const_iterator it4 = temp.begin(); it4 != temp.end(); ++ it4){
-                lab->setText(lab->text() + QString::fromStdString(*it4)+". ");
-            }
-            lay->addWidget(lab, row,3, 1,1,Qt::AlignTop);
-
-            buttonCompito* b = new buttonCompito("Visualizza", l1,const_cast<ViewCompitiProf*>(this));
+            b = new buttonCompito("Apri", code,const_cast<ViewCompitiProf*>(this));
+            b->setFixedSize(150,40);
+            b->setCursor(QCursor(Qt::PointingHandCursor));
             connect(b,SIGNAL(clicked(bool)),b,SLOT(ShowCompito()));
-            lay->addWidget(b,row,4,1,1,Qt::AlignTop);
+            lay->addWidget(b,row,2,1,1,Qt::AlignTop);
 
-            b = new buttonCompito("Visualizza elaborati studenti", l1,
+            b = new buttonCompito("Elaborati studenti", code,
                                   const_cast<ViewCompitiProf*>(this));
+            b->setFixedSize(150,40);
+            b->setCursor(QCursor(Qt::PointingHandCursor));
             connect(b,SIGNAL(clicked(bool)),b,SLOT(viewElaborati()));
+            lay->addWidget(b,row,3, 1,1,Qt::AlignTop);
+
+            b = new buttonCompito("Aggiungi classe", code,const_cast<ViewCompitiProf*>(this));
+            b->setFixedSize(150,40);
+            b->setCursor(QCursor(Qt::PointingHandCursor));
+            lay->addWidget(b,row,4, 1,1,Qt::AlignTop);
+            connect(b,SIGNAL(clicked(bool)),b,SLOT(aggiungiClasse()));
+
+            b = new buttonCompito("Elimina", code,const_cast<ViewCompitiProf*>(this));
+            b->setStyleSheet("QPushButton{ color: white;"
+                                  "background-color: #990000;"
+                                  " border-radius: 5px;}"
+                                  "QPushButton:pressed {"
+                                  " background-color:#660000;}");
+            b->setFixedSize(150,40);
+            b->setCursor(QCursor(Qt::PointingHandCursor));
+            connect(b,SIGNAL(clicked(bool)),b,SLOT(elimCompito()));
             lay->addWidget(b,row,5, 1,1,Qt::AlignTop);
 
-            b = new buttonCompito("Elimina compito", l1,const_cast<ViewCompitiProf*>(this));
-
-            connect(b,SIGNAL(clicked(bool)),b,SLOT(elimCompito()));
-            lay->addWidget(b,row,6, 1,1,Qt::AlignTop);
-
-            b = new buttonCompito("Aggiungi classe", l1,const_cast<ViewCompitiProf*>(this));
-
-            connect(b,SIGNAL(clicked(bool)),b,SLOT(aggiungiClasse()));
-            lay->addWidget(b,row,7, 1,1,Qt::AlignTop);
-
-            --it2;
-            --it3;
             --conta;
             ++row;
 
         }
+
+        QGroupBox* footer = new QGroupBox(temp);
+        footer->setStyleSheet("QGroupBox{border: 0;}");
+        QGridLayout* footerLay = new QGridLayout(footer);
+        footer->setLayout(footerLay);
+
         lab = new QLabel("pagina "+QString::number(currPage)+"/"+QString::number(totPage));
-        lab->setFont(f);
-        lay->addWidget(lab,row+2,3,1,1,Qt::AlignHCenter);
+        lab->setFont(QFont("Times",10));
+        footerLay->addWidget(lab,0,1,1,1,Qt::AlignHCenter);
+        footerLay->setColumnStretch(0,1);
+        footerLay->setColumnStretch(2,1);
         QIcon i1;
         if(currPage > 1){
             i1.addPixmap(QPixmap(":/Database/immagini/prev.png"));
             QPushButton* b = new QPushButton(temp);
             b->setIcon(i1);
-            b->setFixedSize(200,40);
-            b->setIconSize(QSize(200,40));
-            b->setStyleSheet("QPushButton{"
-                             "background-color: white;"
-                             "border: 2px solid;"
-                             "border-radius: 5px 5px 5px 5px; "
-                             "color: white;}"
-                             "QPushButton:pressed {"
-                             "background-color:#003300;}");
+            b->setFixedSize(100,40);
+            b->setIconSize(QSize(100,30));
             b->setCursor(QCursor(Qt::PointingHandCursor));
-            lay->addWidget(b,row+2,0,1,1,Qt::AlignLeft);
+            footerLay->addWidget(b,0,0,1,1,Qt::AlignLeft);
             connect(b,SIGNAL(clicked(bool)),this,SLOT(goPrev()));
         }
 
@@ -127,23 +128,18 @@ QWidget *ViewCompitiProf::listaCompiti(int indice) const
             i1.addPixmap(QPixmap(":/Database/immagini/next.png"));
             QPushButton* b2 = new QPushButton(temp);
             b2->setIcon(i1);
-            b2->setFixedSize(200,40);
-            b2->setIconSize(QSize(200,40));
-            b2->setStyleSheet("QPushButton{"
-                              "background-color: white;"
-                              "border: 2px solid;"
-                              "border-radius: 5px 5px 5px 5px; "
-                              "color: white;}"
-                              "QPushButton:pressed {"
-                              "background-color:#003300;}");
+            b2->setFixedSize(100,40);
+            b2->setIconSize(QSize(100,30));
             b2->setCursor(QCursor(Qt::PointingHandCursor));
             connect(b2,SIGNAL(clicked(bool)),this,SLOT(goNext()));
-            lay->addWidget(b2,row+2,7,1,1,Qt::AlignRight);
+            footerLay->addWidget(b2,0,2,1,1,Qt::AlignRight);
         }
+        lay->addWidget(footer,row+2,0,1,6);
 
     }
     else{
-        lay->addWidget(new QLabel("Non ha ancora assegnato compiti/esercizi ", temp),1,0,1,2);
+        lay->addWidget(new QLabel("Nessun compito trovato", temp),1,0,1,1);
+        lay->setRowStretch(2,1);
     }
 
 return temp;
@@ -183,6 +179,7 @@ void ViewCompitiProf::viewElaborati(const QString &codice) const
             }
         }
         temp.setFixedSize(600,600);
+        temp.setWindowTitle("Elaborati studenti");
         temp.exec();
     }
     else{
@@ -191,14 +188,6 @@ void ViewCompitiProf::viewElaborati(const QString &codice) const
 
 }
 
-ViewCompitiProf::~ViewCompitiProf()
-{
-    if(sc){
-        QWidget* p = sc->widget();
-        if(p)
-            delete p;
-    }
-}
 
 void ViewCompitiProf::createCompito()
 {
@@ -214,6 +203,8 @@ void ViewCompitiProf::aggiungiClasse(const QString &codice)
     QComboBox* classi = new QComboBox(&temp);
 
     classi->addItem("Seleziona la classe",-1);
+    classi->setFixedHeight(30);
+    classi->setFont(QFont("Times",9));
     vector<string> l = ctrl->Classi();
     for(vector<string>::const_iterator it = l.begin(); it != l.end(); ++it)
         classi->addItem(QString::fromStdString(*it),QString::fromStdString(*it));
@@ -228,7 +219,8 @@ void ViewCompitiProf::aggiungiClasse(const QString &codice)
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(400,400);
+    temp.setFixedSize(400,160);
+    temp.setWindowTitle("Assegna compito a classe");
 
     while( temp.exec() == QDialog::Accepted){
         if(classi->itemData(classi->currentIndex()).toInt() == -1)
@@ -266,44 +258,16 @@ void ViewCompitiProf::BodyAndFooter()
     if(!lay){
         lay = new QGridLayout(this);
     }
-    QLabel* lab = new QLabel("Ordina per: ");
-    lab->setFont(QFont("Times",14));
-    lay->addWidget(lab,1,0,1,1, Qt::AlignRight);
 
     QComboBox* m = Materie();
+    m->setCursor(QCursor(Qt::PointingHandCursor));
     QComboBox* c = Classi();
+    c->setCursor(QCursor(Qt::PointingHandCursor));
     lay->addWidget(m,1,1, 1,1, Qt::AlignCenter);
     lay->addWidget(c,1,2,1,1, Qt::AlignLeft);
 
     connect(m,SIGNAL(currentIndexChanged(int)),this,SLOT(FiltraRisultati()));
     connect(c,SIGNAL(currentIndexChanged(int)),this,SLOT(FiltraRisultati()));
-    QPushButton* b = new QPushButton("filtra risultati", this);
-    b->setFixedSize(200,50);
-    b->setFont(QFont("Times",12));
-    b->setStyleSheet("QPushButton{"
-                     "background-color: green;"
-                     "border: 2px solid;"
-                     "border-radius: 5px 5px 5px 5px; "
-                     "color: white;}"
-                     "QPushButton:pressed {"
-                     "background-color:#003300;}");
-    connect(b,SIGNAL(clicked(bool)),this,SLOT(FiltraRisultati()));
-    lay->addWidget(b,1,2,1,1, Qt::AlignRight);
-
-    b = new QPushButton("Aggiungi compito", this);
-    b->setFixedSize(300,50);
-    b->setFont(QFont("Times",12));
-    b->setStyleSheet("QPushButton{"
-                     "background-color: green;"
-                     "border: 2px solid;"
-                     "border-radius: 5px 5px 5px 5px; "
-                     "color: white;}"
-                     "QPushButton:pressed {"
-                     "background-color:#003300;}");
-
-    connect(b,SIGNAL(clicked(bool)),this,SLOT(createCompito()));
-    lay->addWidget(b,2,2,1,1, Qt::AlignRight);
-
 
     sc->setWidget(listaCompiti(0));
     sc->setWidgetResizable(true);

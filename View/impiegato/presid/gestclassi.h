@@ -16,7 +16,7 @@ private:
 
     vector<string> classes;
     void InsertInComboBoxes();
-    QWidget* loadPage(int);
+    QWidget* loadPage();
 public:
     GestClassi(ControllerPreside* c, QWidget* parent = 0);
 protected:

@@ -14,7 +14,6 @@ public:
     ViewCompitiProf(ControllerProf* c);
     QWidget* listaCompiti(int) const;
     void viewElaborati(const QString& codice)const;
-    ~ViewCompitiProf();
 public slots:
     void reloadWindow();
     void createCompito();

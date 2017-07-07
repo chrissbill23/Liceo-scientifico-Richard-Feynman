@@ -11,8 +11,12 @@
 #include <QPushButton>
 
 FinestrePreside::FinestrePreside(ControllerPreside *p, QWidget *parent):FinestreImpiegato(p,parent), ctrl(p){
-
-    setStyleSheet(" background-color: #29abe2");
+    setStyleSheet("QPushButton{"
+                         "background-color: #336699; "
+                         "border-radius: 5px 5px 5px 5px; "
+                         "color: white;}"
+                         "QPushButton:pressed {"
+                        " background-color:#003300;}");
 }
 
 ControllerPreside *FinestrePreside::getController() const
@@ -75,7 +79,7 @@ void FinestrePreside::CercaImpiegato()
 void FinestrePreside::addImpiegato()
 {
     FormAddImpiegato temp(ctrl);
-    temp.setFixedSize(900,800);
+    temp.setFixedSize(700,600);
 
     temp.exec();
     reloadWindow();
@@ -85,10 +89,10 @@ void FinestrePreside::rimuoviClasse(const QString &nome)
 {
     const QString& ris = ctrl->rimuoviClasse(nome);
     if(ris == ""){
-        QMessageBox::information(this, "", "la classe "+nome+" è stata rimossa");
+        QMessageBox::information(0, "", "la classe "+nome+" è stata rimossa");
         reloadWindow();
     }
-    else QMessageBox::information(this,"ERRORE", ris);
+    else QMessageBox::information(0,"ERRORE", ris);
 }
 
 void FinestrePreside::aggiungiClasse()
@@ -133,8 +137,8 @@ void FinestrePreside::aggiungiClasse()
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(400,400);
-    temp.setWindowTitle("Aggiungi nuova classe");
+    temp.setFixedSize(450,300);
+    temp.setWindowTitle("Nuova classe");
 
     QString cla = classi->itemData(classi->currentIndex()).toString();
     QString sess = sessioni->itemData(sessioni->currentIndex()).toString();
@@ -183,8 +187,8 @@ void FinestrePreside::aggiungiSessClasse()
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(300,300);
-    temp.setWindowTitle("Aggiungi nuova sessione");
+    temp.setFixedSize(500,200);
+    temp.setWindowTitle("Nuova sessione");
 
     QString ris = "Errore";
     while((sess->text() == "" || ris != "") && temp.exec() == QDialog::Accepted){
@@ -225,8 +229,8 @@ void FinestrePreside::aggiungiIndirClasse()
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(300,300);
-    temp.setWindowTitle("Aggiungi nuovo indirizzo");
+    temp.setFixedSize(500,200);
+    temp.setWindowTitle("Nuovo indirizzo");
 
     QString ris = "Errore";
     while((ind->text() == "" || ris != "") && temp.exec() == QDialog::Accepted){
@@ -266,8 +270,8 @@ void FinestrePreside::aggiungiMateria()
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(300,300);
-    temp.setWindowTitle("Aggiungi nuova materia");
+    temp.setFixedSize(450,190);
+    temp.setWindowTitle("Nuova materia");
 
     QString ris = "Errore";
     while((ind->text() == "" || ris != "") && temp.exec() == QDialog::Accepted){
@@ -309,7 +313,7 @@ void FinestrePreside::rimuoviSessione()
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(400,300);
+    temp.setFixedSize(400,200);
     temp.setWindowTitle("Rimuovi sessione");
 
     QString ris = "0";
@@ -324,7 +328,7 @@ void FinestrePreside::rimuoviSessione()
                 if(ris != "")
                 QMessageBox::information(&temp,"Errore", ris);
                 else{
-                    QMessageBox::information(&temp,"", "Rimossa con successo");
+                    QMessageBox::information(&temp,"", "Eliminata con successo");
                     reloadWindow();
                 }
     }
@@ -353,7 +357,7 @@ void FinestrePreside::rimuoviIndirizzo()
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(400,300);
+    temp.setFixedSize(400,200);
     temp.setWindowTitle("Rimuovi indirizzo");
 
     QString ris = "0";
@@ -368,7 +372,7 @@ void FinestrePreside::rimuoviIndirizzo()
                 if(ris != "")
                 QMessageBox::information(&temp,"Errore", ris);
                 else{
-                    QMessageBox::information(&temp,"", "Rimosso con successo");
+                    QMessageBox::information(&temp,"", "Eliminato con successo");
                     reloadWindow();
                 }
     }
@@ -398,7 +402,7 @@ void FinestrePreside::rimuoviMateria() const
     connect(b,SIGNAL(clicked(bool)),&temp,SLOT(reject()));
     temp.push_back_Widget(b);
 
-    temp.setFixedSize(400,300);
+    temp.setFixedSize(400,200);
     temp.setWindowTitle("Rimuovi materia");
 
     QString ris = "0";
@@ -413,7 +417,7 @@ void FinestrePreside::rimuoviMateria() const
                 if(ris != "")
                 QMessageBox::information(&temp,"Errore", ris);
                 else{
-                    QMessageBox::information(&temp,"", "Rimosso con successo");
+                    QMessageBox::information(&temp,"", "Eliminata con successo");
                 }
     }
 }
@@ -531,7 +535,7 @@ void FinestrePreside::RimuoviMateriaAProf(const QString &prof) const
             ris = ctrl->rimuoviMateriaEClasseAProf(prof,cla,mat);
             if(ris != "")
                 QMessageBox::information(&temp,"Errore", ris);
-            else QMessageBox::information(&temp,"", "Classe e materia rimosse con successo!");
+            else QMessageBox::information(&temp,"", "Classe e materia tolte con successo!");
         }
     }
 }

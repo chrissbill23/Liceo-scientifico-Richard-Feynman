@@ -34,14 +34,12 @@ void DomandaAperta::setIntoAnswWidg()
     lab->setFont(QFont("Times",12));
     lay->addWidget(lab,0,Qt::AlignLeft|Qt::AlignTop);
 
-    lab = new QLabel("Risposta: ",this);
-    lab->setFont(QFont("Times",10));
-    lay->addWidget(lab,0,Qt::AlignLeft|Qt::AlignTop);
-
     if(!risposta)
         risposta = new QTextEdit(this);
-    risposta->setFont(QFont("Times",8));
-    lay->addWidget(risposta,1,Qt::AlignLeft|Qt::AlignTop);
+    risposta->setFont(QFont("Times",11));
+    risposta->setPlaceholderText("Rispondi...");
+    risposta->setFixedHeight(300);
+    lay->addWidget(risposta,1,Qt::AlignTop);
 
 
 }

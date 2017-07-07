@@ -18,25 +18,28 @@ QGroupBox *GestioneSegrGroupBox::loadPage(int indice)
 
     int tot = segr.size();
 
-    QFont f("Times",13);
+    QFont f("Times",9);
     f.setUnderline(true);
     QLabel* lab = new QLabel(QString::number(tot)+" segretari");
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 5em;");
     p->addWidget(lab,0,0);
 
-    f = QFont("Times",15);
+    f = QFont("Times",10);
     f.setBold(true);
 
     lab = new QLabel("Cognome",temp);
     lab->setFont(f);
+    lab->setStyleSheet("margin-bottom: 2em;");
     p->addWidget(lab,1,0);
     lab = new QLabel("Nome",temp);
+    lab->setStyleSheet("margin-bottom: 2em;");
     lab->setFont(f);
     p->addWidget(lab,1,1);
 
 
     int row = 1;
-    f = QFont("Times",12);
+    f = QFont("Times",9);
     for(int i = indice; i < tot && i < maxPerPage; ++i){
         const QString& seg = QString::fromStdString(segr[i]);
         const QString& nomeutente = seg;
@@ -45,25 +48,44 @@ QGroupBox *GestioneSegrGroupBox::loadPage(int indice)
 
         lab = new QLabel(cognome, temp);
         lab->setFont(f);
+        lab->setFixedWidth(300);
         p->addWidget(lab,row+1,0,1,1,Qt::AlignTop);
 
         lab = new QLabel(nome, temp);
         lab->setFont(f);
+        lab->setFixedWidth(300);
         p->addWidget(lab,row+1,1,1,1,Qt::AlignTop);
 
-        buttonGestImp* b = new buttonGestImp("Info",nomeutente,this);
+        buttonGestImp* b = new buttonGestImp("Dettagli",nomeutente,this);
         b->setFont(f);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                              "background-color: #336699; "
+                              "border-radius: 5px; "
+                              "color: white;}"
+                              "QPushButton:pressed {"
+                             " background-color:#003300;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(vediInfoImp()));
         p->addWidget(b,row+1,2,1,1,Qt::AlignTop);
 
         b = new buttonGestImp("Rimuovi segretario",nomeutente,this);
         b->setFont(f);
+        b->setFixedSize(150,30);
+        b->setStyleSheet("QPushButton{"
+                         "background-color: #990000;"
+                         "color: white;"
+                         " border-radius: 5px;}"
+                         "QPushButton:pressed {"
+                         " background-color:#660000;}");
+        b->setCursor(QCursor(Qt::PointingHandCursor));
         connect(b,SIGNAL(clicked(bool)),b,SLOT(ElimImp()));
         p->addWidget(b,row+1,3,1,1,Qt::AlignTop);
 
         ++row;
 
     }
+    p->setRowStretch(row,1);
 
 
     return temp;
@@ -141,9 +163,9 @@ void GestioneSegrGroupBox::viewInfoImpiegato(const QString &nomeUtente) const
 void GestioneSegrGroupBox::rimuoviImpiegato(const QString &nomeUtente)
 {
     if(ctrl->rimuoviSegr(nomeUtente)){
-        QMessageBox::information(this, "","Segretario/a rimosso/a ");
+        QMessageBox::information(0, "","Segretario/a rimosso/a ");
         reloadWindow();
     }
     else
-        QMessageBox::information(this, "Errore","E' avvenuto un errore");
+        QMessageBox::information(0, "Errore","E' avvenuto un errore");
 }

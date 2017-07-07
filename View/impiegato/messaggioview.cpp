@@ -2,11 +2,18 @@
 #include"../../Controller/controllerimpiegato.h"
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QScrollArea>
+#include <QGroupBox>
 
 MessaggioView::MessaggioView(ControllerImpiegato *ptr, QWidget *parent):QDialog(parent),
     ctrl(ptr),index(-1), data(new QLabel(this)), oggetto(new QLabel(this)),emitt(new QLabel(this)), Messaggio(new QLabel(this))
 {
-    QVBoxLayout* layout= new QVBoxLayout(this);
+    QScrollArea* body = new QScrollArea(this);
+    QGroupBox* contenuto = new QGroupBox;
+    QVBoxLayout* layout= new QVBoxLayout(contenuto);
+    contenuto->setLayout(layout);
+    QVBoxLayout* lay = new QVBoxLayout(this);
+
     QFont f("Times", 13);
     f.setUnderline(true);
     QLabel * title = new QLabel("Data:", this);
@@ -31,8 +38,14 @@ MessaggioView::MessaggioView(ControllerImpiegato *ptr, QWidget *parent):QDialog(
     oggetto->setFont(f);
     emitt->setFont(f);
     Messaggio->setFont(f);
+
+    body->setWidget(contenuto);
+    body->setWidgetResizable(true);
+
+    lay->addWidget(body);
+
+    setLayout(lay);
     setWindowTitle("Nessun messaggio selezionato");
-    setFixedSize(800,800);
 
 }
 

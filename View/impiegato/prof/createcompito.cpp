@@ -14,12 +14,9 @@ QGroupBox *CreateCompito::FirstPage()
 {
     QGroupBox* temp = new QGroupBox(this);
     QVBoxLayout* lay = new QVBoxLayout(temp);
-    QLabel* lab = new QLabel("Scegli il tipo di file:", temp);
-    lab->setFont(QFont("Times",15));
-    lay->addWidget(lab,0);
 
     QComboBox* scelte = new QComboBox(temp);
-    scelte->addItem("Seleziona il formato", -1);
+    scelte->addItem("Seleziona un formato", -1);
     list<string> l = ctrl->tipiFileCompito();
 
     int i = 0;
@@ -34,6 +31,13 @@ QGroupBox *CreateCompito::FirstPage()
     QPushButton* b = new QPushButton("Invia",temp);
     b->setFixedSize(100,30);
     b->setFont(QFont("Times", 9));
+    b->setStyleSheet("QPushButton{"
+                         "background-color: #336699; "
+                         "border-radius: 5px 5px 5px 5px; "
+                         "color: white;}"
+                         "QPushButton:pressed {"
+                        " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this, SLOT(gotoForm()));
     lay->addWidget(b,1, Qt::AlignHCenter|Qt::AlignTop);
 
@@ -62,7 +66,7 @@ void CreateCompito::gotoForm()
 
     }
     else{
-        QMessageBox::information(this, tr("Nessuna selezione è stata fatta"),
+        QMessageBox::information(0, tr("Nessuna selezione è stata fatta"),
                                  tr("E' richiesta la selezione di un formato."));
     }
 }
@@ -73,7 +77,7 @@ void CreateCompito::salvaXml()
     if(p && p->salva()){
         delete p;
         createXMLCompito * temp = new createXMLCompito(ctrl, this);
-        QLabel* error = new QLabel("Salvato con successo. Chiudi la finestra per terminare, altrimenti continua l'inserimento", temp);
+        QLabel* error = new QLabel("Salvato con successo!", temp);
         error->setStyleSheet("color: green;");
         error->setFont(QFont("Times", 13));
         temp->setMessage(error);
@@ -88,14 +92,14 @@ void CreateCompito::salvaPdf()
     if(p && p->salva()){
         delete p;
         LoadPDFcompito * temp = new LoadPDFcompito(ctrl, this);
-        QLabel* error = new QLabel("Caricato con successo. Chiudi la finestra per terminare, altrimenti continua l'inserimento", temp);
+        QLabel* error = new QLabel("Caricato con successo!", temp);
         error->setStyleSheet("color: green;");
         error->setFont(QFont("Times", 13));
         temp->setMessage(error);
         sc->setWidget(temp);
         sc->setWidgetResizable(true);
     }
-    else  QMessageBox::information(this, tr("Errore"),
+    else  QMessageBox::information(0, tr("Errore"),
                                    tr("Errore nel salvataggio: verifica di aver compilato\n"
                                       " correttamente tutti i campi, evitando i caratter < & \""));
 }
@@ -103,7 +107,7 @@ void CreateCompito::salvaPdf()
 
 CreateCompito::CreateCompito(ControllerProf *c, QWidget *parent):QDialog(parent), ctrl(c), sc(new QScrollArea(this))
 {
-    setFixedSize(1500,700);
+    setFixedSize(800,650);
     setStyleSheet("background-color: none;");
     QVBoxLayout* lay = new QVBoxLayout(this);
     sc->setWidget(FirstPage());
@@ -111,5 +115,5 @@ CreateCompito::CreateCompito(ControllerProf *c, QWidget *parent):QDialog(parent)
     lay->addWidget(sc);
     setLayout(lay);
 
-    setWindowTitle("Aggiungi nuovo compito");
+    setWindowTitle("Nuovo compito");
 }

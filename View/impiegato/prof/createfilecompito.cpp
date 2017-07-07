@@ -14,7 +14,7 @@ QWidget *createFileCompito::InsertInMateria()
         delete Materia;
     Materia = new QComboBox(this);
     Materia->setFixedSize(300,50);
-    Materia->setFont(QFont("Times",12));
+    Materia->setFont(QFont("Times",10));
 
     Materia->addItem("Seleziona la materia", -1);
 
@@ -32,7 +32,7 @@ QWidget *createFileCompito::InsertInClasse()
         delete classe;
     classe = new QComboBox(this);
     classe->setFixedSize(300,50);
-    classe->setFont(QFont("Times",12));
+    classe->setFont(QFont("Times",10));
 
     classe->addItem("Seleziona la classe", -1);
 
@@ -69,7 +69,12 @@ createFileCompito::createFileCompito(ControllerProf* c, QWidget* parent) :  QGro
     Materia(0), classe(0), titolo(0), Descrizione(0),
     lay(0),error(0), genitore(dynamic_cast<CreateCompito*>(parent))
 {
-
+    setStyleSheet("QPushButton{"
+                         "background-color: #336699; "
+                         "border-radius: 5px 5px 5px 5px; "
+                         "color: white;}"
+                         "QPushButton:pressed {"
+                        " background-color:#003300;}");
 }
 
 void createFileCompito::setMessage(QLabel *p)
@@ -111,17 +116,18 @@ void createFileCompito::loadHeader()
     lay->addWidget(p2,0,Qt::AlignTop|Qt::AlignCenter);
 
     QLabel* lab = new QLabel("Titolo ( 50 caratteri al massimo ): ", titolo);
-    lab->setFont(QFont("Times",14));
+    lab->setFont(QFont("Times",12));
     lay->addWidget(lab,0,Qt::AlignTop);
     titolo->setFixedHeight(50);
     titolo->setMaxLength(50);
-    titolo->setFont(QFont("Times",14));
+    titolo->setFont(QFont("Times",12));
     lay->addWidget(titolo,0,Qt::AlignTop);
 
     lab = new QLabel("Breve descrizione: ", Descrizione);
-    lab->setFont(QFont("Times",14));
+    lab->setFont(QFont("Times",12));
     lay->addWidget(lab,0,Qt::AlignTop);
-    Descrizione->setFont(QFont("Times",14));
+    Descrizione->setFont(QFont("Times",12));
+    Descrizione->setFixedHeight(200);
     lay->addWidget(Descrizione,0,Qt::AlignTop);
 }
 

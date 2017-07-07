@@ -35,22 +35,21 @@ void HomePageSegr::BodyAndFooter()
     GestioneStudenti = new QScrollArea(this);
     profile = new QGroupBox(this);
 
-    GestioneStudenti->setStyleSheet("border-radius: 15px 15px 15px 15px; background-color: #476b6b; color: white;");
+    GestioneStudenti->setStyleSheet("border-radius: 15px 15px 15px 15px; color: white;");
     GestioneStudenti->setFont(f);
     GestioneStudenti->setWidget(InsertInGestioneStudenti());
     GestioneStudenti->setWidgetResizable(true);
     GestioneStudenti->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    GestioneStudenti->setFixedSize(500,300);
+    GestioneStudenti->setMaximumWidth(450);
 
 
     InsertInProfile();
     profile->setStyleSheet("border-radius: 15px 15px 15px 15px; background-color: #e8e3e3;");
-    profile->setFixedSize(500,300);
+    profile->setMaximumSize(450,260);
 
-    p->addWidget(GestioneStudenti,2,1,2,2, Qt::AlignTop);
-    p->addWidget(profile, 2,2,1,2,Qt::AlignTop);
-
-    setLayout(p);
+    p->addWidget(GestioneStudenti,2,1,1,2, Qt::AlignTop);
+    p->addWidget(profile, 1,0,1,1,Qt::AlignTop);
+    p->setRowStretch(2,1);
 }
 
 void HomePageSegr::cercaStudente()
@@ -61,7 +60,7 @@ void HomePageSegr::cercaStudente()
 
 QGroupBox *HomePageSegr::InsertInGestioneStudenti()
 {
-    QFont f("Times", 15);
+    QFont f("Times", 13);
     QGroupBox* temp = new QGroupBox(GestioneStudenti);
 
     QLabel* title = new QLabel("GESTIONE STUDENTI", temp);
@@ -85,46 +84,43 @@ QGroupBox *HomePageSegr::InsertInGestioneStudenti()
                               "border-radius: 0;"
                               "color: black;"
                               "padding-left: 0.5em;");
-    searchBox->setFixedSize(400,40);
+    searchBox->setFixedHeight(40);
     searchBox->setFont(f);
-    QPushButton* b = new QPushButton("Cerca studente", temp);
+    QPushButton* b = new QPushButton("Cerca", temp);
     b->setFixedSize(150, 30);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     b->setStyleSheet("QPushButton{"
-                            "background-color: green;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
+                     "background-color: #336699; "
+                     "border-radius: 5px 5px 5px 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
     connect(b,SIGNAL(clicked(bool)),this,SLOT(cercaStudente()));
 
     p2->addWidget(searchBox,0, Qt::AlignTop);
     p2->addWidget(b,0, Qt::AlignTop);
 
-    b = new QPushButton("Inserici un nuovo studente", temp);
+    b = new QPushButton("Nuovo studente", temp);
     b->setStyleSheet("QPushButton{"
-                            "background-color: green;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
-    b->setFixedSize(300, 40);
+                     "background-color: #336699; "
+                     "border-radius: 5px 5px 5px 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
+    b->setFixedHeight(40);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked()), this, SLOT(aggiungiStud()));
 
     p2->addWidget(b,0, Qt::AlignTop);
 
-    b = new QPushButton("Modifica studente", temp);
+    b = new QPushButton("Modifica", temp);
     b->setStyleSheet("QPushButton{"
-                            "background-color: green;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
-    b->setFixedSize(300, 40);
+                     "background-color: #336699; "
+                     "border-radius: 5px 5px 5px 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
+    b->setFixedHeight(40);
     b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked()), this, SLOT(ModificaStudenti()));
     p2->addWidget(b,1,Qt::AlignTop);
@@ -137,67 +133,65 @@ QGroupBox *HomePageSegr::InsertInGestioneStudenti()
 
 void HomePageSegr::InsertInProfile() const
 {
-    QFont f("Times", 15);
-    QLabel* title = new QLabel("IL TUO PROFILO", profile);
+    QFont f("Times", 12);
+    QLabel* title = new QLabel("PROFILO", profile);
     title->setStyleSheet("QLabel{"
-                         " padding-bottom: 0.4em; }");
+                         "margin-bottom: 0.4em; }");
 
     title->setFont(f);
-    title->setFixedHeight(50);
 
     QGridLayout* p = new QGridLayout(profile);
     p->addWidget(title,0, 0,1,2);
     QLabel* g = new QLabel(profile);
-    g->setFixedSize(100,100);
+    g->setFixedSize(130,200);
     g->setPixmap(QPixmap(getController()->fotoprofilo()).scaled(g->width(),g->height()));
-    g->setStyleSheet("QLabel{margin: 0 20px 0 0;}");
-    p->addWidget(g,1, 0,1,2);
+    p->addWidget(g,1, 0,6,1, Qt::AlignTop);
 
-    QPushButton* b = new QPushButton("Cambia foto profilo", profile);
+    QPushButton* b = new QPushButton("Cambia foto", profile);
     b->setStyleSheet("QPushButton{"
-                            "background-color: #29abe2;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
-    b->setFixedSize(150,30);
+                     "background-color: #336699; "
+                     "border-radius: 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
+    b->setFixedSize(125,30);
     b->setCursor(QCursor(Qt::PointingHandCursor));
-    p->addWidget(b,1,1,1,1);
+    p->addWidget(b,1,1,1,1, Qt::AlignTop);
     connect(b,SIGNAL(clicked(bool)),this, SLOT(cambiafotoProfilo()));
 
     b = new QPushButton("Cambia password", profile);
     b->setStyleSheet("QPushButton{"
-                            "background-color: #29abe2;"
-                            "border: 2px solid;"
-                            "border-radius: 5px 5px 5px 5px; "
-                            "color: white;}"
-                            "QPushButton:pressed {"
-                            "background-color:#003300;}");
+                     "background-color: #336699; "
+                     "border-radius: 5px; "
+                     "color: white;}"
+                     "QPushButton:pressed {"
+                    " background-color:#003300;}");
     b->setFixedSize(150,30);
     b->setCursor(QCursor(Qt::PointingHandCursor));
-    p->addWidget(b,1,2,1,1);
+    p->addWidget(b,1,2,1,1, Qt::AlignTop);
     connect(b,SIGNAL(clicked(bool)),this, SLOT(cambiaPassword()));
 
     list<string> v1 = getController()->CampiDatiProfile();
     list<string> v2 = getController()->DaiValoreCampiDatiProfile();
 
      int conta = 2;
-     f = QFont("Times", 9);
+     f = QFont("Times", 8);
                 for(list<string>::const_iterator it = v1.begin(); it != v1.end(); ++it){
                              g = new QLabel(QString::fromStdString(*it)+":", profile);
                              g->setStyleSheet("QLabel{color: #29abe2;}");
                              g->setFont(f);
 
-                             p->addWidget(g,conta, 0);
+                             p->addWidget(g,conta, 1,1,1, Qt::AlignTop);
                              ++conta;
                             }
                 conta = 2;
                 for(list<string>::const_iterator it2=v2.begin(); it2 != v2.end(); ++it2){
                     g = new QLabel(QString::fromStdString(*it2), profile);
-                    g->setStyleSheet("QLabel{border-radius: 15px 15px 15px 15px; background-color: white; padding-left: 1em;}");
+                    g->setStyleSheet("QLabel{border-radius: 3px;"
+                                     " background-color: white; "
+                                     "padding: 0.4em 0 0.4em 0.4em;}");
 
-                    p->addWidget(g,conta, 1,1,3);
+                    p->addWidget(g,conta, 2,1,1, Qt::AlignTop);
                     ++conta;
 
                 }

@@ -57,3 +57,9 @@ void buttonCompito::aggiungiClasse()
        if(p)
            p->aggiungiClasse(codice);
 }
+
+void buttonCompito::Dettagli() const
+{
+    if(fi)
+        fi->InfoCompito(codice);
+}

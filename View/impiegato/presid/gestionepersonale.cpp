@@ -14,6 +14,7 @@ GestionePersonale::GestionePersonale(ControllerPreside *c, QWidget *parent):Fine
     BodyAndFooter();
     setStyleSheet("background-color: none;");
     setLayout(lay);
+    setWindowTitle("Gestione impiegati");
 }
 
 void GestionePersonale::Header()
@@ -25,9 +26,9 @@ void GestionePersonale::Header()
 
     head->setLayout(p);
 
-    QFont f("Times",14);
-    QPushButton* previousWindow = new QPushButton("Torna Indietro", head);
-    previousWindow->setFixedSize(200, 40);
+    QFont f("Times",11);
+    QPushButton* previousWindow = new QPushButton("Indietro", head);
+    previousWindow->setFixedSize(150, 40);
     previousWindow->setFont(f);
     previousWindow->setStyleSheet("QPushButton{"
                           "background-color: #336699; "
@@ -56,17 +57,24 @@ void GestionePersonale::Header()
     dipendenti = new QComboBox(head);
     dipendenti->addItem("Gestisci i professori",0);
     dipendenti->addItem("Gestisci i segretari",1);
-    dipendenti->setFixedSize(400,50);
+    dipendenti->setFixedSize(300,40);
     dipendenti->setFont(f);
     connect(dipendenti, SIGNAL(currentIndexChanged(int)), this, SLOT(SwitchPage(int)));
 
     p->addWidget(dipendenti, 1,1,1,1,Qt::AlignHCenter);
 
-    QPushButton* b = new QPushButton("Aggiungi nuovo impiegato",this);
-    b->setFont(QFont("Times",13));
-    b->setFixedSize(300,40);
+    QPushButton* b = new QPushButton("Nuovo impiegato",this);
+    b->setFont(QFont("Times",10));
+    b->setFixedSize(150,40);
+    b->setStyleSheet("QPushButton{"
+                          "background-color: #336699; "
+                          "border-radius: 5px 5px 5px 5px; "
+                          "color: white;}"
+                          "QPushButton:pressed {"
+                         " background-color:#003300;}");
+    b->setCursor(QCursor(Qt::PointingHandCursor));
     connect(b,SIGNAL(clicked(bool)),this,SLOT(addImpiegato()));
-    p->addWidget(b,1,0,1,1,Qt::AlignLeft);
+    p->addWidget(b,1,2,1,1,Qt::AlignLeft);
 
 
     if(!lay)
