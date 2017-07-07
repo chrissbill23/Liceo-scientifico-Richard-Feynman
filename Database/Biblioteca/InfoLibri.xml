@@ -52,18 +52,6 @@
 </categorieLibro>
 </libro>
 <libro>
-    <codiceLibro>5</codiceLibro>
-<titolo>aaaaaa</titolo>
-<autore>Non specificato</autore>
-<annoEdizione>Non specificato</annoEdizione>
-<descrizione>cccccc</descrizione>
-<percorsoFile>/Biblioteca/libri/libro5.pdf</percorsoFile>
-<categorieLibro>
-    <categoria>Nessuna categoria</categoria>
-</categorieLibro>
-<copertina></copertina>
-</libro>
-<libro>
     <codiceLibro>6</codiceLibro>
 <titolo>ahhhha</titolo>
 <autore>Non specificato</autore>
@@ -114,8 +102,10 @@
 <annoEdizione>2012</annoEdizione>
 <descrizione>nsnncjsndjsn</descrizione>
 <percorsoFile>/Biblioteca/libri/libro15.pdf</percorsoFile>
-<categorieLibro>Nessuna categoria</categorieLibro>
 <copertina></copertina>
+<categorieLibro>
+    <categoria>elettronica</categoria>
+</categorieLibro>
 </libro>
 <libro>
     <codiceLibro>16</codiceLibro>
@@ -272,8 +262,10 @@
 <annoEdizione>2014</annoEdizione>
 <descrizione>s cjsnzjcnsnc</descrizione>
 <percorsoFile>/Biblioteca/libri/libro29.pdf</percorsoFile>
-<categorieLibro></categorieLibro>
 <copertina></copertina>
+<categorieLibro>
+    <categoria>biologia</categoria>
+</categorieLibro>
 </libro>
 <libro>
     <codiceLibro>31</codiceLibro>

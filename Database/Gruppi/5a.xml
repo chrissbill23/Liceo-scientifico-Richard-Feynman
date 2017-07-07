@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gruppo>
     <nomeGruppo>5a</nomeGruppo>
+<descrizione>gruppo di classe della 5a</descrizione>
 <membri>
     <nomeUtente>ebile</nomeUtente>
 </membri>
+<TuttiIPost>
+    <post>/Gruppi/AttivitGruppi/5apost1.xml</post>
+</TuttiIPost>
+<nome>5a</nome>
+<riferimentoFile>/Gruppi/5a.xml</riferimentoFile>
+<categoria>Gruppo di classe</categoria>
 </gruppo>

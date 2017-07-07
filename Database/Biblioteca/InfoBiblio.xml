@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Biblioteca>
-    <nome>Biblioteca Richard Feyman</nome>
+    <nome>Biblioteca Richard Feynman</nome>
 <logo>/Biblioteca/logo/logobiblioteca.jpg</logo>
 <categorie>
     <nomecategoria>Non specificato</nomecategoria>
@@ -29,6 +29,5 @@
 <libroPrimoPiano>1</libroPrimoPiano>
 <libroPrimoPiano>3</libroPrimoPiano>
 <libroPrimoPiano>4</libroPrimoPiano>
-<libroPrimoPiano>25</libroPrimoPiano>
 </libriPrimoPiano>
 </Biblioteca>
